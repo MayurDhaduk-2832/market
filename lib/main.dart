@@ -20,18 +20,57 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(width: double.infinity,
+      body: Container(
+        height: h / 1,
+        width: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
             image: AssetImage("assets/loginBackground.jpg"),
           ),
         ),
-        child: Column(children: [
-          SizedBox(height: 100,),
-          Text("Login",style: TextStyle(color: LocalKeyColor.WhiteColor,fontSize: 25),),
-        ]),
+        child: SingleChildScrollView(clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Column(children: [
+            SizedBox(
+              height: h / 5,
+            ),
+            Text(
+              "Login",
+              style: TextStyle(color: LocalKeyColor.WhiteColor, fontSize: 25),
+            ),
+            SizedBox(
+              height: h / 20,
+            ),
+            Container(
+              margin: const EdgeInsets.all(30),
+              child: TextField(
+                  keyboardAppearance: Brightness.light,
+                  keyboardType: TextInputType.name,
+                  textCapitalization: TextCapitalization.words,
+                  textInputAction: TextInputAction.next,
+                  style: TextStyle(color: LocalKeyColor.WhiteColor),
+                  cursorColor: LocalKeyColor.WhiteColor,
+                  decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: CupertinoColors.white),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: CupertinoColors.white),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                      hintStyle: TextStyle(color: CupertinoColors.inactiveGray),
+                      hintText: "Enter User Name & Mobile Number")),
+            ),
+          ]),
+        ),
       ),
     );
   }
