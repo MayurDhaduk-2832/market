@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sellproducts/AllStatic/color.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: Container(
+          color: LocalKeyColor.BackgroundColor,
           padding: const EdgeInsets.only(left: 20, right: 20),
           height: height,
           width: width,
