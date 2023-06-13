@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,18 +15,33 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool isSee = false;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<void> _handleSignIn() async {
-    try {
-      final GoogleSignInAccount? account = await _googleSignIn.signIn();
-      if (account != null) {
-        // Successful sign-in, handle the user data
-        // e.g., save the user details to the database or navigate to the home screen
-      }
-    } catch (error) {
-      print('Error signing in: $error');
-    }
+  // Future<void> _handleSignIn() async {
+  //   try {
+  //     final GoogleSignInAccount? account = await _googleSignIn.signIn();
+  //     if (account != null) {
+  //       // Successful sign-in, handle the user data
+  //       // e.g., save the user details to the database or navigate to the home screen
+  //     }
+  //   } catch (error) {
+  //     print('Error signing in: $error');
+  //   }
+  // }
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
@@ -111,8 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Expanded(
                       child: Divider(
                         color: Colors.black,
@@ -141,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Material(
                   elevation: 1,
                   borderRadius: BorderRadius.circular(8),
-                  child: Container(
+                  child: SizedBox(
                     height: 40,
                     width: 375,
                     child: Row(
@@ -174,8 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   elevation: 1,
                   borderRadius: BorderRadius.circular(8),
                   child: GestureDetector(
-                    onTap: _handleSignIn,
-                    child: Container(
+                    onTap: signInWithGoogle,
+                    child: SizedBox(
                       height: 40,
                       width: 375,
                       child: Row(
