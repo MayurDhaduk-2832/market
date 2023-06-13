@@ -34,7 +34,8 @@ dependencies:
   firebase_core: ^2.13.1
   flutter:
     sdk: flutter
-  get: null
+  get: ^4.6.5
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_lints: ^2.0.0

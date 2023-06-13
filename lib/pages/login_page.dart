@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sellproducts/AllStatic/color.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,6 +14,20 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool isSee = false;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<void> _handleSignIn() async {
+    try {
+      final GoogleSignInAccount? account = await _googleSignIn.signIn();
+      if (account != null) {
+        // Successful sign-in, handle the user data
+        // e.g., save the user details to the database or navigate to the home screen
+      }
+    } catch (error) {
+      print('Error signing in: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -21,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: Container(
-          color: LocalKeyColor.BackgroundColor,
           padding: const EdgeInsets.only(left: 20, right: 20),
           height: height,
           width: width,
@@ -46,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: const EdgeInsets.only(top: 15),
                   controller: emailController,
                   prefix: const Icon(Icons.person),
+                  fontStyle: SearchViewFontStyle.RobotoRomanRegular18,
                 ),
                 const SizedBox(
                   height: 25,
@@ -58,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: const EdgeInsets.only(top: 15),
                   controller: passwordController,
                   prefix: const Icon(Icons.key_rounded),
+                  fontStyle: SearchViewFontStyle.RobotoRomanRegular18,
                   obsecureText: isSee,
                   suffix: IconButton(
                     icon: Icon(isSee
@@ -74,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const Text(
                   'Forget Password?',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 25,
@@ -89,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text(
                       "Log In",
                       style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -133,17 +148,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
+                        SizedBox(
                           height: 25,
-                          width: 25,
+                          width: 50,
                           child: Image.network(
                               'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png'),
                         ),
-                        const Text(
-                          'Login With Facebook',
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w500),
+                        const Expanded(
+                          child: Center(
+                            child: Text(
+                              'Login With Facebook',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -155,26 +173,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 Material(
                   elevation: 1,
                   borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    height: 40,
-                    width: 375,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          height: 25,
-                          width: 25,
-                          child: Image.network(
-                              'https://img.freepik.com/free-icon/search_318-265161.jpg'),
-                        ),
-                        const Text(
-                          'Login With Google',
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w500),
-                        )
-                      ],
+                  child: GestureDetector(
+                    onTap: _handleSignIn,
+                    child: Container(
+                      height: 40,
+                      width: 375,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 25,
+                            width: 50,
+                            child: Image.network(
+                              'https://img.freepik.com/free-icon/search_318-265161.jpg',
+                            ),
+                          ),
+                          const Expanded(
+                            child: Center(
+                              child: Text(
+                                'Login With Google',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

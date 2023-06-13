@@ -117,7 +117,7 @@ class CustomSearchView extends StatelessWidget {
     switch (fontStyle) {
       case SearchViewFontStyle.RobotoRomanRegular18:
         return TextStyle(
-          color: Colors.black87,
+          color: Colors.black,
           fontSize: 18,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
