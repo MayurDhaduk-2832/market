@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sellproducts/AllStatic/color.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,17 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool isSee = false;
 
-  // Future<void> _handleSignIn() async {
-  //   try {
-  //     final GoogleSignInAccount? account = await _googleSignIn.signIn();
-  //     if (account != null) {
-  //       // Successful sign-in, handle the user data
-  //       // e.g., save the user details to the database or navigate to the home screen
-  //     }
-  //   } catch (error) {
-  //     print('Error signing in: $error');
-  //   }
-  // }
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -51,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: Container(
+          color: LocalKeyColor.BackgroundColor,
           padding: const EdgeInsets.only(left: 20, right: 20),
           height: height,
           width: width,
@@ -61,55 +52,58 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Center(
                   child: Text(
                     'Login',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Colors.white),
                   ),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 const Text(
-                  'Enter Email',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  'Enter Mobile Number',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,color: Colors.white),
                 ),
                 CustomSearchView(
+                  inputType: TextInputType.number,
                   margin: const EdgeInsets.only(top: 15),
                   controller: emailController,
-                  prefix: const Icon(Icons.person),
+                  prefix: const Icon(Icons.person,color: Colors.white,),
                   fontStyle: SearchViewFontStyle.RobotoRomanRegular18,
                 ),
+                // const SizedBox(
+                //   height: 25,
+                // ),
+                // const Text(
+                //   'Enter Password',
+                //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,color: Colors.white),
+                // ),
+                // CustomSearchView(
+                //   margin: const EdgeInsets.only(top: 15),
+                //   controller: passwordController,
+                //   prefix: const Icon(Icons.key_rounded,color: Colors.white),
+                //   fontStyle: SearchViewFontStyle.RobotoRomanRegular18,
+                //   obsecureText: isSee,
+                //   suffix: IconButton(
+                //     icon: Icon(isSee
+                //         ? CupertinoIcons.eye_slash_fill
+                //         : CupertinoIcons.eye_fill,color: Colors.white),
+                //     onPressed: () {
+                //       isSee = !isSee;
+                //       setState(() {});
+                //     },
+                //   ),
+                // ),
                 const SizedBox(
                   height: 25,
                 ),
-                const Text(
-                  'Enter Password',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                ),
-                CustomSearchView(
-                  margin: const EdgeInsets.only(top: 15),
-                  controller: passwordController,
-                  prefix: const Icon(Icons.key_rounded),
-                  fontStyle: SearchViewFontStyle.RobotoRomanRegular18,
-                  obsecureText: isSee,
-                  suffix: IconButton(
-                    icon: Icon(isSee
-                        ? CupertinoIcons.eye_slash_fill
-                        : CupertinoIcons.eye_fill),
-                    onPressed: () {
-                      isSee = !isSee;
-                      setState(() {});
-                    },
-                  ),
-                ),
+                // const Text(
+                //   'Forget Password?',
+                //   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500,color: Colors.white),
+                // ),
                 const SizedBox(
                   height: 25,
                 ),
-                const Text(
-                  'Forget Password?',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
+
+
                 Material(
                   elevation: 1,
                   borderRadius: BorderRadius.circular(8),
@@ -131,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(
                       child: Divider(
-                        color: Colors.black,
+                      color: Colors.white,
                         thickness: 0.7,
                       ),
                     ),
@@ -140,12 +134,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         'OR',
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
+                            fontSize: 15, fontWeight: FontWeight.w500,color: Colors.white),
                       ),
                     ),
                     Expanded(
                       child: Divider(
-                        color: Colors.black,
+                        color: Colors.white,
                         thickness: 0.7,
                       ),
                     ),
@@ -154,38 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                Material(
-                  elevation: 1,
-                  borderRadius: BorderRadius.circular(8),
-                  child: SizedBox(
-                    height: 40,
-                    width: 375,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 25,
-                          width: 50,
-                          child: Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png'),
-                        ),
-                        const Expanded(
-                          child: Center(
-                            child: Text(
-                              'Login With Facebook',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
+                /// Facebook signing
                 Material(
                   elevation: 1,
                   borderRadius: BorderRadius.circular(8),
@@ -218,7 +181,41 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                /// google signing
+                Material(
+                  elevation: 1,
+                  borderRadius: BorderRadius.circular(8),
+                  child: SizedBox(
+                    height: 40,
+                    width: 375,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 25,
+                          width: 50,
+                          child: Image.network(
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png'),
+                        ),
+                        const Expanded(
+                          child: Center(
+                            child: Text(
+                              'Login With Facebook',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+
               ]),
         ),
       ),
