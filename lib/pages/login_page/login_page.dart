@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -309,32 +312,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 /// google signing
-                Material(
-                  elevation: 1,
-                  borderRadius: BorderRadius.circular(8),
-                  child: SizedBox(
-                    height: 40,
-                    width: 375,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 25,
-                          width: 50,
-                          child: Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png'),
-                        ),
-                        const Expanded(
-                          child: Center(
-                            child: Text(
-                              'Login With Facebook',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
+                GestureDetector(onTap: () async {
+                 var result = await signInWithFacebook();
+                 if(result.user !=null)
+                   {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) {
+                       return Home();
+                     },));
+                   }
+                },
+                  child: Material(
+                    elevation: 1,
+                    borderRadius: BorderRadius.circular(8),
+                    child: SizedBox(
+                      height: 40,
+                      width: 375,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 25,
+                            width: 50,
+                            child: Image.network(
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png'),
                           ),
-                        )
-                      ],
+                          const Expanded(
+                            child: Center(
+                              child: Text(
+                                'Login With Facebook',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -342,5 +355,16 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken?.token ?? "");
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 }
