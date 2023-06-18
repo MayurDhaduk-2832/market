@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomSearchView extends StatelessWidget {
   CustomSearchView(
       {this.shape,
@@ -154,7 +155,6 @@ class CustomSearchView extends StatelessWidget {
             width: 1.5,
           ),
         );
-        ;
       default:
         return OutlineInputBorder(
           borderRadius: _setOutlineBorderRadius(),
