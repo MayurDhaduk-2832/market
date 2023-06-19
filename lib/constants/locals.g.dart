@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
 
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, constant_identifier_names
 // ignore: avoid_classes_with_only_static_members
 class AppTranslation {
   static Map<String, Map<String, String>> translations = {
@@ -12,10 +12,9 @@ class AppTranslation {
 
 class LocaleKeys {
   // Icon
-  static const ic_dummy_user = 'images/ic_dummy_user.jpeg';
 
   // Api Constant
-  // static const baseURL = "https://api.joso.app/";
+  static const baseURL = "https://mdprojects1203.000webhostapp.com/";
   // static const baseURL = "https://staging.joso.app/";
   // static const baseURL = "https://dev.joso.app/";
   // static const baseDocumentURL = "${baseURL}uploads/";
@@ -28,7 +27,7 @@ class LocaleKeys {
   // static const privacyURL = "https://joso.app/privacy_policy.html";
 
   // static const baseApi = "${baseURL}v1/api/";
-  static const getAppConstant = "getAppConstant.php";
+  static const signUpURL = "createlogindata.php";
 
   // Login
 
@@ -67,8 +66,6 @@ class LocaleKeys {
 
 class Locales {
   static const en_US = {
-    //Login
-
     LocaleKeys.one: '1',
     LocaleKeys.two: '2',
     LocaleKeys.three: '3',

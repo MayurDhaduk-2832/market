@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellproducts/customs/locals.g.dart';
+import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class SelectView extends StatefulWidget {
@@ -19,12 +19,12 @@ class _SelectViewState extends State<SelectView> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             height: height,
             width: width,
             child: Image.network(
               "https://wallpaperaccess.com/full/2489679.jpg",
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.fill,
             ),
           ),
           Positioned(

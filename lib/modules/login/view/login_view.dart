@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sellproducts/customs/locals.g.dart';
+import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class LoginView extends StatefulWidget {
@@ -57,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
               width: width,
               child: Image.network(
                 "https://wallpaperaccess.com/full/2489679.jpg",
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.fill,
               ),
             ),
             Positioned(
@@ -65,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                 left: height * 0.025,
                 child: GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.SELECT_VIEW);
+                    Get.back();
                   },
                   child: Container(
                     height: height * 0.05,
@@ -73,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
-                    child: Icon(Icons.arrow_back),
+                    child: const Icon(Icons.arrow_back),
                   ),
                 )),
             Positioned(
@@ -125,11 +125,12 @@ class _LoginViewState extends State<LoginView> {
                             child: TextField(
                               controller: mobileController,
                               decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: LocaleKeys.mobileNumber,
-                                  hintStyle: TextStyle(
-                                      fontSize: height * 0.0185,
-                                      fontWeight: FontWeight.bold)),
+                                border: InputBorder.none,
+                                hintText: LocaleKeys.mobileNumber,
+                                hintStyle: TextStyle(
+                                    fontSize: height * 0.0185,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                           Expanded(
@@ -144,13 +145,15 @@ class _LoginViewState extends State<LoginView> {
                                 left: height * 0.015, bottom: height * 0.005),
                             height: height * 0.05,
                             child: TextField(
-                                controller: passwordController,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: LocaleKeys.password,
-                                    hintStyle: TextStyle(
-                                        fontSize: height * 0.0185,
-                                        fontWeight: FontWeight.bold))),
+                              controller: passwordController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: LocaleKeys.password,
+                                hintStyle: TextStyle(
+                                    fontSize: height * 0.0185,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                         ],
                       ),

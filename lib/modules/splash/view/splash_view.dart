@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,8 +13,6 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  bool isLogin = false;
-
   @override
   void initState() {
     super.initState();
@@ -22,16 +21,13 @@ class _SplashViewState extends State<SplashView> {
 
   splash() async {
     final prefs = await SharedPreferences.getInstance();
-    String? vLogin = prefs.getString("LOGIN");
-    if (vLogin != "") {
-      isLogin = true;
-    }
+    bool? isLogin = prefs.getBool("LOGIN_KEY");
     Timer(
       const Duration(seconds: 3),
       () {
-        isLogin
-            ? Navigator.pushReplacementNamed(context, Routes.SELECT_VIEW)
-            : Navigator.pushReplacementNamed(context, Routes.SELECT_VIEW);
+        (isLogin ?? false)
+            ? Get.offAndToNamed(Routes.SELECT_VIEW)
+            : Get.offAndToNamed(Routes.SELECT_VIEW);
       },
     );
   }
