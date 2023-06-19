@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/customs/locals.g.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class SelectView extends StatefulWidget {
@@ -55,18 +56,18 @@ class _SelectViewState extends State<SelectView> {
                         color: Colors.blue.shade700,
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      child: const Text(
-                        "Customer Account",
+                      child: Text(
+                        LocaleKeys.customer,
                         style: TextStyle(
-                            fontSize: 15,
+                            fontSize: height * 0.02,
                             letterSpacing: 1.5,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: height * 0.025,
                   ),
                   Row(
                     children: [
@@ -77,9 +78,12 @@ class _SelectViewState extends State<SelectView> {
                           thickness: 2,
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 8, right: 8),
-                        child: Text("OR"),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: Text(
+                          LocaleKeys.or,
+                          style: TextStyle(fontSize: height * 0.018),
+                        ),
                       ),
                       Expanded(
                         child: Divider(
@@ -90,8 +94,8 @@ class _SelectViewState extends State<SelectView> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: height * 0.025,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -110,9 +114,9 @@ class _SelectViewState extends State<SelectView> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Text(
-                        "Business Account",
+                        LocaleKeys.business,
                         style: TextStyle(
-                            fontSize: 15,
+                            fontSize: height * 0.02,
                             letterSpacing: 1.5,
                             color: Colors.grey.shade700,
                             fontWeight: FontWeight.bold),

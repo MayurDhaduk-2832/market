@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sellproducts/customs/locals.g.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class LoginView extends StatefulWidget {
@@ -67,8 +68,8 @@ class _LoginViewState extends State<LoginView> {
                     Get.toNamed(Routes.SELECT_VIEW);
                   },
                   child: Container(
-                    height: 40,
-                    width: 40,
+                    height: height * 0.05,
+                    width: height * 0.05,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
@@ -76,10 +77,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 )),
             Positioned(
-              top: height * 0.49,
+              top: height * 0.47,
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                height: height * 0.51,
+                height: height * 0.53,
                 width: width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -90,20 +91,22 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: height * 0.025,
                     ),
                     iSelect == 1
-                        ? const Text(
-                            "Customer Account",
+                        ? Text(
+                            LocaleKeys.customer,
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: height * 0.025,
+                                fontWeight: FontWeight.bold),
                           )
-                        : const Text("Business Account",
+                        : Text(LocaleKeys.business,
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                    const SizedBox(
-                      height: 20,
+                                fontSize: height * 0.025,
+                                fontWeight: FontWeight.bold)),
+                    SizedBox(
+                      height: height * 0.025,
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
@@ -116,15 +119,16 @@ class _LoginViewState extends State<LoginView> {
                       child: Column(
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(5),
+                            padding: EdgeInsets.only(
+                                left: height * 0.015, bottom: height * 0.005),
                             height: height * 0.05,
                             child: TextField(
                               controller: mobileController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "Mobile Number",
+                                  hintText: LocaleKeys.mobileNumber,
                                   hintStyle: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: height * 0.0185,
                                       fontWeight: FontWeight.bold)),
                             ),
                           ),
@@ -136,22 +140,23 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.all(8),
+                            padding: EdgeInsets.only(
+                                left: height * 0.015, bottom: height * 0.005),
                             height: height * 0.05,
                             child: TextField(
                                 controller: passwordController,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "Password",
+                                    hintText: LocaleKeys.password,
                                     hintStyle: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: height * 0.0185,
                                         fontWeight: FontWeight.bold))),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height * 0.025,
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -160,17 +165,17 @@ class _LoginViewState extends State<LoginView> {
                       decoration: BoxDecoration(
                           color: Colors.blue.shade700,
                           borderRadius: BorderRadius.circular(20)),
-                      child: const Text(
-                        "Continue",
+                      child: Text(
+                        LocaleKeys.logIn,
                         style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 1,
-                            fontSize: 15,
+                            fontSize: height * 0.02,
                             fontWeight: FontWeight.w700),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height * 0.025,
                     ),
                     Row(
                       children: [
@@ -181,9 +186,12 @@ class _LoginViewState extends State<LoginView> {
                             thickness: 2,
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 8, right: 8),
-                          child: Text("OR"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: Text(
+                            LocaleKeys.or,
+                            style: TextStyle(fontSize: height * 0.018),
+                          ),
                         ),
                         Expanded(
                           child: Divider(
@@ -194,8 +202,8 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height * 0.025,
                     ),
                     GestureDetector(
                       onTap: signInWithGoogle,
@@ -209,19 +217,19 @@ class _LoginViewState extends State<LoginView> {
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.only(left: 10),
                               child: Image.network(
                                 "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png",
-                                height: 25,
-                                width: 25,
+                                height: height * 0.03,
+                                width: height * 0.03,
                               ),
                             ),
-                            const Expanded(
+                            Expanded(
                               child: Center(
                                 child: Text(
-                                  "Login With Google",
+                                  LocaleKeys.loginGoogle,
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: height * 0.02,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -231,16 +239,17 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height * 0.025,
                     ),
-                    const Text(
+                    Text(
                       "Don't have an account?",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                          fontSize: height * 0.0185,
+                          fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox(
-                      height: 5,
+                    SizedBox(
+                      height: height * 0.001,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -252,7 +261,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Text(
                         "Create new Account",
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: height * 0.0185,
                             fontWeight: FontWeight.w500,
                             color: Colors.blue.shade700),
                       ),
