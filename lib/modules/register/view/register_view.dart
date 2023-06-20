@@ -232,6 +232,7 @@ class _RegisterViewState extends State<RegisterView> {
                         } else if (vPassword.isEmpty) {
                           flutterToastBottom("Enter Password");
                         } else if (vPassword.length < 8) {
+                          
                           flutterToastBottom(
                               "Password length must be 8 or above");
                         } else if (vCPassword.isEmpty) {

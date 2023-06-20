@@ -42,11 +42,11 @@ abstract class ApiClient {
 
   @POST(LocaleKeys.signUpURL)
   Future<RegisterModel> register(
-      {@Field("vUsername") required String vUsername,
-      @Field("vMobile") required String vMobile,
-      @Field("vEmail") required String vEmail,
-      @Field("vPassword") required String vPassword,
-      @Field("iRole") required int iRole});
+      {@Field("username") required String username,
+      @Field("mobileNumber") required String mobileNumber,
+      @Field("email") required String email,
+      @Field("password") required String password,
+      @Field("role") required int role});
 
   // @POST(LocaleKeys.loginNew)
   // Future<LoginResponse> loginNew({@Field("vMobile") required String vMobile});

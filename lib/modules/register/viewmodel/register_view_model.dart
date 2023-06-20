@@ -9,11 +9,11 @@ class RegisterViewModel extends BaseApiService {
       String vEmail, String vPassword, int iRole) async {
     return callApi(
       client.register(
-          vUsername: vUsername,
-          vMobile: vMobile,
-          vEmail: vEmail,
-          vPassword: vPassword,
-          iRole: iRole),
+          username: vUsername,
+          mobileNumber: vMobile,
+          email: vEmail,
+          password: vPassword,
+          role: iRole),
     );
   }
 }

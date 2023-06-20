@@ -39,17 +39,17 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<RegisterModel> register(
-      {required String vUsername,
-      required String vMobile,
-      required String vEmail,
-      required String vPassword,
-      required int iRole}) async {
+      {required String username,
+      required String mobileNumber,
+      required String email,
+      required String password,
+      required int role}) async {
     final _data = {
-      'vUsername': vUsername,
-      'vMobile': vMobile,
-      'vEmail': vEmail,
-      'vPassword': vPassword,
-      'iRole': iRole
+      'username': username,
+      'mobileNumber': mobileNumber,
+      'email': email,
+      'password': password,
+      'role': role
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterModel>(Options(
