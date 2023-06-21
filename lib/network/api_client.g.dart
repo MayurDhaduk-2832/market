@@ -7,7 +7,7 @@ class _ApiClient implements ApiClient {
 
   String? baseUrl;
 
-  Map<String, String> _header({bool isAppJson = true}) {
+  Map<String, String> _header() {
     return {
       'Content-Type': 'application/json',
     };
@@ -49,14 +49,13 @@ class _ApiClient implements ApiClient {
       'mobileNumber': mobileNumber,
       'email': email,
       'password': password,
-      'role': role
+      'iRole': role
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<RegisterModel>(Options(
-      method: 'POST',
-    )
-            .compose(_dio.options, LocaleKeys.signUpURL, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<RegisterModel>(
+            Options(method: 'POST', headers: _header())
+                .compose(_dio.options, LocaleKeys.signUpURL, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RegisterModel.fromJson(_result.data!);
     return value;
   }
