@@ -232,7 +232,6 @@ class _RegisterViewState extends State<RegisterView> {
                         } else if (vPassword.isEmpty) {
                           flutterToastBottom("Enter Password");
                         } else if (vPassword.length < 8) {
-                          
                           flutterToastBottom(
                               "Password length must be 8 or above");
                         } else if (vCPassword.isEmpty) {
@@ -242,16 +241,11 @@ class _RegisterViewState extends State<RegisterView> {
                         } else {
                           final response = await _service.register(
                               vUsername, vMobile, vEmail, vPassword, iSelect);
-                          print("=====================$response==============");
                           if (response?.isSuccess ?? false) {
                             final prefs = await SharedPreferences.getInstance();
                             prefs.setBool('LOGIN_KEY', true);
-                            print(
-                                "=================================success============");
                             Get.offAndToNamed(Routes.SELECT_VIEW);
                           } else {
-                            print(
-                                "======================fail=======================");
                             flutterToastBottom(response?.message);
                           }
                         }
