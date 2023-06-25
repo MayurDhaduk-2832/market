@@ -80,7 +80,8 @@ class _LanguageViewState extends State<LanguageView> {
                       style: TextStyle(
                            fontSize: height * 0.02,
                           fontWeight: FontWeight.w900,
-                          color: const Color(0xFF8D8D8D)),
+                        //  color: const Color(0xFF8D8D8D),
+                      ),
                     ),
                     SizedBox(
                       height: height * 0.025,
@@ -96,7 +97,7 @@ class _LanguageViewState extends State<LanguageView> {
                           width: width * 0.4,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: const Color(0xFFE3E3E3), width: 2),
+                                  color: Colors.grey.shade500, width: 2),
                               borderRadius: BorderRadius.circular(10)),
                           child:  Text(
                             LocaleKeys.english,
@@ -115,7 +116,7 @@ class _LanguageViewState extends State<LanguageView> {
                           width: width * 0.4,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: const Color(0xFFE3E3E3), width: 2),
+                                  color: Colors.grey.shade500, width: 2),
                               borderRadius: BorderRadius.circular(10)),
                           child:  Text(
                             LocaleKeys.gujarati,
@@ -139,7 +140,7 @@ class _LanguageViewState extends State<LanguageView> {
                         width: width * 0.4,
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: const Color(0xFFE3E3E3), width: 2),
+                                color: Colors.grey.shade500, width: 2),
                             borderRadius: BorderRadius.circular(10)),
                         child:  Text(
                           LocaleKeys.hindi,
@@ -161,7 +162,7 @@ class _LanguageViewState extends State<LanguageView> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(40),
                             border: Border.all(
-                                color: const Color(0xFFE3E3E3), width: 1.5)),
+                                color: Colors.grey.shade500, width: 1.5)),
                         child: Text(
                           LocaleKeys.Continue,
                           style: TextStyle(
