@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -117,7 +119,7 @@ class CustomSearchView extends StatelessWidget {
   _setFontStyle() {
     switch (fontStyle) {
       case SearchViewFontStyle.RobotoRomanRegular18:
-        return TextStyle(
+        return const TextStyle(
           color: Colors.white,
           fontSize: 18,
           fontFamily: 'Roboto',
@@ -182,7 +184,7 @@ class CustomSearchView extends StatelessWidget {
   _setPadding() {
     switch (padding) {
       default:
-        return EdgeInsets.only(
+        return const EdgeInsets.only(
           top: 11,
           right: 11,
           bottom: 11,

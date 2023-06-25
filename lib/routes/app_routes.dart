@@ -7,6 +7,7 @@ abstract class Routes {
   static const LOGIN_VIEW = _Paths.LOGIN_VIEW;
   static const SELECT_VIEW = _Paths.SELECT_VIEW;
   static const REGISTER_VIEW = _Paths.REGISTER_VIEW;
+  static const LANGUAGE_VIEW = _Paths.LANGUAGE_VIEW;
 }
 
 abstract class _Paths {
@@ -14,4 +15,5 @@ abstract class _Paths {
   static const LOGIN_VIEW = '/loginview';
   static const SELECT_VIEW = '/selectview';
   static const REGISTER_VIEW = '/registerview';
+  static const LANGUAGE_VIEW = '/languageview';
 }

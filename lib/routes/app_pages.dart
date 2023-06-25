@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:sellproducts/modules/language/view/language_view.dart';
 import 'package:sellproducts/modules/login/view/login_view.dart';
 import 'package:sellproducts/modules/register/view/register_view.dart';
 import 'package:sellproducts/modules/select_screen/view/select_view.dart';
@@ -29,6 +30,10 @@ class AppPages {
     GetPage(
       name: _Paths.REGISTER_VIEW,
       page: () => const RegisterView(),
+    ),
+    GetPage(
+      name: _Paths.LANGUAGE_VIEW,
+      page: () => const LanguageView(),
     ),
   ];
 }
