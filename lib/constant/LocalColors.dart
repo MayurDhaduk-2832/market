@@ -12,6 +12,7 @@ Color dividerColor = const Color(0xffDDDDDD);
 Color dividerColor2 = const Color(0xff888888);
 Color languageColor = const Color(0xff888888);
 
+
 Color whiteColor = const Color(0xFFFFFFFF);
 
 Color blackColor = const Color(0xFF000000);

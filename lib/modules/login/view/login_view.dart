@@ -161,20 +161,24 @@ class _LoginViewState extends State<LoginView> {
                     SizedBox(
                       height: height * 0.025,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: height * 0.05,
-                      width: width,
-                      decoration: BoxDecoration(
-                          color: Colors.blue.shade700,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Text(
-                        LocaleKeys.logIn,
-                        style: TextStyle(
-                            color: Colors.white,
-                            letterSpacing: 1,
-                            fontSize: height * 0.02,
-                            fontWeight: FontWeight.w700),
+                    GestureDetector(onTap: () {
+                      Get.toNamed(Routes.LANGUAGE_VIEW);
+                    },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: height * 0.05,
+                        width: width,
+                        decoration: BoxDecoration(
+                            color: Colors.blue.shade700,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Text(
+                          LocaleKeys.logIn,
+                          style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 1,
+                              fontSize: height * 0.02,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
                     SizedBox(

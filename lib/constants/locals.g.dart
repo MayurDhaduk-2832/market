@@ -48,7 +48,15 @@ class LocaleKeys {
 
   // String
   // static const app_name = 'JoSo';
+
+  // for language
   static const language = 'Language';
+  static const selectLanguage = 'SELECT LANGUAGE';
+  static const skip = 'SKIP';
+  static const english = 'English';
+  static const hindi = 'Hindi';
+  static const gujarati = 'Gujarati';
+  static const Continue = 'Continue';
 
   static const customer = "Customer Account";
   static const business = "Business Account";
