@@ -11,8 +11,6 @@ class LanguageView extends StatefulWidget {
 }
 
 class _LanguageViewState extends State<LanguageView> {
-
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -24,27 +22,27 @@ class _LanguageViewState extends State<LanguageView> {
             SizedBox(
               height: height,
               width: width,
-              child: Image.network(
-                "https://wallpaperaccess.com/full/2489679.jpg",
-                fit: BoxFit.fill,
+              child: Image.asset(
+                "assets/asset1.png",
               ),
             ),
             Positioned(
-                top: height * 0.055,
-                left: height * 0.025,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    height: height * 0.05,
-                    width: height * 0.05,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: const Icon(Icons.arrow_back),
-                  ),
-                )),
+              top: height * 0.055,
+              left: height * 0.025,
+              child: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: height * 0.05,
+                  width: height * 0.05,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Icon(Icons.arrow_back),
+                ),
+              ),
+            ),
             Positioned(
               top: height * 0.55,
               child: Container(
@@ -65,21 +63,24 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(right: width * 0.04),
-                      child:  Align(
-                          alignment: Alignment.topRight,
-                          child: Text(
-                            LocaleKeys.skip,
-                            style: TextStyle(fontSize: height * 0.02,color: const Color(0xFF8D8D8D)),
-                          )),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          LocaleKeys.skip,
+                          style: TextStyle(
+                              fontSize: height * 0.02,
+                              color: const Color(0xFF8D8D8D)),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: height * 0.025,
                     ),
-                     Text(
+                    Text(
                       LocaleKeys.selectLanguage,
                       style: TextStyle(
-                           fontSize: height * 0.02,
-                          fontWeight: FontWeight.w900,
+                        fontSize: height * 0.02,
+                        fontWeight: FontWeight.w900,
                         //  color: const Color(0xFF8D8D8D),
                       ),
                     ),
@@ -99,7 +100,7 @@ class _LanguageViewState extends State<LanguageView> {
                               border: Border.all(
                                   color: Colors.grey.shade500, width: 2),
                               borderRadius: BorderRadius.circular(10)),
-                          child:  Text(
+                          child: Text(
                             LocaleKeys.english,
                             style: TextStyle(
                                 fontSize: height * 0.02,
@@ -118,7 +119,7 @@ class _LanguageViewState extends State<LanguageView> {
                               border: Border.all(
                                   color: Colors.grey.shade500, width: 2),
                               borderRadius: BorderRadius.circular(10)),
-                          child:  Text(
+                          child: Text(
                             LocaleKeys.gujarati,
                             style: TextStyle(
                                 fontSize: height * 0.02,
@@ -142,10 +143,10 @@ class _LanguageViewState extends State<LanguageView> {
                             border: Border.all(
                                 color: Colors.grey.shade500, width: 2),
                             borderRadius: BorderRadius.circular(10)),
-                        child:  Text(
+                        child: Text(
                           LocaleKeys.hindi,
                           style: TextStyle(
-                            fontSize: height * 0.02,
+                              fontSize: height * 0.02,
                               color: const Color(0xFF8D8D8D),
                               fontWeight: FontWeight.w200),
                         ),

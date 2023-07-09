@@ -8,6 +8,8 @@ abstract class Routes {
   static const SELECT_VIEW = _Paths.SELECT_VIEW;
   static const REGISTER_VIEW = _Paths.REGISTER_VIEW;
   static const LANGUAGE_VIEW = _Paths.LANGUAGE_VIEW;
+  static const BOTTOM_VIEW = _Paths.BOTTOM_VIEW;
+  static const PRODUCT_VIEW = _Paths.PRODUCT_VIEW;
 }
 
 abstract class _Paths {
@@ -16,4 +18,6 @@ abstract class _Paths {
   static const SELECT_VIEW = '/selectview';
   static const REGISTER_VIEW = '/registerview';
   static const LANGUAGE_VIEW = '/languageview';
+  static const BOTTOM_VIEW = '/bottomview';
+  static const PRODUCT_VIEW = '/productview';
 }
