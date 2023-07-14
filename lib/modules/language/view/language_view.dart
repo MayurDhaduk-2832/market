@@ -24,6 +24,7 @@ class _LanguageViewState extends State<LanguageView> {
               width: width,
               child: Image.asset(
                 "assets/asset1.png",
+                fit: BoxFit.cover,
               ),
             ),
             Positioned(
