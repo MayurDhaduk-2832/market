@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellproducts/pages/login_page/login_page.dart';
 import 'package:sellproducts/network/api_client.dart';
 import 'routes/app_pages.dart';
 
