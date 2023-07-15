@@ -11,12 +11,12 @@ class BusinessAddScreen extends StatefulWidget {
 }
 
 class _BusinessAddScreenState extends State<BusinessAddScreen> {
-  final height = Get.height;
-  final width = Get.width;
   final nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         height: height,
