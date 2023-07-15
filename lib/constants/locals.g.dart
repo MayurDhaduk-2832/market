@@ -28,6 +28,7 @@ class LocaleKeys {
 
   // static const baseApi = "${baseURL}v1/api/";
   static const signUpURL = "createlogindata.php";
+  static const loginUpURL = "chakelogin.php";
 
   // Login
 
@@ -49,6 +50,8 @@ class LocaleKeys {
   // String
   // static const app_name = 'JoSo';
 
+  // for error show
+
   // for language
   static const language = 'Language';
   static const selectLanguage = 'SELECT LANGUAGE';
@@ -62,6 +65,7 @@ class LocaleKeys {
   static const business = "Business Account";
   static const or = "OR";
   static const mobileNumber = "Mobile Number";
+  static const emailId = "Email id";
   static const password = "Password";
   static const loginGoogle = "Login with Google";
   static const createCAccount = "Create Customer Account";

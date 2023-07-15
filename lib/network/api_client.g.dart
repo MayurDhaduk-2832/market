@@ -49,7 +49,7 @@ class _ApiClient implements ApiClient {
       'mobileNumber': mobileNumber,
       'email': email,
       'password': password,
-      'iRole': role
+      'role': role
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterModel>(
@@ -59,6 +59,25 @@ class _ApiClient implements ApiClient {
     final value = RegisterModel.fromJson(_result.data!);
     return value;
   }
+
+  @override
+  Future<LoginModel> login(
+      {required String email,
+        required String password,
+        }) async {
+    final _data = {
+      'email': email,
+      'password': password,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<LoginModel>(
+            Options(method: 'POST', headers: _header())
+                .compose(_dio.options, LocaleKeys.loginUpURL, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LoginModel.fromJson(_result.data!);
+    return value;
+  }
+
 
   // @override
   // Future<CreateBusinessModel> updateMyBusiness(String token,
