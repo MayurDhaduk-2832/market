@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 
 class BusinessAddScreen extends StatefulWidget {
@@ -57,12 +56,12 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
             Center(
               child: GestureDetector(
                 onTap: () async {
-                  final imagePicker = ImagePicker();
-                  final image =
-                      await imagePicker.pickImage(source: ImageSource.gallery);
-                  if (image != null) {
-                    imageFile = File(image.path);
-                  }
+                  // final imagePicker = ImagePicker();
+                  // final image =
+                  //     await imagePicker.pickImage(source: ImageSource.gallery);
+                  // if (image != null) {
+                  //   imageFile = File(image.path);
+                  // }
                 },
                 child: Container(
                   height: height * 0.13,
@@ -104,7 +103,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   CustomTextField(
                       icon: Icons.person,
                       controller: nameController,
-                      hintText: "Enter Name"),
+                      hintText: "Enter Business Name"),
                   CustomTextField(
                       icon: Icons.phone,
                       controller: nameController,
