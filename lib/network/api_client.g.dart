@@ -79,6 +79,33 @@ class _ApiClient implements ApiClient {
   }
 
 
+  @override
+  Future<RegisterModel> businessInsert(
+      {required int user_id,
+      required String bussiness_name,
+      required String contact_number,
+      required String categorys,
+      required String location_longlat,
+      required String images,
+      required String address}) async {
+    final _data = {
+      'user_id': user_id,
+      'bussiness_name': bussiness_name,
+      'contact_number': contact_number,
+      'categorys': categorys,
+      'location_longlat': location_longlat,
+      'images': images,
+      'address': address
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RegisterModel>(Options(
+                method: 'POST', headers: _header())
+            .compose(_dio.options, LocaleKeys.businessCreateURL, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = RegisterModel.fromJson(_result.data!);
+    return value;
+  }
+
   // @override
   // Future<CreateBusinessModel> updateMyBusiness(String token,
   //     {required int iBusinessId,
@@ -120,5 +147,23 @@ class _ApiClient implements ApiClient {
   //               .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
   //   final value = DeleteModel.fromJson(_result.data!);
   //   return value;
+  // }
+
+  // @override
+  // Future filesUpload( File document) async {
+  //   var formData = FormData.fromMap({});
+  //   var file = await MultipartFile.fromFile(document.path,
+  //       filename: basename(document.path),
+  //       contentType: MediaType("jpg", basename(document.path)));
+
+  //   formData.files.add(MapEntry('file', file));
+
+  //   final _result = await _dio.fetch<Map<String, dynamic>>(
+  //       _setStreamType(
+  //           Options(method: 'POST', headers: _header())
+  //               .compose(_dio.options, LocaleKeys.filesUpload, data: formData)
+  //               .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  //   // final value = UploadDocumentResponse.fromJson(_result.data!);
+  //   return _result;
   // }
 }

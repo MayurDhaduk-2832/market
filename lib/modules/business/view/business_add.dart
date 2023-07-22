@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 
 class BusinessAddScreen extends StatefulWidget {
   const BusinessAddScreen({super.key});
@@ -12,6 +15,16 @@ class BusinessAddScreen extends StatefulWidget {
 
 class _BusinessAddScreenState extends State<BusinessAddScreen> {
   final nameController = TextEditingController();
+
+  late BusinessCreateViewModel _service;
+
+  File? imageFile;
+
+  @override
+  void initState() {
+    super.initState();
+    _service = BusinessCreateViewModel(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +55,32 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
               ),
             ),
             Center(
-              child: Container(
-                height: height * 0.13,
-                width: height * 0.13,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 5,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(height * 0.075)),
-                child: const Icon(
-                  Icons.person,
-                  size: 40,
-                  color: Colors.black,
+              child: GestureDetector(
+                onTap: () async {
+                  final imagePicker = ImagePicker();
+                  final image =
+                      await imagePicker.pickImage(source: ImageSource.gallery);
+                  if (image != null) {
+                    imageFile = File(image.path);
+                  }
+                },
+                child: Container(
+                  height: height * 0.13,
+                  width: height * 0.13,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 5,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(height * 0.075)),
+                  child: const Icon(
+                    Icons.person,
+                    size: 40,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -105,20 +128,34 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                 ],
               ),
             ),
-            Container(
-              height: height * 0.065,
-              width: width,
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(30)),
-              child: const Text(
-                "Continue",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  letterSpacing: 0.9,
-                  fontWeight: FontWeight.w600,
+            GestureDetector(
+              onTap: () {
+                _service.client.businessInsert(
+                    user_id: 1,
+                    bussiness_name: "name",
+                    contact_number: "mobile_number",
+                    categorys: "Abc",
+                    address: "sjskf",
+                    location_longlat: "shdjsf",
+                    images: "sjfgj");
+              },
+              child: Container(
+                height: height * 0.065,
+                width: width,
+                alignment: Alignment.center,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(30)),
+                child: const Text(
+                  "Continue",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    letterSpacing: 0.9,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             )
@@ -140,11 +177,10 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       required this.hintText});
 
-  final height = Get.height;
-  final width = Get.width;
-
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
       height: height * 0.067,
       width: width,

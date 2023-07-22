@@ -52,7 +52,6 @@ class _LanguageViewState extends State<LanguageView> {
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 height: height * 0.53,
-
                 width: width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -184,8 +183,7 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                      //  Get.toNamed(Routes.PRODUCT_VIEW);
-                        Get.toNamed(Routes.BUSINESS_ADD_VIEW);
+                        Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,
