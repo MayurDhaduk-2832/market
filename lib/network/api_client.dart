@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/modules/register/model/register_model.dart';
@@ -107,4 +109,19 @@ abstract class ApiClient {
   // @DELETE(LocaleKeys.getMyBusiness)
   // Future<DeleteModel> deleteMyBusiness(String token,
   //     {@Field("iBusinessId") required int iBusinessId});
+
+  @POST(LocaleKeys.businessCreateURL)
+  businessInsert({
+    @Field("user_id") required int user_id,
+    @Field("bussiness_name") required String bussiness_name,
+    @Field("contact_number") required String contact_number,
+    @Field("categorys") required String categorys,
+    @Field("address") required String address,
+    @Field("location_longlat") required String location_longlat,
+    @Field("images") required String images,
+  });
+
+  // @POST(LocaleKeys.filesUpload)
+  // @MultiPart()
+  // Future filesUpload(@Part(name: "file") File document);
 }
