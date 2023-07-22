@@ -184,7 +184,8 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Routes.PRODUCT_VIEW);
+                      //  Get.toNamed(Routes.PRODUCT_VIEW);
+                        Get.toNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,

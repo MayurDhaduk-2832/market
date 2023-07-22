@@ -64,15 +64,17 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
             SizedBox(
               height: height * 0.01,
             ),
-            const Center(
-              child: Text(
-                "Name",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w500),
-              ),
+             SizedBox(height: height * 0.09,
+               child: Center(
+                child: Text(
+                  "Business Logo",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500),
+                ),
             ),
+             ),
             Expanded(
               child: ListView(
                 children: [
