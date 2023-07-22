@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/login/viewmodel/login_view_model.dart';
 import 'package:sellproducts/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -15,7 +18,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   dynamic argumentData = Get.arguments;
   int iSelect = 0;
-  final mobileController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   Future<UserCredential> signInWithGoogle() async {
@@ -32,9 +35,11 @@ class _LoginViewState extends State<LoginView> {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+  late LoginViewModel _service;
   @override
   void initState() {
     super.initState();
+    _service = LoginViewModel(context);
     if (argumentData != null && argumentData is Map<String, dynamic>) {
       iSelect = argumentData['setIndex'];
     }
@@ -119,10 +124,10 @@ class _LoginViewState extends State<LoginView> {
                                 left: height * 0.015, bottom: height * 0.005),
                             height: height * 0.05,
                             child: TextField(
-                              controller: mobileController,
+                              controller: emailController,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: LocaleKeys.mobileNumber,
+                                hintText: LocaleKeys.emailId,
                                 hintStyle: TextStyle(
                                     fontSize: height * 0.0185,
                                     fontWeight: FontWeight.bold),
@@ -158,8 +163,28 @@ class _LoginViewState extends State<LoginView> {
                       height: height * 0.025,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.LANGUAGE_VIEW);
+                      onTap: () async {
+                        final email = emailController.text;
+                        final password = passwordController.text;
+                        if (email.isEmpty) {
+                          flutterToastBottom("Enter Email Id");
+                        } else if (password.isEmpty) {
+                          flutterToastBottom("Enter Password");
+                        } else {
+                          final response =
+                              await _service.login(email, password);
+                          if (response?.isSuccess ?? false) {
+                            flutterToastBottomGreen(response?.message);
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setBool('LOGIN_KEY', true);
+                            Get.toNamed(Routes.LANGUAGE_VIEW);
+                          } else {
+                            // flutterToastBottom(response?.message);
+                            flutterToastBottom("Incorrect Password");
+                          }
+                        }
+
+                        setState(() {});
                       },
                       child: Container(
                         alignment: Alignment.center,

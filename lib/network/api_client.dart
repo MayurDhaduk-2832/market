@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/login/model/login_view_model.dart';
 import 'package:sellproducts/modules/register/model/register_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:sellproducts/network/interceptor/api_interceptor.dart';
@@ -49,6 +50,12 @@ abstract class ApiClient {
       @Field("email") required String email,
       @Field("password") required String password,
       @Field("role") required int role});
+
+  @POST(LocaleKeys.loginUpURL)
+  Future<LoginModel> login(
+      {@Field("email") required String email,
+        @Field("password") required String password,
+       });
 
   // @POST(LocaleKeys.loginNew)
   // Future<LoginResponse> loginNew({@Field("vMobile") required String vMobile});
