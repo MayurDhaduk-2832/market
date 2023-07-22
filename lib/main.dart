@@ -8,10 +8,10 @@ import 'package:sellproducts/network/api_client.dart';
 import 'routes/app_pages.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
 //    options: DefaultFirebaseOptions.currentPlatform,
-      );
+  // );
   await ApiClient.init();
   // runApp(const MyApp());
   runApp(
@@ -36,11 +36,13 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      //   supportedLocales: const [
-      //     Locale('en', 'US'),
-      //     Locale('gu', 'IN'),
-      //     Locale('hi', 'IN'),
-      //   ],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('gu', 'IN'),
+        Locale('hi', 'IN'),
+      ],
+      locale: const Locale('en', 'US'),
+      fallbackLocale: const Locale('en', 'US'),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/routes/app_pages.dart';
 
 class LanguageView extends StatefulWidget {
   const LanguageView({super.key});
@@ -157,6 +158,9 @@ class _LanguageViewState extends State<LanguageView> {
                       height: height * 0.060,
                     ),
                     GestureDetector(
+                      onTap: () {
+                        Get.offNamed(Routes.BUSINESS_ADD_VIEW);
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: height * 0.055,
