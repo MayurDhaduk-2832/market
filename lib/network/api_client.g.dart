@@ -84,18 +84,28 @@ class _ApiClient implements ApiClient {
       {required int user_id,
       required String bussiness_name,
       required String contact_number,
-      required String categorys,
-      required String location_longlat,
+      required List categorys,
+      required String country,
+      required String state,
+      required String city,
+      required String pincode,
       required String images,
+      required String long,
+      required String lat,
       required String address}) async {
     final _data = {
       'user_id': user_id,
       'bussiness_name': bussiness_name,
       'contact_number': contact_number,
       'categorys': categorys,
-      'location_longlat': location_longlat,
-      'images': images,
-      'address': address
+      'country': country,
+      'state': state,
+      'city': city,
+      'address': address,
+      'pincode': pincode,
+      'long': long,
+      'lat': lat,
+      'images': images
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterModel>(Options(

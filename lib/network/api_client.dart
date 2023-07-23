@@ -122,9 +122,14 @@ abstract class ApiClient {
     @Field("user_id") required int user_id,
     @Field("bussiness_name") required String bussiness_name,
     @Field("contact_number") required String contact_number,
-    @Field("categorys") required String categorys,
+    @Field("categorys") required List categorys,
+    @Field("country") required String country,
+    @Field("state") required String state,
+    @Field("city") required String city,
     @Field("address") required String address,
-    @Field("location_longlat") required String location_longlat,
+    @Field("pincode") required String pincode,
+    @Field("long") required String long,
+    @Field("lat") required String lat,
     @Field("images") required String images,
   });
 
