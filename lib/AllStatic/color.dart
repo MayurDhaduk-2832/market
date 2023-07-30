@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 class LocalKeyColor {
   static Color WhiteColor = Colors.white;
   static Color offWhiteColor = Colors.white70;
-  static Color BackgroundColor = const Color(0xFF30336b);
+  static Color BackgroundColor = const Color(0xffeedab2);
   static Color languageTextColor = const Color(0xFF8D8D8D);
 }

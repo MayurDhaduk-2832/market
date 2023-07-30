@@ -13,6 +13,7 @@ import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/utils/size_utils.dart';
 import 'package:sellproducts/constant/utils/text_style_constant.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
+import 'package:sellproducts/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BusinessAddScreen extends StatefulWidget {
@@ -281,7 +282,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                     if (response?.isSuccess ?? false) {
 
                       flutterToastBottomGreen(response?.message);
-                      // Get.toNamed(Routes.LANGUAGE_VIEW);
+                      Get.toNamed(Routes.HOME_VIEW);
                     } else {
                       // flutterToastBottom(response?.message);
                       flutterToastBottom("Incorrect Password");

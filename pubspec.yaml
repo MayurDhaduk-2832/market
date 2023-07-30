@@ -50,6 +50,8 @@ dependencies:
   url_launcher: ^6.1.12
   image_picker: ^1.0.1
   animated_custom_dropdown: ^1.5.0
+  carousel_slider: ^4.2.1
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -77,11 +79,17 @@ flutter:
     # in this "flutter" section. Each entry in this list should have a
     # "family" key with the font family name, and a "fonts" key with a
     # list giving the asset and other descriptors for the font. For
-    # example:
-    # fonts:
-    #   - family: Schyler
-    #     fonts:
-    #       - asset: fonts/Schyler-Regular.ttf
+    # example:Lalezar-Regular
+  fonts:
+       - family: koho
+         fonts:
+            - asset: font/KoHo-Regular.ttf
+       - family: PaytoneOne
+         fonts:
+           - asset: font/PaytoneOne-Regular.ttf
+       - family: Lalezar
+         fonts:
+           - asset: font/Lalezar-Regular.ttf
     #       - asset: fonts/Schyler-Italic.ttf
     #         style: italic
     #   - family: Trajan Pro

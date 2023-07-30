@@ -187,7 +187,10 @@ class _LoginViewState extends State<LoginView> {
                             flutterToastBottomGreen(response?.message);
                             final prefs = await SharedPreferences.getInstance();
                             prefs.setBool('LOGIN_KEY', true);
-                            Get.toNamed(Routes.LANGUAGE_VIEW);
+                            Map<String, dynamic> map = {
+                              'setIndex': iSelect,
+                            };
+                            Get.toNamed(Routes.LANGUAGE_VIEW,arguments: map);
                           } else {
                             // flutterToastBottom(response?.message);
                             flutterToastBottom("Incorrect Password");
