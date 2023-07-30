@@ -4,10 +4,12 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sellproducts/AllStatic/color.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
+import 'package:sellproducts/routes/app_pages.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,10 +19,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final businessNameController = TextEditingController();
-  int currontIndex = 0;
+  final searchController = TextEditingController();
+  int currentIndex = 0;
   late BusinessCreateViewModel _service;
-  List<String> imageList=["assets/shose.jpg","assets/tshirt.jpg","assets/watch.jpg","assets/car.jpg"];
+  List<String> imageList = [
+    "assets/shose.jpg",
+    "assets/tshirt.jpg",
+    "assets/watch.jpg",
+    "assets/car.jpg"
+  ];
 
   @override
   void initState() {
@@ -85,8 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: height * 0.04,
                   ),
-                  Container(alignment: Alignment.center,
-                    height: height * 0.05,
+                  Container(
+                    alignment: Alignment.center,
+                    height: height * 0.06,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
@@ -96,55 +104,149 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.black38,
                               blurRadius: 4)
                         ]),
-                    child: const TextField(
+                    child:  TextField(
+                      controller: searchController,
                       cursorColor: Colors.black,
-                      decoration: InputDecoration(contentPadding: EdgeInsets.only(top: 7),
-                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        ),
-                        suffixIcon:Icon(Icons.filter_list_rounded,color: Colors.black,)
+                      decoration: const InputDecoration(
+                        hintText: "Search Product",
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.transparent)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.transparent)),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.black,
+                          ),
+                          suffixIcon: Icon(
+                            Icons.filter_list_rounded,
+                            color: Colors.black,
+                          )),
                     ),
-                  ),),
+                  ),
+                Stack(children: [
+                  SizedBox(
+                    child: Image.asset(
+                      "assets/leftpan.png",
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  CarouselSlider(
+                    items: imageList
+                        .map(
+                          (e) => Container(margin: EdgeInsets.only(top: height * 0.05),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 4),
+                                  color: Colors.black38,
+                                  blurRadius: 4)
+                            ],
+                            image: DecorationImage(
+                                fit: BoxFit.fill, image: AssetImage(e))),
+                      ),
+                    )
+                        .toList(),
+                    options: CarouselOptions(
+                      animateToClosest: true,
+                      height: height * 0.250,
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                      autoPlayInterval: const Duration(seconds: 2),
+                    ),
+                  ),
+                ],),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: imageList.map((e) {
+                        int index = imageList.indexOf(e);
+                        return Container(
+                          width: 8,
+                          height: 8,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 3),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: currentIndex == index
+                                  ? Colors.white
+                                  : Colors.black12),
+                        );
+                      }).toList()),
+                  // trading sale image list
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        LocaleKeys.trandingSale,
+                        style: TextStyle(
+                            fontSize: width * 0.05,
+                            fontFamily: "Lalezar",
+                            fontWeight: FontWeight.w400),
+                      ),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            child: Image.asset(
+                              "assets/rghitpan.png",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.more_horiz_rounded,
+                              color: Colors.black,
+                              size: width * 0.07,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  SizedBox(
+                    height: height * 0.160,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: imageList.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.PRODUCT_VIEW);
+                          },
+                          child: Container(
+                            width: width * 0.350,
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(image: AssetImage(imageList[index])),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurStyle: BlurStyle.outer,
+                                    offset: Offset(0, 4),
+                                    color: Colors.black38,
+                                    blurRadius: 4)
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   SizedBox(
                     height: height * 0.04,
                   ),
-                  // slider
-                  CarouselSlider(
-                      items:imageList.map((e) =>  Container(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
-                            boxShadow: const [BoxShadow(
-                                offset: Offset(0, 4),
-                                color: Colors.black38,
-                                blurRadius: 4)], image: DecorationImage(fit: BoxFit.fill,image: AssetImage(e))),),).toList(),
-                      options: CarouselOptions(animateToClosest: true,
-                          height: height * 0.2,
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              currontIndex = index;
-                            });
-                          },
-                          autoPlayInterval: const Duration(seconds: 2),),),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
-                    children: imageList.map((e) {
-                      int index = imageList.indexOf(e);
-                      return Container(
-                        width: 8,height: 8,
-                        margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 3),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: currontIndex == index?Colors.white:Colors.black12
-                        ),
-                      );
-                    }).toList()
-                  ),
-
-                  // trading sale image list
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
                   Text(
                     LocaleKeys.trandingSale,
                     style: TextStyle(
@@ -152,20 +254,61 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontFamily: "Lalezar",
                         fontWeight: FontWeight.w400),
                   ),
-                  IconButton(onPressed: () {
+                  Stack(
+                    children: [
+                      SizedBox(
+                        child: Image.asset(
+                          "assets/left2.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Align(alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding:  EdgeInsets.only(top: height * 0.280),
+                          child: SizedBox(
+                            child: Image.asset(
+                              "assets/right2.png",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.320,
+                        width: double.infinity,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: imageList.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(onTap: () {
+                              Get.toNamed(Routes.PRODUCT_VIEW);
+                            },
+                              child: Container(
+                                width: width * 0.450,
+                                margin: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(image: AssetImage(imageList[index])),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        blurStyle: BlurStyle.outer,
+                                        offset: Offset(0, 4),
+                                        color: Colors.black38,
+                                        blurRadius: 4)
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
 
-                  }, icon: Icon(Icons.more_horiz_rounded,color: Colors.black,size: width * 0.07,),)
-                ],),
-                  SizedBox(
-                    height: height * 0.04,
+                    ],
                   ),
                   SizedBox(
-                    height: height * 0.2,
-                    width: double.infinity,
-                    child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: 6,itemBuilder: (context, index) {
-                      return Container(width: width * 0.210,color: Colors.white,margin: EdgeInsets.symmetric(horizontal: 5),);
-                    },),
-                  )
+                    height: height * 0.08,
+                  ),
                 ],
               ),
             ),
