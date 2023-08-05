@@ -99,6 +99,7 @@ class _LanguageViewState extends State<LanguageView> {
                         GestureDetector(
                           onTap: () {
                             isSelectedLanguage = 1;
+                            Get.updateLocale(const Locale('en', 'US'));
                             setState(() {});
                           },
                           child: Container(
@@ -129,6 +130,7 @@ class _LanguageViewState extends State<LanguageView> {
                         GestureDetector(
                           onTap: () {
                             isSelectedLanguage = 2;
+                            Get.updateLocale(const Locale('hi', 'IN'));
                             setState(() {});
                           },
                           child: Container(
@@ -163,6 +165,7 @@ class _LanguageViewState extends State<LanguageView> {
                       child: GestureDetector(
                         onTap: () {
                           isSelectedLanguage = 3;
+                          Get.updateLocale(const Locale('gu', 'IN'));
                           setState(() {});
                         },
                         child: Container(

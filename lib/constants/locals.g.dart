@@ -5,8 +5,8 @@
 class AppTranslation {
   static Map<String, Map<String, String>> translations = {
     'en_US': Locales.en_US,
-    // 'hi_IN': Locales.hi_IN,
-    // 'gu_IN': Locales.gu_IN,
+    'hi_IN': Locales.hi_IN,
+    'gu_IN': Locales.gu_IN,
   };
 }
 
