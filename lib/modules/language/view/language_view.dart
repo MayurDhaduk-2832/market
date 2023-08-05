@@ -14,6 +14,16 @@ class LanguageView extends StatefulWidget {
 
 class _LanguageViewState extends State<LanguageView> {
   int isSelectedLanguage = 0;
+  dynamic argumentData = Get.arguments;
+  int iSelect = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (argumentData != null && argumentData is Map<String, dynamic>) {
+      iSelect = argumentData['setIndex'];
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -197,8 +207,8 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        //  Get.toNamed(Routes.PRODUCT_VIEW);
-                        Get.toNamed(Routes.BUSINESS_ADD_VIEW);
+                       iSelect == 1?
+                       Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,

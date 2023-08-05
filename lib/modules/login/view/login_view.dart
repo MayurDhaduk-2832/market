@@ -21,20 +21,25 @@ class _LoginViewState extends State<LoginView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+
+
   Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
+    // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
+    // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
+    // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
   late LoginViewModel _service;
   @override
   void initState() {
@@ -162,22 +167,28 @@ class _LoginViewState extends State<LoginView> {
                     SizedBox(
                       height: height * 0.025,
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        final email = emailController.text;
-                        final password = passwordController.text;
-                        if (email.isEmpty) {
+                    GestureDetector(onTap: () async {
+                      final email = emailController.text;
+                      final password = passwordController.text;
+                      if(email.isEmpty)
+                        {
                           flutterToastBottom("Enter Email Id");
-                        } else if (password.isEmpty) {
+                        }
+                      else if(password.isEmpty)
+                        {
                           flutterToastBottom("Enter Password");
-                        } else {
-                          final response =
-                              await _service.login(email, password);
+                        }
+                      else
+                        {
+                          final response = await _service.login(email,password);
                           if (response?.isSuccess ?? false) {
                             flutterToastBottomGreen(response?.message);
                             final prefs = await SharedPreferences.getInstance();
                             prefs.setBool('LOGIN_KEY', true);
-                            Get.toNamed(Routes.LANGUAGE_VIEW);
+                            Map<String, dynamic> map = {
+                              'setIndex': iSelect,
+                            };
+                            Get.toNamed(Routes.LANGUAGE_VIEW,arguments: map);
                           } else {
                             // flutterToastBottom(response?.message);
                             flutterToastBottom("Incorrect Password");

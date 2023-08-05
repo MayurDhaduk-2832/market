@@ -51,7 +51,6 @@ class _ApiClient implements ApiClient {
       'password': password,
       'role': role
     };
-
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterModel>(
             Options(method: 'POST', headers: _header())
@@ -66,18 +65,28 @@ class _ApiClient implements ApiClient {
       {required int user_id,
       required String bussiness_name,
       required String contact_number,
-      required String categorys,
-      required String location_longlat,
+      required List categorys,
+      required String country,
+      required String state,
+      required String city,
+      required String pincode,
       required String images,
+      required String long,
+      required String lat,
       required String address}) async {
     final _data = {
       'user_id': user_id,
       'bussiness_name': bussiness_name,
       'contact_number': contact_number,
       'categorys': categorys,
-      'location_longlat': location_longlat,
-      'images': images,
-      'address': address
+      'country': country,
+      'state': state,
+      'city': city,
+      'address': address,
+      'pincode': pincode,
+      'long': long,
+      'lat': lat,
+      'images': images
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterModel>(Options(
@@ -88,18 +97,20 @@ class _ApiClient implements ApiClient {
     return value;
   }
 
-  Future<LoginModel> login({
-    required String email,
-    required String password,
-  }) async {
+
+  Future<LoginModel> login(
+      {required String email,
+        required String password,
+        }) async {
     final _data = {
       'email': email,
       'password': password,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<LoginModel>(Options(method: 'POST', headers: _header())
-            .compose(_dio.options, LocaleKeys.loginUpURL, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<LoginModel>(
+            Options(method: 'POST', headers: _header())
+                .compose(_dio.options, LocaleKeys.loginUpURL, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = LoginModel.fromJson(_result.data!);
     return value;
   }

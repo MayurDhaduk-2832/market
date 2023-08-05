@@ -28,9 +28,9 @@ class LocaleKeys {
 
   // static const baseApi = "${baseURL}v1/api/";
   static const signUpURL = "createlogindata.php";
+  static const loginUpURL = "chakelogin.php";
   static const businessCreateURL = "businessInserdata.php";
   static const filesUpload = "upload.php";
-  static const loginUpURL = "chakelogin.php";
 
   // Login
 
@@ -52,7 +52,9 @@ class LocaleKeys {
   // String
   // static const app_name = 'JoSo';
 
-  // for error show
+  // home page
+  static const welcome = 'Welcome Back';
+  static const trandingSale = 'Tranding Sale :';
 
   // for language
   static const language = 'Language';
@@ -93,6 +95,8 @@ class Locales {
     LocaleKeys.eleven: '11',
     LocaleKeys.twelve: '12',
     LocaleKeys.language: 'Language',
+    LocaleKeys.welcome: 'Welcome Back',
+    LocaleKeys.trandingSale: 'Tranding Sale :',
   };
   static const hi_IN = {
     LocaleKeys.one: '१',
@@ -108,6 +112,8 @@ class Locales {
     LocaleKeys.eleven: '११',
     LocaleKeys.twelve: '१२',
     LocaleKeys.language: 'भाषा',
+    LocaleKeys.welcome: 'पुनः स्वागत है',
+    LocaleKeys.trandingSale: 'ट्रैंडिंग बिक्री :',
   };
   static const gu_IN = {
     LocaleKeys.one: '૧',
@@ -122,5 +128,8 @@ class Locales {
     LocaleKeys.ten: '૧૦',
     LocaleKeys.eleven: '૧૧',
     LocaleKeys.twelve: '૧૨',
+    LocaleKeys.language: 'ભાષા',
+    LocaleKeys.welcome: 'પાછું સ્વાગત છે',
+    LocaleKeys.trandingSale: 'ટ્રાન્ડીંગ સેલ :',
   };
 }
