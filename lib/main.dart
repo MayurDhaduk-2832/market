@@ -14,7 +14,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
 //    options: DefaultFirebaseOptions.currentPlatform,

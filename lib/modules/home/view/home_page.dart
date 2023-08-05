@@ -49,80 +49,93 @@ class _HomeScreenState extends State<HomeScreen> {
           color: LocalKeyColor.BackgroundColor,
           child: Padding(
             padding: EdgeInsets.only(
-                left: width * 0.06, top: height * 0.02, right: width * 0.06),
+              top: height * 0.02),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            LocaleKeys.welcome,
-                            style: TextStyle(
-                                fontSize: width * 0.05,
-                                fontFamily: "koho",
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            "Dhruv Savaliya",
-                            style: TextStyle(
-                                fontSize: width * 0.05,
-                                fontFamily: "PaytoneOne",
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: width * 0.03),
-                        child: SizedBox(
-                          height: height * 0.07,
-                          width: width * 0.140,
-                          child: Image.asset(
-                            "assets/loginphoto.png",
-                            fit: BoxFit.fill,
+                  Padding(
+                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              LocaleKeys.welcome,
+                              style: TextStyle(
+                                  fontSize: width * 0.05,
+                                  fontFamily: "koho",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              "Dhruv Savaliya",
+                              style: TextStyle(
+                                  fontSize: width * 0.05,
+                                  fontFamily: "PaytoneOne",
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: width * 0.03),
+                          child: SizedBox(
+                            height: height * 0.07,
+                            width: width * 0.140,
+                            child: Image.asset(
+                              "assets/loginphoto.png",
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: height * 0.04,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: height * 0.06,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(0, 4),
-                              color: Colors.black38,
-                              blurRadius: 4)
-                        ]),
-                    child:  TextField(
-                      controller: searchController,
-                      cursorColor: Colors.black,
-                      decoration: const InputDecoration(
-                        hintText: "Search Product",
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                          ),
-                          suffixIcon: Icon(
-                            Icons.filter_list_rounded,
-                            color: Colors.black,
-                          )),
+                  Padding(
+                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: height * 0.06,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(0, 4),
+                                color: Colors.black38,
+                                blurRadius: 4)
+                          ]),
+                      child:  TextField(
+                        controller: searchController,
+                        cursorColor: Colors.black,
+                        decoration:  InputDecoration(
+                          hintText: "Search Product",
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              color: Colors.black,
+                            ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(9.0),
+                            child: SizedBox(
+                            height: height * 0.2,
+                            width: width * 0.02,
+                            child: Image.asset(
+                              "assets/filterIcon.png",
+                              fit: BoxFit.fill,
+                            ),
+                        ),
+                          ),),
+                      ),
                     ),
                   ),
                 Stack(children: [
@@ -183,12 +196,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        LocaleKeys.trandingSale,
-                        style: TextStyle(
-                            fontSize: width * 0.05,
-                            fontFamily: "Lalezar",
-                            fontWeight: FontWeight.w400),
+                      Padding(
+                        padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                        child: Text(
+                          LocaleKeys.trandingSale,
+                          style: TextStyle(
+                              fontSize: width * 0.05,
+                              fontFamily: "Lalezar",
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
                       Stack(
                         children: [
@@ -199,7 +215,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(Routes.MORE_PRODUCT_VIEW);
+                            },
                             icon: Icon(
                               Icons.more_horiz_rounded,
                               color: Colors.black,
@@ -213,94 +231,112 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  SizedBox(
-                    height: height * 0.160,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: imageList.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.PRODUCT_VIEW);
-                          },
-                          child: Container(
-                            width: width * 0.350,
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(image: AssetImage(imageList[index])),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurStyle: BlurStyle.outer,
-                                    offset: Offset(0, 4),
-                                    color: Colors.black38,
-                                    blurRadius: 4)
-                              ],
+                  Padding(
+                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                    child: SizedBox(
+                      height: height * 0.190,
+                      width: double.infinity,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: imageList.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.PRODUCT_VIEW);
+                            },
+                            child: Container(
+                              height: height * 0.160,
+                              width: width * 0.350,
+                              margin: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(image: AssetImage(imageList[index])),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow:  [
+                                  BoxShadow(
+                                      spreadRadius: 0,
+                                      // blurStyle: BlurStyle.outer,
+                                      offset: Offset(0, 4),
+                                      color: Colors.black.withOpacity(0.25),
+                                      blurRadius: 4)
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: height * 0.04,
                   ),
-                  Text(
-                    LocaleKeys.trandingSale,
-                    style: TextStyle(
-                        fontSize: width * 0.05,
-                        fontFamily: "Lalezar",
-                        fontWeight: FontWeight.w400),
+                  Padding(
+                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                    child: Text(
+                      LocaleKeys.trandingSale,
+                      style: TextStyle(
+                          fontSize: width * 0.05,
+                          fontFamily: "Lalezar",
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
                   ),
                   Stack(
                     children: [
-                      SizedBox(
-                        child: Image.asset(
-                          "assets/left2.png",
-                          fit: BoxFit.fill,
-                        ),
+                      Image.asset(
+                        "assets/left2.png",
+                        fit: BoxFit.fill,
                       ),
                       Align(alignment: Alignment.bottomRight,
                         child: Padding(
                           padding:  EdgeInsets.only(top: height * 0.280),
-                          child: SizedBox(
-                            child: Image.asset(
-                              "assets/right2.png",
-                              fit: BoxFit.fill,
-                            ),
+                          child: Image.asset(
+                            "assets/right2.png",
+                            fit: BoxFit.fill,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: height * 0.320,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: imageList.length,
-                          itemBuilder: (context, index) {
+
+                      Padding(
+                        padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                        child: SizedBox(
+                          height: height * 0.900,
+                          width: double.infinity,
+                          // child: ListView.builder(
+                          //   scrollDirection: Axis.horizontal,
+                          //   itemCount: imageList.length,
+                          //   itemBuilder: (context, index) {
+                          //     return
+                          //   },
+                          // ),
+                          child: GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: imageList.length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.7), itemBuilder: (context, index) {
                             return GestureDetector(onTap: () {
                               Get.toNamed(Routes.PRODUCT_VIEW);
                             },
                               child: Container(
                                 width: width * 0.450,
-                                margin: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
+                               // margin: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
                                 decoration: BoxDecoration(
                                   image: DecorationImage(image: AssetImage(imageList[index])),
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
+                                  boxShadow:  [
                                     BoxShadow(
-                                        blurStyle: BlurStyle.outer,
+                                      spreadRadius: 0,
+                                       // blurStyle: BlurStyle.outer,
                                         offset: Offset(0, 4),
-                                        color: Colors.black38,
+                                        color: Colors.black.withOpacity(0.25),
                                         blurRadius: 4)
                                   ],
                                 ),
                               ),
                             );
-                          },
+                          },),
                         ),
                       ),
 

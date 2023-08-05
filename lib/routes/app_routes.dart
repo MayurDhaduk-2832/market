@@ -12,6 +12,7 @@ abstract class Routes {
   static const PRODUCT_VIEW = _Paths.PRODUCT_VIEW;
   static const BUSINESS_ADD_VIEW = _Paths.BUSINESS_ADD_VIEW;
   static const HOME_VIEW = _Paths.HOME_VIEW;
+  static const MORE_PRODUCT_VIEW = _Paths.MORE_PRODUCT_VIEW;
 }
 
 abstract class _Paths {
@@ -24,4 +25,5 @@ abstract class _Paths {
   static const PRODUCT_VIEW = '/productview';
   static const BUSINESS_ADD_VIEW = '/businessaddview';
   static const HOME_VIEW = '/homeview';
+  static const MORE_PRODUCT_VIEW = '/moreproductsview';
 }

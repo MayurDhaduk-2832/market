@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/AllStatic/color.dart';
 
 class ProductView extends StatefulWidget {
   const ProductView({super.key});
@@ -15,101 +16,109 @@ class _ProductViewState extends State<ProductView> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: LocalKeyColor.BackgroundColor,
       body: Container(
         height: height,
         width: width,
         margin: const EdgeInsets.symmetric(vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: height * 0.6,
-              width: width,
-              child: Stack(
-                clipBehavior: Clip.none,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: height * 0.05,
+                        width: height * 0.05,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 2)
+                            ]),
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        height: height * 0.05,
+                        width: height * 0.05,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 0,
+                                  offset: Offset(0, 4),
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4)
+                            ],
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(Icons.share),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: height * 0.04,),
+              Stack(
                 children: [
-                  Container(
-                    height: height * 0.6,
-                    width: width,
+                  Image.asset(
+                    "assets/left2.png",
+                    fit: BoxFit.fill,
+                  ),
+                  Align(alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding:  EdgeInsets.only(top: height * 0.240),
+                      child: Image.asset(
+                        "assets/rghitpan.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(top: height * 0.510),
                     child: Image.asset(
-                      "assets/asset1.png",
+                      "assets/left2.png",
                       fit: BoxFit.fill,
                     ),
                   ),
-                  Container(
-                    height: height * 0.1,
-                    width: width,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
+                  Align(alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding:  EdgeInsets.only(top: height * 0.730),
+                      child: Image.asset(
+                        "assets/right2.png",
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Container(
-                            height: height * 0.05,
-                            width: height * 0.05,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 2)
-                                ]),
-                            child: const Icon(Icons.arrow_back),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: height * 0.05,
-                            width: height * 0.05,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 2)
-                                ],
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const Icon(Icons.share),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                  Positioned(
-                    bottom: -(height * 0.025),
-                    right: 20,
-                    child: Container(
-                      height: height * 0.05,
-                      width: height * 0.05,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 2)
-                          ]),
-                      child: const Icon(CupertinoIcons.heart),
-                    ),
-                  ),
+              Container(alignment: Alignment.center,height: height * 0.5,margin: EdgeInsets.all(25),
+           //   padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.white,
+                boxShadow:  [
+                  BoxShadow(
+                      spreadRadius: 0,
+                      // blurStyle: BlurStyle.outer,
+                      offset: Offset(0, 4),
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 4)
                 ],
               ),
-            ),
-            Text("Product name"),
-            Text("price"),
-          ],
+                child: SizedBox(height: height * 0.44,width: width * 0.8,child: Image.asset(fit: BoxFit.fill,"assets/producView.png")),
+              )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
