@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,7 +48,6 @@ class _LoginViewState extends State<LoginView> {
     if (argumentData != null && argumentData is Map<String, dynamic>) {
       iSelect = argumentData['setIndex'];
     }
-
   }
 
   @override
@@ -197,9 +195,8 @@ class _LoginViewState extends State<LoginView> {
                           }
                         }
 
-
-                      setState(() {});
-                    },
+                        setState(() {});
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: height * 0.05,

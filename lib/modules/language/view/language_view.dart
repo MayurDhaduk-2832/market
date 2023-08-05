@@ -90,11 +90,11 @@ class _LanguageViewState extends State<LanguageView> {
                     SizedBox(
                       height: height * 0.025,
                     ),
-                     Text(
+                    Text(
                       LocaleKeys.selectLanguage,
                       style: TextStyle(
-                           fontSize: height * 0.02,
-                          fontWeight: FontWeight.w900,
+                        fontSize: height * 0.02,
+                        fontWeight: FontWeight.w900,
                         //  color: const Color(0xFF8D8D8D),
                       ),
                     ),
@@ -106,25 +106,29 @@ class _LanguageViewState extends State<LanguageView> {
                         SizedBox(
                           width: width * 0.020,
                         ),
-                        GestureDetector(onTap: () {
-                          isSelectedLanguage = 1;
-                          setState(() {
-
-                          });
-                        },
+                        GestureDetector(
+                          onTap: () {
+                            isSelectedLanguage = 1;
+                            setState(() {});
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             height: height * 0.05,
                             width: width * 0.4,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: (isSelectedLanguage==1)?button1Color:Colors.grey.shade500, width: 2),
+                                    color: (isSelectedLanguage == 1)
+                                        ? button1Color
+                                        : Colors.grey.shade500,
+                                    width: 2),
                                 borderRadius: BorderRadius.circular(10)),
-                            child:  Text(
+                            child: Text(
                               LocaleKeys.english,
                               style: TextStyle(
                                   fontSize: height * 0.02,
-                                  color:  (isSelectedLanguage==1)?button1Color:Color(0xFF8D8D8D),
+                                  color: (isSelectedLanguage == 1)
+                                      ? button1Color
+                                      : Color(0xFF8D8D8D),
                                   fontWeight: FontWeight.w200),
                             ),
                           ),
@@ -132,26 +136,29 @@ class _LanguageViewState extends State<LanguageView> {
                         SizedBox(
                           width: width * 0.049,
                         ),
-                        GestureDetector(onTap: () {
-                          isSelectedLanguage = 2;
-                          setState(() {
-
-                          });
-                        },
+                        GestureDetector(
+                          onTap: () {
+                            isSelectedLanguage = 2;
+                            setState(() {});
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             height: height * 0.05,
-
                             width: width * 0.4,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: (isSelectedLanguage==2)?button1Color:Colors.grey.shade500, width: 2),
+                                    color: (isSelectedLanguage == 2)
+                                        ? button1Color
+                                        : Colors.grey.shade500,
+                                    width: 2),
                                 borderRadius: BorderRadius.circular(10)),
-                            child:  Text(
+                            child: Text(
                               LocaleKeys.gujarati,
                               style: TextStyle(
                                   fontSize: height * 0.02,
-                                  color:  (isSelectedLanguage==2)?button1Color:Color(0xFF8D8D8D),
+                                  color: (isSelectedLanguage == 2)
+                                      ? button1Color
+                                      : Color(0xFF8D8D8D),
                                   fontWeight: FontWeight.w200),
                             ),
                           ),
@@ -163,12 +170,11 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: GestureDetector(onTap: () {
-                        isSelectedLanguage = 3;
-                        setState(() {
-
-                        });
-                      },
+                      child: GestureDetector(
+                        onTap: () {
+                          isSelectedLanguage = 3;
+                          setState(() {});
+                        },
                         child: Container(
                           margin: EdgeInsets.only(left: width * 0.02),
                           alignment: Alignment.center,
@@ -176,13 +182,18 @@ class _LanguageViewState extends State<LanguageView> {
                           width: width * 0.4,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: (isSelectedLanguage==3)?button1Color:Colors.grey.shade500, width: 2),
+                                  color: (isSelectedLanguage == 3)
+                                      ? button1Color
+                                      : Colors.grey.shade500,
+                                  width: 2),
                               borderRadius: BorderRadius.circular(10)),
-                          child:  Text(
+                          child: Text(
                             LocaleKeys.hindi,
                             style: TextStyle(
-                              fontSize: height * 0.02,
-                                color:  (isSelectedLanguage==3)?button1Color:Color(0xFF8D8D8D),
+                                fontSize: height * 0.02,
+                                color: (isSelectedLanguage == 3)
+                                    ? button1Color
+                                    : Color(0xFF8D8D8D),
                                 fontWeight: FontWeight.w200),
                           ),
                         ),
