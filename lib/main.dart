@@ -8,14 +8,10 @@ import 'package:sellproducts/network/api_client.dart';
 import 'routes/app_pages.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // await Firebase.initializeApp(
-//    options: DefaultFirebaseOptions.currentPlatform,
-  // );
   await ApiClient.init();
   // runApp(const MyApp());
   runApp(
