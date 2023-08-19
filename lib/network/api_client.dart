@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/business/model/categorice_model.dart';
 import 'package:sellproducts/modules/login/model/login_view_model.dart';
 import 'package:sellproducts/modules/register/model/register_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -78,9 +79,7 @@ abstract class ApiClient {
 
   //For Business
 
-  // @GET(LocaleKeys.getMyBusiness)
-  // Future<MyBusinessModel> getMyBusiness(String token,
-  //     {@Field("vTimestamp") required String vTimeStamp});
+
 
   // @POST(LocaleKeys.getMyBusiness)
   // Future<CreateBusinessModel> addMyBusiness(String token,
@@ -130,6 +129,9 @@ abstract class ApiClient {
     @Field("lat") required String lat,
     @Field("images") required String images,
   });
+
+  @GET(LocaleKeys.categorice)
+  Future<CategoriesModel> geCategorice(String token);
 
   // @POST(LocaleKeys.filesUpload)
   // @MultiPart()

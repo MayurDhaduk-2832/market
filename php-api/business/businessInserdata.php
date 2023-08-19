@@ -40,6 +40,9 @@ if ($requestMethod == "POST") {
         // For example, you can insert the data into a database
         $query = "INSERT INTO business_data (user_id, bussiness_name, contact_number, categorys, address, location_longlat, images) VALUES ('$user_id', '$bussiness_name', '$contact_number', '$categorys', '$address', '$location_longlat', '$images')";
 
+            $query = "INSERT INTO business_data (user_id, bussiness_name, contact_number,categorys,country,state,city, address,pincode,long ,lat, images) VALUES (
+                '$user_id', '$bussiness_name', '$contact_number', '$categorys','$country','$state','$city','$address', '$pincode','$long', '$lat', '$images')";
+
         $result = mysqli_query($conn, $query);
 
         if ($result) {
@@ -50,7 +53,7 @@ if ($requestMethod == "POST") {
         } else {
             $data = [
                 'isSuccess' => false,
-                'message' => 'Failed to insert BusinessData'
+                'message' => 'Failed to insert BusinessData: ' . mysqli_error($conn)
             ];
             header("Content-type: application/json; charset=utf-8");
             header("HTTP/1.0 500 Method not Allowed");
@@ -58,7 +61,7 @@ if ($requestMethod == "POST") {
     } else {
         $data = [
             'isSuccess' => false,
-            'message' => 'Failed to upload image'
+            'message' => 'Failed to upload image: ' . $_FILES["image"]["error"]
         ];
         header("Content-type: application/json; charset=utf-8");
         header("HTTP/1.0 500 Method not Allowed");

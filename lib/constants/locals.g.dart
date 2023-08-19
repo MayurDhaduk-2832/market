@@ -31,6 +31,7 @@ class LocaleKeys {
   static const loginUpURL = "chakelogin.php";
   static const businessCreateURL = "businessInserdata.php";
   static const filesUpload = "upload.php";
+  static const categorice = "categorice.php";
 
   // Login
 
