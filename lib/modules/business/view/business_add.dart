@@ -6,15 +6,12 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/utils/size_utils.dart';
 import 'package:sellproducts/constant/utils/text_style_constant.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BusinessAddScreen extends StatefulWidget {
   const BusinessAddScreen({super.key});
