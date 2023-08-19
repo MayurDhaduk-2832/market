@@ -26,16 +26,16 @@ class _ApiClient implements ApiClient {
     return requestOptions;
   }
 
-  // @override
-  // Future<AppConstantResponse> getAppConstant(String token) async {
-  //   final _result = await _dio.fetch<Map<String, dynamic>>(
-  //       _setStreamType<AppConstantResponse>(
-  //           Options(method: 'GET', headers: _header(true))
-  //               .compose(_dio.options, LocaleKeys.getAppConstant)
-  //               .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-  //   final value = AppConstantResponse.fromJson(_result.data!);
-  //   return value;
-  // }
+  @override
+  Future<CategoriesModel> geCategorice(String token) async {
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CategoriesModel>(
+            Options(method: 'GET', headers: _header())
+                .compose(_dio.options, LocaleKeys.categorice)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CategoriesModel.fromJson(_result.data!);
+    return value;
+  }
 
   @override
   Future<RegisterModel> register(
