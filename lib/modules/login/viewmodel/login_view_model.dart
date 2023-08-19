@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sellproducts/modules/login/model/login_view_model.dart';
-import 'package:sellproducts/modules/register/model/register_model.dart';
 import '../../../../network/base_api_service.dart';
 
 class LoginViewModel extends BaseApiService {
@@ -8,10 +7,7 @@ class LoginViewModel extends BaseApiService {
 
   Future<LoginModel?> login(String email, String password) async {
     return callApi(
-      client.login(
-          email: email,
-          password: password
-      ),
+      client.login(email: email, password: password),
     );
   }
 }

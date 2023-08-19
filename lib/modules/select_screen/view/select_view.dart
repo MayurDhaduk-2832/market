@@ -22,9 +22,9 @@ class _SelectViewState extends State<SelectView> {
           SizedBox(
             height: height,
             width: width,
-            child: Image.network(
-              "https://wallpaperaccess.com/full/2489679.jpg",
-              fit: BoxFit.fill,
+            child: Image.asset(
+              "assets/asset1.png",
+              fit: BoxFit.cover,
             ),
           ),
           Positioned(
@@ -53,15 +53,21 @@ class _SelectViewState extends State<SelectView> {
                       alignment: Alignment.center,
                       height: height * 0.055,
                       decoration: BoxDecoration(
-                        color: Colors.blue.shade700,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.3),
+                              offset: const Offset(0, 5),
+                            ),
+                          ]),
                       child: Text(
                         LocaleKeys.customer,
                         style: TextStyle(
                             fontSize: height * 0.02,
                             letterSpacing: 1.5,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -109,9 +115,8 @@ class _SelectViewState extends State<SelectView> {
                       alignment: Alignment.center,
                       height: height * 0.055,
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Colors.blue.shade700, width: 1),
-                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(color: Colors.black, width: 1),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         LocaleKeys.business,
