@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/AllStatic/color.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/customs/custom_search_textfield.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -36,13 +37,13 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: LocalKeyColor.BackgroundColor,
+      backgroundColor:   Colors.brown.shade50,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           height: height,
           width: width,
-          color: LocalKeyColor.BackgroundColor,
+          color:   Colors.brown.shade50,
           child: Padding(
             padding: EdgeInsets.only(top: height * 0.02),
             child: Column(
@@ -54,45 +55,7 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                 Padding(
                   padding:
                       EdgeInsets.only(left: width * 0.06, right: width * 0.06),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: height * 0.06,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(0, 4),
-                              color: Colors.black38,
-                              blurRadius: 4)
-                        ]),
-                    child: TextField(
-                      controller: searchController,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        hintText: "Search Product",
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(9.0),
-                          child: SizedBox(
-                            height: height * 0.2,
-                            width: width * 0.02,
-                            child: Image.asset(
-                              "assets/filterIcon.png",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child:SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product"),
                 ),
                 SizedBox(
                   height: height * 0.04,
@@ -155,18 +118,11 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                               child: SizedBox(
                                 height: height * 0.67,
                                 width: double.infinity,
-                                // child: ListView.builder(
-                                //   scrollDirection: Axis.horizontal,
-                                //   itemCount: imageList.length,
-                                //   itemBuilder: (context, index) {
-                                //     return
-                                //   },
-                                // ),
                                 child: GridView.builder(
                                   // physics: NeverScrollableScrollPhysics(),
                                   itemCount: 100,
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
                                           mainAxisSpacing: 1,
                                           crossAxisSpacing: 15,

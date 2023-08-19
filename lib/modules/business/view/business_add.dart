@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/utils/size_utils.dart';
 import 'package:sellproducts/constant/utils/text_style_constant.dart';
+import 'package:sellproducts/customs/custom_continue_button.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -63,11 +64,11 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+    //  resizeToAvoidBottomInset: false,
       body: Container(
         height: height,
         width: width,
-        color: Colors.white,
+        color: Colors.brown.shade50,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -90,16 +91,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
             Center(
               child: GestureDetector(
                 onTap: () async {
-                  // final imagePicker = ImagePicker();
-                  // final image =
-                  //     await imagePicker.pickImage(source: ImageSource.gallery);
-                  // if (image != null) {
-                  //   imageFile = File(image.path);
-                  //   print("image==> $imageFile");
-                  // }
                   showSelectImage(context);
-                  // image = await _picker.pickImage(source: ImageSource.gallery);
-                  // print("image==>${image?.name}");
                 },
                 child: Container(
                   height: height * 0.13,
@@ -130,12 +122,12 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
             ),
             SizedBox(
               height: height * 0.09,
-              child: const Center(
+              child:  Center(
                 child: Text(
                   "Business Logo",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 25,
+                      fontSize: width * 0.06,
                       fontWeight: FontWeight.w500),
                 ),
               ),
@@ -214,8 +206,9 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () async {
+            Padding(
+              padding:  EdgeInsets.only(left: width * 0.04,right: width * 0.04,bottom: height * 0.03),
+              child: ContinueButtonCommonWidget(text:'Continue ->',   onTap: () async {
                 if (businessNameController.text.isEmpty) {
                   flutterToastBottom("Enter Business Name");
                 } else if (mobileController.text.isEmpty) {
@@ -266,27 +259,9 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                 }
 
                 setState(() {});
-              },
-              child: Container(
-                height: height * 0.065,
-                width: width,
-                alignment: Alignment.center,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(30)),
-                child: const Text(
-                  "Continue",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    letterSpacing: 0.9,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            )
+              },),
+            ),
+
           ],
         ),
       ),
@@ -298,15 +273,17 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
       context: context,
       builder: (context) {
         return SimpleDialog(
+          backgroundColor:  Colors.brown.shade50,
           title: const Text('Select categories'),
           children: [
             SizedBox(
-              height: Get.height * 0.4,
-              width: Get.width * 0.4,
+              height: height * 0.7,
+              width: width * 0.7,
               child: ListView.builder(
                 itemCount: category.length,
                 itemBuilder: (context, index) {
                   return CheckboxListTile(
+                    activeColor: Colors.black,
                     value: selectedCategory.contains(category[index]),
                     title: Text(category[index]),
                     controlAffinity: ListTileControlAffinity.leading,
@@ -336,8 +313,14 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5))
+                          ]),
                       child: Text("Cancel", style: openPopButtonStyle),
                     ),
                   ),
@@ -354,8 +337,14 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5))
+                          ]),
                       child: Text("Submit", style: openPopButtonStyle),
                     ),
                   ),
@@ -373,6 +362,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
       context: context,
       builder: (context) {
         return SimpleDialog(
+          backgroundColor:  Colors.brown.shade50,
           alignment: Alignment.center,
           children: [
             Row(
@@ -467,8 +457,14 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5))
+                          ]),
                       child: Text("Camera", style: openPopButtonStyle),
                     ),
                   ),
@@ -490,8 +486,14 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5))
+                          ]),
                       child: Text("Gallery", style: openPopButtonStyle),
                     ),
                   ),
@@ -563,9 +565,9 @@ class CustomTextField extends StatelessWidget {
                 ? Icon(
                     icon,
                     color: Colors.black,
+              size:  width * 0.05,
                   )
-                : Image(
-                    height: Get.height * 0.010, image: AssetImage(image ?? "")),
+                : Image.asset(image ?? ""),
           ),
           Expanded(
             child: Padding(
@@ -573,9 +575,9 @@ class CustomTextField extends StatelessWidget {
               child: TextField(
                 keyboardType: keyboardType,
                 inputFormatters: inputFormatters,
-                style: const TextStyle(
+                style:  TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize:  width * 0.04,
                     fontWeight: FontWeight.w500),
                 controller: controller,
                 decoration: InputDecoration(
@@ -583,7 +585,7 @@ class CustomTextField extends StatelessWidget {
                   hintText: hintText,
                   hintStyle: TextStyle(
                     color: Colors.black.withOpacity(0.5),
-                    fontSize: 17,
+                    fontSize:  width * 0.04,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.6,
                   ),
@@ -655,6 +657,7 @@ class CustomMultipalDropDown extends StatelessWidget {
                   ? Icon(
                       icon,
                       color: Colors.black,
+                size: width * 0.05,
                     )
                   : Image(
                       height: Get.height * 0.010,
@@ -668,7 +671,7 @@ class CustomMultipalDropDown extends StatelessWidget {
                         hintText,
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
-                          fontSize: 17,
+                          fontSize: width * 0.04,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 0.6,
                         ),
@@ -677,7 +680,7 @@ class CustomMultipalDropDown extends StatelessWidget {
                         spacing: Get.width * 0.02,
                         children: selectedItems
                             .map((e) => Chip(
-                                  label: Text(e),
+                                  label: Text(e,style: TextStyle(fontSize:  width * 0.03),),
                                 ))
                             .toList(),
                       ),
@@ -746,6 +749,7 @@ class CustomDropDown extends StatelessWidget {
                 ? Icon(
                     icon,
                     color: Colors.black,
+              size: width * 0.05,
                   )
                 : Image(
                     height: Get.height * 0.010, image: AssetImage(image ?? "")),
@@ -754,14 +758,16 @@ class CustomDropDown extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: CustomDropdown.search(
+                listItemStyle: TextStyle(fontSize: width * 0.04),
                 hintText: hintText,
                 hintStyle: TextStyle(
                   color: Colors.black.withOpacity(0.5),
-                  fontSize: 17,
+                  fontSize: width * 0.04,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.6,
                 ),
                 items: itemList ?? [],
+                selectedStyle: TextStyle(fontSize: width * 0.04),
                 controller: controller,
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sellproducts/constant/LocalColors.dart';
 
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/language/languege_controller/language_controller.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class LanguageView extends StatefulWidget {
@@ -13,17 +14,9 @@ class LanguageView extends StatefulWidget {
 }
 
 class _LanguageViewState extends State<LanguageView> {
-  int isSelectedLanguage = 0;
-  dynamic argumentData = Get.arguments;
-  int iSelect = 0;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (argumentData != null && argumentData is Map<String, dynamic>) {
-      iSelect = argumentData['setIndex'];
-    }
-  }
+
+  LanguageScreenController languageScreenController = Get.put(LanguageScreenController());
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -79,11 +72,16 @@ class _LanguageViewState extends State<LanguageView> {
                       padding: EdgeInsets.only(right: width * 0.04),
                       child: Align(
                         alignment: Alignment.topRight,
-                        child: Text(
-                          LocaleKeys.skip,
-                          style: TextStyle(
-                              fontSize: height * 0.02,
-                              color: const Color(0xFF8D8D8D)),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.HOME_VIEW);
+                          },
+                          child: Text(
+                            LocaleKeys.skip,
+                            style: TextStyle(
+                                fontSize: height * 0.02,
+                                color: const Color(0xFF8D8D8D)),
+                          ),
                         ),
                       ),
                     ),
@@ -106,62 +104,67 @@ class _LanguageViewState extends State<LanguageView> {
                         SizedBox(
                           width: width * 0.020,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            isSelectedLanguage = 1;
-                            Get.updateLocale(const Locale('en', 'US'));
-                            setState(() {});
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: height * 0.05,
-                            width: width * 0.4,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: (isSelectedLanguage == 1)
+                        Obx(
+                            ()=> GestureDetector(
+                            onTap: () {
+                              languageScreenController.isSelectedLanguage.value = 1;
+                              Get.updateLocale(const Locale('en', 'US'));
+
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: height * 0.05,
+                              width: width * 0.4,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: (languageScreenController.isSelectedLanguage.value == 1)
+                                          ? button1Color
+                                          : Colors.grey.shade500,
+                                      width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                LocaleKeys.english,
+                                style: TextStyle(
+                                    fontSize: height * 0.02,
+                                    color: (languageScreenController.isSelectedLanguage.value == 1)
                                         ? button1Color
-                                        : Colors.grey.shade500,
-                                    width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              LocaleKeys.english,
-                              style: TextStyle(
-                                  fontSize: height * 0.02,
-                                  color: (isSelectedLanguage == 1)
-                                      ? button1Color
-                                      : Color(0xFF8D8D8D),
-                                  fontWeight: FontWeight.w200),
+                                        : const Color(0xFF8D8D8D),
+                                    fontWeight: FontWeight.w200),
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
                           width: width * 0.049,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            isSelectedLanguage = 2;
-                            Get.updateLocale(const Locale('hi', 'IN'));
-                            setState(() {});
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: height * 0.05,
-                            width: width * 0.4,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: (isSelectedLanguage == 2)
+                        Obx(
+                            ()=> GestureDetector(
+                            onTap: () {
+                             languageScreenController.isSelectedLanguage.value = 2;
+
+                             // Get.updateLocale(const Locale('gu', 'IN'));
+
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: height * 0.05,
+                              width: width * 0.4,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: (languageScreenController.isSelectedLanguage.value == 2)
+                                          ? button1Color
+                                          : Colors.grey.shade500,
+                                      width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                LocaleKeys.gujarati,
+                                style: TextStyle(
+                                    fontSize: height * 0.02,
+                                    color: (languageScreenController.isSelectedLanguage.value == 2)
                                         ? button1Color
-                                        : Colors.grey.shade500,
-                                    width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              LocaleKeys.gujarati,
-                              style: TextStyle(
-                                  fontSize: height * 0.02,
-                                  color: (isSelectedLanguage == 2)
-                                      ? button1Color
-                                      : Color(0xFF8D8D8D),
-                                  fontWeight: FontWeight.w200),
+                                        : Color(0xFF8D8D8D),
+                                    fontWeight: FontWeight.w200),
+                              ),
                             ),
                           ),
                         ),
@@ -174,30 +177,32 @@ class _LanguageViewState extends State<LanguageView> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                         onTap: () {
-                          isSelectedLanguage = 3;
-                          Get.updateLocale(const Locale('gu', 'IN'));
-                          setState(() {});
+                          languageScreenController.isSelectedLanguage.value = 3;
+                          //  Get.updateLocale(const Locale('hi', 'IN'));
+
                         },
-                        child: Container(
-                          margin: EdgeInsets.only(left: width * 0.02),
-                          alignment: Alignment.center,
-                          height: height * 0.05,
-                          width: width * 0.4,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: (isSelectedLanguage == 3)
+                        child: Obx(
+                            ()=> Container(
+                            margin: EdgeInsets.only(left: width * 0.02),
+                            alignment: Alignment.center,
+                            height: height * 0.05,
+                            width: width * 0.4,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: (languageScreenController.isSelectedLanguage.value == 3)
+                                        ? button1Color
+                                        : Colors.grey.shade500,
+                                    width: 2),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              LocaleKeys.hindi,
+                              style: TextStyle(
+                                  fontSize: height * 0.02,
+                                  color: (languageScreenController.isSelectedLanguage.value == 3)
                                       ? button1Color
-                                      : Colors.grey.shade500,
-                                  width: 2),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Text(
-                            LocaleKeys.hindi,
-                            style: TextStyle(
-                                fontSize: height * 0.02,
-                                color: (isSelectedLanguage == 3)
-                                    ? button1Color
-                                    : Color(0xFF8D8D8D),
-                                fontWeight: FontWeight.w200),
+                                      : Color(0xFF8D8D8D),
+                                  fontWeight: FontWeight.w200),
+                            ),
                           ),
                         ),
                       ),
@@ -207,8 +212,9 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                       iSelect == 1?
-                       Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
+                       // iSelect == 1?
+                       // Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
+                        Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,

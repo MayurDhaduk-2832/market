@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/customs/custom_continue_button.dart';
+import 'package:sellproducts/customs/custom_textfield.dart';
 import 'package:sellproducts/modules/register/viewmodel/register_view_model.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -19,18 +20,16 @@ class _RegisterViewState extends State<RegisterView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
-
-  late RegisterViewModel _service;
+  late RegisterViewModel service;
 
   @override
   void initState() {
     super.initState();
-    _service = RegisterViewModel(context);
+    service = RegisterViewModel(context);
     if (argumentData != null && argumentData is Map<String, dynamic>) {
       iSelect = argumentData['setIndex'];
     }
   }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -41,237 +40,100 @@ class _RegisterViewState extends State<RegisterView> {
         width: width,
         color: Colors.brown.shade50,
         padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.1,
-            ),
-            Container(
-              height: height * 0.76,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              width: width,
-              decoration: BoxDecoration(
+
+        child:SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * 0.07,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                width: width,
+                decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 7))
-                  ]),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Sign Up to Your \nAccount",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Username",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: height * 0.055,
-                    width: width,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 7),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Sign Up to Your \nAccount",
+                      style: TextStyle(
+                        fontSize: width * 0.04,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Emai id",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: height * 0.055,
-                    width: width,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Mobile No",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: height * 0.055,
-                    width: width,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Password",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: height * 0.055,
-                    width: width,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Confirm Password",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: height * 0.055,
-                    width: width,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: height * 0.055,
-                    width: width,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: const Text(
-                      "Continue ->",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+                    SizedBox(height: height * 0.02),
+                    // user name
+                    TextFieldCommonWidget(text: "Username",hintText: "Enter UserName",controller: usernameController),
+                    // email id
+                    SizedBox(height: height * 0.02),
+                    TextFieldCommonWidget(text: "Email id",hintText: "Enter Email id",controller: emailController),
+                    // Mobile No
+                    SizedBox(height: height * 0.02),
+                    TextFieldCommonWidget(text: "Mobile No.",hintText: "Enter Mobile No.",controller: mobileController),
+                    // password
+                    SizedBox(height: height * 0.02),
+                    TextFieldCommonWidget(text: "Password",hintText: "Enter Password",controller: passwordController),
+                    //Confirm password
+                    SizedBox(height: height * 0.02),
+                    TextFieldCommonWidget(text: "Confirm Password",hintText: "Enter Confirm Password",controller: confirmPassController),
+                    // continue button
+                    ContinueButtonCommonWidget(text:'Continue ->',onTap: () {
+                      Get.toNamed(Routes.LANGUAGE_VIEW);
+                    },),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: height * 0.03),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.LOGIN_VIEW);
-              },
-              child: Container(
-                height: height * 0.08,
-                width: width,
-                decoration: BoxDecoration(
+              SizedBox(height: height * 0.03),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.LOGIN_VIEW);
+                },
+                child: Container(
+                  height: height * 0.08,
+                  width: width,
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(45),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          blurRadius: 10,
-                          offset: Offset(0, 7))
-                    ]),
-                child: const Column(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 7),
+                      ),
+                    ],
+                  ),
+                  child:  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Already have an account ?",
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: width * 0.04, fontWeight: FontWeight.w600),
                       ),
                       Text(
                         "Sign In Now",
                         style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffB59669)),
-                      )
-                    ]),
+                          fontSize: width * 0.04,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xffB59669),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            )
-          ],
+              SizedBox(height: height * 0.02),
+            ],
+          ),
         ),
       ),
     );
