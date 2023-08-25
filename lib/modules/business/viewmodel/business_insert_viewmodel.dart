@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sellproducts/modules/business/model/categorice_model.dart';
 import 'package:sellproducts/modules/register/model/register_model.dart';
 import '../../../../network/base_api_service.dart';
 
@@ -33,6 +34,14 @@ class BusinessCreateViewModel extends BaseApiService {
           lat: lat,
         images: images,
       ),
+    );
+  }
+
+
+  // get
+  Future<CategoriesModel?> getCategory() async {
+    return callApi(
+      client.getCategory(),
     );
   }
 

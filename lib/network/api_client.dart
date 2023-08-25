@@ -131,7 +131,7 @@ abstract class ApiClient {
   });
 
   @GET(LocaleKeys.categorice)
-  Future<CategoriesModel> geCategorice(String token);
+  Future<CategoriesModel> getCategory();
 
   // @POST(LocaleKeys.filesUpload)
   // @MultiPart()

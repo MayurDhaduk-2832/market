@@ -27,7 +27,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CategoriesModel> geCategorice(String token) async {
+  Future<CategoriesModel> getCategory() async {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CategoriesModel>(
             Options(method: 'GET', headers: _header())

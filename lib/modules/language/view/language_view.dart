@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sellproducts/constant/LocalColors.dart';
 
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/language/languege_controller/language_controller.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -16,7 +17,7 @@ class LanguageView extends StatefulWidget {
 class _LanguageViewState extends State<LanguageView> {
 
   LanguageScreenController languageScreenController = Get.put(LanguageScreenController());
-
+  BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -212,6 +213,7 @@ class _LanguageViewState extends State<LanguageView> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        businessScreenController.openKeyBoard.value = false;
                        // iSelect == 1?
                        // Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                         Get.offNamed(Routes.BUSINESS_ADD_VIEW);

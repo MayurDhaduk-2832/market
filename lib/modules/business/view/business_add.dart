@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, invalid_use_of_protected_member
 
 import 'dart:io';
 
@@ -11,6 +11,7 @@ import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/utils/size_utils.dart';
 import 'package:sellproducts/constant/utils/text_style_constant.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
+import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -22,6 +23,7 @@ class BusinessAddScreen extends StatefulWidget {
 }
 
 class _BusinessAddScreenState extends State<BusinessAddScreen> {
+  BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
   final businessNameController = TextEditingController();
   final mobileController = TextEditingController();
   final addressController = TextEditingController();
@@ -34,19 +36,6 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   final stateController = TextEditingController();
   final cityController = TextEditingController();
 
-  final List<String> category = [
-    'effwef',
-    'Nefewfewf',
-    'React Natiwewfewefe',
-    'Java',
-    'Docker',
-    'MySQL',
-    'sfdg',
-    'Mzdgszdf',
-    'sdgsdzg',
-  ];
-  List<String> selectedCategory = [];
-
   late BusinessCreateViewModel _service;
   bool isSelectedImage = false;
   XFile? image;
@@ -56,7 +45,9 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   @override
   void initState() {
     super.initState();
+
     _service = BusinessCreateViewModel(context);
+    getCategoryDate();
   }
 
   @override
@@ -64,7 +55,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-    //  resizeToAvoidBottomInset: false,
+     resizeToAvoidBottomInset: false,
       body: Container(
         height: height,
         width: width,
@@ -136,11 +127,21 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
               child: ListView(
                 children: [
                   CustomTextField(
+                    onTap: () {
+                      businessScreenController.openKeyBoard.value = true;
+                    },
                       isShowIcon: true,
                       icon: Icons.person,
                       controller: businessNameController,
-                      hintText: "Enter Business Name"),
+                      hintText: "Enter Business Name",
+                  onSubmitted: (value) {
+                    businessScreenController.openKeyBoard.value = false;
+                  },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
@@ -149,16 +150,22 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       isShowIcon: true,
                       icon: Icons.phone,
                       controller: mobileController,
-                      hintText: "Enter Mobile Number"),
-                  CustomMultipalDropDown(
-                    onTap: () {
-                      showSelectedItem();
+                      hintText: "Enter Mobile Number",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
                     },
-                    selectedItems: selectedCategory,
-                    icon: Icons.category,
-                    isShowIcon: true,
-                    image: "assets/flag.png",
-                    hintText: "Please select cetagoris",
+                  ),
+                  Obx(()=> CustomMultipalDropDown(
+                      onTap: ()  {
+
+                        showSelectedItem();
+                      },
+                      selectedItems:  businessScreenController.selectedCategory.value,
+                      icon: Icons.category,
+                      isShowIcon: true,
+                      image: "assets/flag.png",
+                      hintText: "Please select cetagoris",
+                    ),
                   ),
                   CustomDropDown(
                       itemList: ["dgsdgs", "fdadff", "afadfdf"],
@@ -181,28 +188,57 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       controller: cityController,
                       hintText: "Please Select City"),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       isShowIcon: true,
                       icon: Icons.home,
                       controller: addressController,
-                      hintText: "Enter Address"),
+                      hintText: "Enter Address",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       keyboardType: TextInputType.number,
                       isShowIcon: true,
                       icon: Icons.pinch_outlined,
                       controller: pinCodeController,
-                      hintText: "Enter Pincode"),
+                      hintText: "Enter Pincode",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       isShowIcon: false,
                       image: "assets/instagram.png",
                       icon: Icons.person,
                       controller: instagramLingController,
-                      hintText: "Enter Instagram Page"),
+                      hintText: "Enter Instagram Page",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       isShowIcon: false,
                       image: "assets/whatsapp.png",
                       icon: Icons.person,
                       controller: whatsappLinkController,
-                      hintText: "Enter Whatsapp Link"),
+                      hintText: "Enter Whatsapp Link",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
+                  Obx(() => ( businessScreenController.openKeyBoard.value)?SizedBox(height: height * 0.2):SizedBox())
                 ],
               ),
             ),
@@ -213,7 +249,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   flutterToastBottom("Enter Business Name");
                 } else if (mobileController.text.isEmpty) {
                   flutterToastBottom("Enter Mobile Number");
-                } else if (selectedCategory.isEmpty) {
+                } else if ( businessScreenController.selectedCategory.value.isEmpty) {
                   flutterToastBottom("Enter Category");
                 } else if (countryController.text.isEmpty) {
                   flutterToastBottom("Please Select Country");
@@ -230,7 +266,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       1,
                       businessNameController.text,
                       mobileController.text,
-                      selectedCategory,
+                      businessScreenController.selectedCategory.value,
                       countryController.text,
                       stateController.text,
                       cityController.text,
@@ -241,7 +277,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       image?.name ?? "");
                   businessNameController.text = "";
                   mobileController.text = "";
-                  selectedCategory = [];
+                  businessScreenController.selectedCategory.value = [];
                   countryController.text = "";
                   stateController.text = "";
                   cityController.text = "";
@@ -257,7 +293,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                     flutterToastBottom("Incorrect Password");
                   }
                 }
-
+                businessScreenController.openKeyBoard.value = false;
                 setState(() {});
               },),
             ),
@@ -268,93 +304,122 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
     );
   }
 
+  getCategoryDate()
+  async {
+    final response = await _service.getCategory();
+    response?.data?.forEach((element) {
+      businessScreenController.allCategory.value.add(element.category ?? "");
+    });
+  }
+
   showSelectedItem() {
     showDialog(
       context: context,
       builder: (context) {
-        return SimpleDialog(
-          backgroundColor:  Colors.brown.shade50,
-          title: const Text('Select categories'),
-          children: [
-            SizedBox(
-              height: height * 0.7,
-              width: width * 0.7,
-              child: ListView.builder(
-                itemCount: category.length,
-                itemBuilder: (context, index) {
-                  return CheckboxListTile(
-                    activeColor: Colors.black,
-                    value: selectedCategory.contains(category[index]),
-                    title: Text(category[index]),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (isChecked) {
-                      if (isChecked ?? false) {
-                        selectedCategory.add(category[index]);
-                      } else {
-                        selectedCategory.remove(category[index]);
-                      }
-                      setState(() {});
-                    },
-                  );
-                },
+        return GetBuilder<BusinessScreenController>(id: "catodory",builder: (controller) {
+         return SimpleDialog(
+            backgroundColor: Colors.brown.shade50,
+            title: const Text('Select categories'),
+            children: [
+              SizedBox(
+                  height: height * 0.4,
+                  width: width * 0.7,
+                  child:
+                     ListView.builder(
+                      itemCount: businessScreenController.allCategory.value.length,
+                      itemBuilder: (context, index) {
+                        final category = businessScreenController.allCategory.value[index];
+                        final isSelected = businessScreenController.selectedCategory.value.contains(category);
+
+                        return CheckboxListTile(
+                          activeColor: Colors.black,
+                          value: isSelected,
+                          title: Text(category),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          onChanged: (isChecked) {
+                            if (isChecked ?? false) {
+                              if (!isSelected) {
+                                if (!businessScreenController.selectedCategory.value.contains(category)) {
+                                  businessScreenController.selectedCategory.value.add(category);
+                                  businessScreenController.selectedCategory.refresh();
+                                  controller.update(['catodory']);
+                                }
+                              }
+                            } else {
+                              if (isSelected) {
+                                businessScreenController.selectedCategory.value.remove(category);
+                                businessScreenController.selectedCategory.refresh();
+                                controller.update(['catodory']);
+                              }
+                            }
+                          },
+                        );
+
+                  },)
+
+
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: height * 0.055,
-                      width: width * 0.283,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 10,
-                                offset: const Offset(0, 5))
-                          ]),
-                      child: Text("Cancel", style: openPopButtonStyle),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        businessScreenController.selectedCategory.value.clear();
+                        businessScreenController.selectedCategory.refresh();
+                        controller.update(['catodory']);
+                        Get.back();
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width * 0.283,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5))
+                            ]),
+                        child: Text("Cancel", style: openPopButtonStyle),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: height * 0.055,
-                      width: width * 0.283,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 10,
-                                offset: const Offset(0, 5))
-                          ]),
-                      child: Text("Submit", style: openPopButtonStyle),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width * 0.283,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5))
+                            ]),
+                        child: Text("Submit", style: openPopButtonStyle),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )
-          ],
-        );
+                ],
+              )
+            ],
+          );
+        },);
       },
     );
+
   }
 
   showSelectImage(BuildContext context) {
@@ -393,7 +458,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                     ),
                   ),
                 ),
-                Spacer(
+                const Spacer(
                   flex: 5,
                 )
               ],
@@ -515,6 +580,9 @@ class CustomTextField extends StatelessWidget {
   bool? isShowIcon;
   TextInputType? keyboardType;
   List<TextInputFormatter>? inputFormatters;
+  final FocusNode? focusNode;
+  final GestureTapCallback? onTap;
+  final ValueChanged<String>? onSubmitted;
 
   CustomTextField(
       {super.key,
@@ -524,7 +592,11 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       required this.hintText,
       this.keyboardType,
-      this.inputFormatters});
+      this.inputFormatters,
+        this.focusNode,
+        this.onTap,
+        this.onSubmitted
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -573,6 +645,10 @@ class CustomTextField extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: TextField(
+                onSubmitted:onSubmitted ,
+                cursorColor: Colors.black,
+                onTap: onTap,
+                focusNode: focusNode,
                 keyboardType: keyboardType,
                 inputFormatters: inputFormatters,
                 style:  TextStyle(

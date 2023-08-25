@@ -11,71 +11,57 @@ if (!$conn) {
     die("Connection Failed " . mysqli_connect_error());
 }
 
-error_reporting(0);
-
-header('Access-Control-Allow-origin:*');
-header('Control-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 header('Access-Control-Allow-Method: POST');
-header('Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization,X-Request-With');
+header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Request-With');
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-if ($requestMethod == "POST") {
-    $user_id = $_POST['user_id'];
-    $bussiness_name = $_POST['bussiness_name'];
-    $contact_number = $_POST['contact_number'];
-    $categorys = implode(',', $_POST['categorys']);
-    $address = $_POST['address'];
-    $location_longlat = $_POST['location_longlat'];
+if ($requestMethod === "POST") {
+    // Get the JSON data from the request body and decode it into an associative array
+    $requestData = json_decode(file_get_contents('php://input'), true);
 
-    // Image Upload
-    $targetDir = "uploads/";
-    $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    // Extract data from the decoded JSON
+    $user_id = $requestData['user_id'];
+    $bussiness_name = $requestData['bussiness_name'];
+    $contact_number = $requestData['contact_number'];
+    $categorys = implode(',', $requestData['categorys']);
+    $country = $requestData['country'];
+    $state = $requestData['state'];
+    $city = $requestData['city'];
+    $address = $requestData['address'];
+    $pincode = $requestData['pincode'];
+    $longitude = $requestData['long']; // Changed variable name to avoid using the reserved keyword "long"
+    $lat = $requestData['lat'];
+    $images = $requestData['images'];
 
-    if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-        $images = $targetFile;
+    // Perform necessary operations with the provided data
+    // For example, you can insert the data into a database
+    $query = "INSERT INTO business_data (user_id, bussiness_name, contact_number, categorys, country, state, city, address, pincode, `long`, lat, images) VALUES ('$user_id', '$bussiness_name', '$contact_number', '$categorys', '$country', '$state', '$city', '$address', '$pincode', '$longitude', '$lat', '$images')";
 
-        // Perform necessary operations with the provided data
-        // For example, you can insert the data into a database
-        $query = "INSERT INTO business_data (user_id, bussiness_name, contact_number, categorys, address, location_longlat, images) VALUES ('$user_id', '$bussiness_name', '$contact_number', '$categorys', '$address', '$location_longlat', '$images')";
+    $result = mysqli_query($conn, $query);
 
-            $query = "INSERT INTO business_data (user_id, bussiness_name, contact_number,categorys,country,state,city, address,pincode,long ,lat, images) VALUES (
-                '$user_id', '$bussiness_name', '$contact_number', '$categorys','$country','$state','$city','$address', '$pincode','$long', '$lat', '$images')";
-
-        $result = mysqli_query($conn, $query);
-
-        if ($result) {
-            $data = [
-                'isSuccess' => true,
-                'message' => 'BusinessData inserted successfully'
-            ];
-        } else {
-            $data = [
-                'isSuccess' => false,
-                'message' => 'Failed to insert BusinessData: ' . mysqli_error($conn)
-            ];
-            header("Content-type: application/json; charset=utf-8");
-            header("HTTP/1.0 500 Method not Allowed");
-        }
-    } else {
-        $data = [
-            'isSuccess' => false,
-            'message' => 'Failed to upload image: ' . $_FILES["image"]["error"]
+    if ($result) {
+        $response = [
+            'isSuccess' => true,
+            'message' => 'BusinessData inserted successfully'
         ];
-        header("Content-type: application/json; charset=utf-8");
-        header("HTTP/1.0 500 Method not Allowed");
+    } else {
+        $response = [
+            'isSuccess' => false,
+            'message' => 'Failed to insert BusinessData: ' . mysqli_error($conn)
+        ];
+        http_response_code(500); // Set the response code to indicate an internal server error
     }
 
-    header("Content-type: application/json; charset=utf-8");
-    echo json_encode($data);
+    echo json_encode($response);
 } else {
-    $data = [
+    $response = [
         'status' => 405,
         'message' => $requestMethod . ' Method not Allowed'
     ];
-    header("Content-type: application/json; charset=utf-8");
-    header("HTTP/1.0 405 Method not Allowed");
-    echo json_encode($data);
+    http_response_code(405); // Set the response code to indicate the method not allowed
+    echo json_encode($response);
 }
 ?>
