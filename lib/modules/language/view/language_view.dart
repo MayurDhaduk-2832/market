@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/LocalColors.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
@@ -214,9 +215,7 @@ class _LanguageViewState extends State<LanguageView> {
                     GestureDetector(
                       onTap: () {
                         businessScreenController.openKeyBoard.value = false;
-                       // iSelect == 1?
-                       // Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
-                        Get.offNamed(Routes.BUSINESS_ADD_VIEW);
+                        ( PrefService.getString("isLoginRole")=="1")?Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,

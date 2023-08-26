@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,13 +21,13 @@ class _SplashViewState extends State<SplashView> {
   }
 
   splash() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool? isLogin = prefs.getBool("LOGIN_KEY");
+
+    bool? isLogin = PrefService.getBool("isLogin");
     Timer(
       const Duration(seconds: 3),
       () {
         (isLogin ?? false)
-            ? Get.offAndToNamed(Routes.SELECT_VIEW)
+            ? Get.offAndToNamed(Routes.HOME_VIEW)
             : Get.offAndToNamed(Routes.SELECT_VIEW);
       },
     );

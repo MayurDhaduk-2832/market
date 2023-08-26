@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/network/api_client.dart';
 import 'routes/app_pages.dart';
 
@@ -14,6 +15,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await ApiClient.init();
+  await PrefService.init();
   // runApp(const MyApp());
   runApp(
     DevicePreview(

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sellproducts/AllStatic/color.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              "Dhruv Savaliya",
+                              PrefService.getString("isLoginName"),
                               style: TextStyle(
                                   fontSize: width * 0.05,
                                   fontFamily: "PaytoneOne",
