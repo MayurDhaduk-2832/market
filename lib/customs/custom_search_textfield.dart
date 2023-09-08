@@ -37,18 +37,17 @@ class SearchTextFieldCommonWidget extends StatelessWidget {
         decoration: InputDecoration(border: InputBorder.none,
             hintText: hintText ?? "",
             hintStyle: TextStyle(fontSize: width * 0.04),
-            prefixIcon:  Icon(
+            prefixIcon:   Icon(
               Icons.search,
               color: Colors.black,
-              size: width * 0.05,
+              size: height * 0.04,
             ),
             suffixIcon: Padding(
               padding:  EdgeInsets.symmetric(horizontal: width * 0.02,vertical: height * 0.01),
               child: Image.asset(
                 "assets/filterIcon.png",
-
-              ),)
-
+              ),),
+          contentPadding: EdgeInsets.symmetric(vertical: height * 0.02),
         ),
       ),
     );

@@ -37,7 +37,7 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor:   Colors.brown.shade50,
+      backgroundColor:Colors.brown.shade50,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
@@ -46,129 +46,96 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
           color:   Colors.brown.shade50,
           child: Padding(
             padding: EdgeInsets.only(top: height * 0.02),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.04,
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.06, right: width * 0.06),
-                  child:SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product"),
-                ),
-                SizedBox(
-                  height: height * 0.04,
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.06, right: width * 0.06),
-                  child: Text(
-                    LocaleKeys.trandingSale,
-                    style: TextStyle(
-                        fontSize: width * 0.05,
-                        fontFamily: "Lalezar",
-                        fontWeight: FontWeight.w400),
+            child: SingleChildScrollView(physics: NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: height * 0.04,
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.7,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Stack(
-                          children: [
-                            Image.asset(
-                              "assets/left2.png",
-                              fit: BoxFit.fill,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(top: height * 0.240),
-                                child: Image.asset(
-                                  "assets/rghitpan.png",
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: height * 0.420),
-                              child: Image.asset(
-                                "assets/left2.png",
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(top: height * 0.580),
-                                child: Image.asset(
-                                  "assets/right2.png",
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: width * 0.06, right: width * 0.06),
-                              child: SizedBox(
-                                height: height * 0.67,
-                                width: double.infinity,
-                                child: GridView.builder(
-                                  // physics: NeverScrollableScrollPhysics(),
-                                  itemCount: 100,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 1,
-                                          crossAxisSpacing: 15,
-                                          childAspectRatio: 0.8),
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(Routes.PRODUCT_VIEW);
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: width * 0.450,
-                                        margin:
-                                            EdgeInsets.symmetric(vertical: 5),
-                                        decoration: BoxDecoration(
-                                          //   image: DecorationImage(image: AssetImage(imageList[index])),
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                spreadRadius: 0,
-                                                // blurStyle: BlurStyle.outer,
-                                                offset: Offset(0, 4),
-                                                color: Colors.black
-                                                    .withOpacity(0.25),
-                                                blurRadius: 4)
-                                          ],
-                                        ),
-                                        child: Text("$index"),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.08,
-                        ),
-                      ],
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: width * 0.06, right: width * 0.06),
+                    child:SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product..."),
+                  ),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: width * 0.06, right: width * 0.06),
+                    child: Text(
+                      LocaleKeys.trandingSale,
+                      style: TextStyle(
+                          fontSize: width * 0.05,
+                          fontFamily: "Lalezar",
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: height,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: SizedBox(
+                              height: height * 0.67,
+                              width: double.infinity,
+                              child: GridView.builder(
+                                // physics: NeverScrollableScrollPhysics(),
+                                itemCount: 100,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 1,
+                                        crossAxisSpacing: 15,
+                                        childAspectRatio: 0.8),
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Routes.PRODUCT_VIEW);
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: width * 0.450,
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 5),
+                                      decoration: BoxDecoration(
+                                        //   image: DecorationImage(image: AssetImage(imageList[index])),
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 0,
+                                              // blurStyle: BlurStyle.outer,
+                                              offset: Offset(0, 4),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: Text("$index"),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: height * 0.08,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
