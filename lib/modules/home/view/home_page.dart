@@ -183,13 +183,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       ],
                     ),
+
+                    Center(child: Image.asset( "assets/coupenOffer.png",height: height * 0.08,)),
                     SizedBox(
-                      height: height * 0.02,
+                      height: height * 0.01,
                     ),
                     Padding(
                       padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
-                        height: height * 0.163,
+                        height: height * 0.175,
                         width: double.infinity,
                         child: ListView.builder(physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -204,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: width * 0.275,
                                 margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
                                 decoration: BoxDecoration(
-                                  image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                 // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow:  [
@@ -216,6 +218,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         blurRadius: 4)
                                   ],
                                 ),
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                  Expanded(flex: 5,
+                                    child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(color: Colors.red,
+                                        image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                        borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    ),
+                                  ),
+                                  Expanded(child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                  )),
+                                  Expanded(child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                  )),
+                                ]),
                               ),
                             );
                           },
@@ -241,31 +260,48 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
-                        height: height * 0.500,
+                        height: width * 1.1,
                         width: double.infinity,
                         child: GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: imageList.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9), itemBuilder: (context, index) {
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),
+                          itemBuilder: (context, index) {
                           return GestureDetector(onTap: () {
                             Get.toNamed(Routes.PRODUCT_VIEW);
                           },
                             child: Container(
-                              width: width * 0.450,
-                              // margin: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
+                              width: width * 0.275,
+                              margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
                               decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage(imageList[index])),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow:  [
                                   BoxShadow(
                                       spreadRadius: 0,
                                       // blurStyle: BlurStyle.outer,
-                                      offset: Offset(0, 4),
+                                      offset: const Offset(0, 4),
                                       color: Colors.black.withOpacity(0.25),
                                       blurRadius: 4)
                                 ],
                               ),
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                Expanded(flex: 5,
+                                  child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(color: Colors.red,
+                                    image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  ),
+                                ),
+                                Expanded(child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                )),
+                                Expanded(child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                )),
+                              ]),
                             ),
                           );
                         },),
@@ -308,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
-                        height: height * 0.163,
+                        height: height * 0.175,
                         width: double.infinity,
                         child: ListView.builder(physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -323,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: width * 0.275,
                                 margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
                                 decoration: BoxDecoration(
-                                  image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                  // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow:  [
@@ -335,6 +371,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         blurRadius: 4)
                                   ],
                                 ),
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                  Expanded(flex: 5,
+                                    child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(color: Colors.red,
+                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    ),
+                                  ),
+                                  Expanded(child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                  )),
+                                  Expanded(child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                  )),
+                                ]),
                               ),
                             );
                           },
@@ -360,7 +413,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
-                        height: height * 0.900,
+                        height: width * 1.8,
                         width: double.infinity,
                         child: GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -369,22 +422,40 @@ class _HomeScreenState extends State<HomeScreen> {
                           return GestureDetector(onTap: () {
                             Get.toNamed(Routes.PRODUCT_VIEW);
                           },
-                            child: Container(
-                              width: width * 0.450,
-                              // margin: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
+                            child:  Container(
+                              height: height * 0.100,
+                              width: width * 0.275,
+                              margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
                               decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage(imageList[index])),
+                                // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow:  [
                                   BoxShadow(
                                       spreadRadius: 0,
                                       // blurStyle: BlurStyle.outer,
-                                      offset: Offset(0, 4),
+                                      offset: const Offset(0, 4),
                                       color: Colors.black.withOpacity(0.25),
                                       blurRadius: 4)
                                 ],
                               ),
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                Expanded(flex: 5,
+                                  child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(color: Colors.red,
+                                    image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  ),
+                                ),
+                                Expanded(child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                )),
+                                Expanded(child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                )),
+                              ]),
                             ),
                           );
                         },),

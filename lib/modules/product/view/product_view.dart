@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellproducts/AllStatic/color.dart';
+
 
 class ProductView extends StatefulWidget {
   const ProductView({super.key});
@@ -25,8 +25,6 @@ class _ProductViewState extends State<ProductView> {
           child: SingleChildScrollView(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-
                 Padding(
                   padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                   child: Row(
