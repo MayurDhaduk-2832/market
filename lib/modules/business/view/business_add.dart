@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellproducts/constant/common.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constant/utils/size_utils.dart';
 import 'package:sellproducts/constant/utils/text_style_constant.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
@@ -263,7 +264,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   flutterToastBottom("Please Enter Pincode");
                 } else {
                   final response = await _service.register(
-                      1,
+                      PrefService.getString("isLoginBussinessId"),
                       businessNameController.text,
                       mobileController.text,
                       businessScreenController.selectedCategory.value,
@@ -273,8 +274,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       addressController.text,
                       pinCodeController.text,
                       "",
-                      "",
-                      image?.name ?? "");
+                      "");
                   businessNameController.text = "";
                   mobileController.text = "";
                   businessScreenController.selectedCategory.value = [];

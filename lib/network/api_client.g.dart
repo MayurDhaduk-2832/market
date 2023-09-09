@@ -62,7 +62,7 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<RegisterModel> businessInsert(
-      {required int user_id,
+      {required String user_id,
       required String bussiness_name,
       required String contact_number,
       required List categorys,
@@ -70,7 +70,6 @@ class _ApiClient implements ApiClient {
       required String state,
       required String city,
       required String pincode,
-      required String images,
       required String long,
       required String lat,
       required String address}) async {
@@ -86,7 +85,6 @@ class _ApiClient implements ApiClient {
       'pincode': pincode,
       'long': long,
       'lat': lat,
-      'images': images
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterModel>(Options(

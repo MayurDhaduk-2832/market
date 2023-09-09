@@ -18,6 +18,8 @@ class MoreProductsScreen extends StatefulWidget {
 class _MoreProductsScreenState extends State<MoreProductsScreen> {
   final searchController = TextEditingController();
   int currentIndex = 0;
+  String saleName="";
+  dynamic argumentData = Get.arguments;
   late BusinessCreateViewModel _service;
   List<String> imageList = [
     "assets/shose.jpg",
@@ -30,6 +32,9 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
   void initState() {
     super.initState();
     // _service = BusinessCreateViewModel(context);
+    if (argumentData != null && argumentData is Map<String, dynamic>) {
+      saleName = argumentData['saleName'];
+    }
   }
 
   @override
@@ -65,7 +70,7 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                     padding:
                         EdgeInsets.only(left: width * 0.06, right: width * 0.06),
                     child: Text(
-                      LocaleKeys.trandingSale,
+                      saleName,
                       style: TextStyle(
                           fontSize: width * 0.05,
                           fontFamily: "Lalezar",

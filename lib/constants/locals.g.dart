@@ -56,6 +56,7 @@ class LocaleKeys {
   // home page
   static const welcome = 'Welcome Back';
   static const trandingSale = 'Tranding Sale :';
+  static const categories = 'Categories :';
   static const RegularSale = 'Regular Sale :';
 
   // for language

@@ -97,6 +97,7 @@ class _LoginViewState extends State<LoginView> {
                                   Get.toNamed(Routes.LANGUAGE_VIEW);
                               PrefService.setValue("isLogin", true);
                               PrefService.setValue("isLoginName", response?.username ?? "");
+                              PrefService.setValue("isLoginBussinessId", response?.id ?? "");
                               PrefService.setValue("isLoginRole", response?.role ?? "");
                               flutterToastBottomGreen(response?.message);
                               loginScreenController.emailController.text = "";
