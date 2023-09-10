@@ -116,7 +116,7 @@ abstract class ApiClient {
 
   @POST(LocaleKeys.businessCreateURL)
   businessInsert({
-    @Field("user_id") required int user_id,
+    @Field("user_id") required String user_id,
     @Field("bussiness_name") required String bussiness_name,
     @Field("contact_number") required String contact_number,
     @Field("categorys") required List categorys,
@@ -127,11 +127,10 @@ abstract class ApiClient {
     @Field("pincode") required String pincode,
     @Field("long") required String long,
     @Field("lat") required String lat,
-    @Field("images") required String images,
   });
 
   @GET(LocaleKeys.categorice)
-  Future<CategoriesModel> geCategorice(String token);
+  Future<CategoriesModel> getCategory();
 
   // @POST(LocaleKeys.filesUpload)
   // @MultiPart()

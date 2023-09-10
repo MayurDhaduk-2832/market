@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sellproducts/modules/business/model/categorice_model.dart';
 import 'package:sellproducts/modules/register/model/register_model.dart';
 import '../../../../network/base_api_service.dart';
 
@@ -6,7 +7,7 @@ class BusinessCreateViewModel extends BaseApiService {
   BusinessCreateViewModel(BuildContext context) : super(context);
 
   Future<RegisterModel?> register(
-      int user_id,
+      String user_id,
       String bussiness_name,
       String contact_number,
       List categorys,
@@ -16,8 +17,7 @@ class BusinessCreateViewModel extends BaseApiService {
        String address,
       String pincode,
        String long,
-       String lat,
-       String images) async {
+       String lat) async {
     return callApi(
       client.businessInsert(
           user_id: user_id,
@@ -30,9 +30,16 @@ class BusinessCreateViewModel extends BaseApiService {
         address: address,
           pincode: pincode,
           long: long,
-          lat: lat,
-        images: images,
+          lat: lat
       ),
+    );
+  }
+
+
+  // get
+  Future<CategoriesModel?> getCategory() async {
+    return callApi(
+      client.getCategory(),
     );
   }
 

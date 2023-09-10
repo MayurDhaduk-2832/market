@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellproducts/AllStatic/color.dart';
+
 
 class ProductView extends StatefulWidget {
   const ProductView({super.key});
@@ -11,20 +11,32 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
+  dynamic argumentData = Get.arguments;
+  String saleProductName="";
+  String saleProductImage="";
+  @override
+  void initState() {
+    super.initState();
+    // _service = BusinessCreateViewModel(context);
+    if (argumentData != null && argumentData is Map<String, dynamic>) {
+      saleProductName = argumentData['saleProductName'];
+      saleProductImage = argumentData['saleProductImage'];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: LocalKeyColor.BackgroundColor,
+      backgroundColor:Colors.brown.shade50,
       body: SafeArea(
         child: Container(
           height: height,
           width: width,
           margin: const EdgeInsets.symmetric(vertical: 20),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
@@ -46,7 +58,7 @@ class _ProductViewState extends State<ProductView> {
                                     color: Colors.black.withOpacity(0.1),
                                     blurRadius: 2)
                               ]),
-                          child: const Icon(Icons.arrow_back),
+                          child:  Icon(Icons.arrow_back,size: width * 0.05,),
                         ),
                       ),
                       GestureDetector(
@@ -64,59 +76,56 @@ class _ProductViewState extends State<ProductView> {
                                     blurRadius: 4)
                               ],
                               borderRadius: BorderRadius.circular(30)),
-                          child: const Icon(Icons.share),
+                          child: Icon(Icons.share,size: width * 0.05,),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: height * 0.04,),
-                Stack(
-                  children: [
-                    Image.asset(
-                      "assets/left2.png",
-                      fit: BoxFit.fill,
-                    ),
-                    Align(alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding:  EdgeInsets.only(top: height * 0.240),
-                        child: Image.asset(
-                          "assets/rghitpan.png",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(top: height * 0.510),
-                      child: Image.asset(
-                        "assets/left2.png",
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Align(alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding:  EdgeInsets.only(top: height * 0.710),
-                        child: Image.asset(
-                          "assets/right2.png",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
+                SizedBox(height: height * 0.03,),
                 Container(alignment: Alignment.center,height: height * 0.5,margin: EdgeInsets.all(25),
-             //   padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.white,
-                  boxShadow:  [
-                    BoxShadow(
-                        spreadRadius: 0,
-                        // blurStyle: BlurStyle.outer,
-                        offset: Offset(0, 4),
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 4)
-                  ],
+                  //   padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.white,
+                    boxShadow:  [
+                      BoxShadow(
+                          spreadRadius: 0,
+                          // blurStyle: BlurStyle.outer,
+                          offset: Offset(0, 4),
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 4
+                      )
+                    ],
+                  ),
+                  child: Container(height: height * 0.44,width: width * 0.8,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(fit: BoxFit.fill,image: AssetImage(saleProductImage))),
+                    ),
                 ),
-                  child: SizedBox(height: height * 0.44,width: width * 0.8,child: Image.asset(fit: BoxFit.fill,"assets/producView.png")),
-                )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,right: 25),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(saleProductName,style: TextStyle(fontSize: height * 0.03),),
+                      Container(height: height * 0.04,width: width * 0.2,decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                        boxShadow:  [
+                          BoxShadow(
+                              spreadRadius: 0,
+                              // blurStyle: BlurStyle.outer,
+                              offset: Offset(0, 4),
+                              color: Colors.black.withOpacity(0.25),
+                              blurRadius: 4
+                          )
+                        ],
+                      ),
+                      child: Row(children: [
+                        Expanded(child: Icon(Icons.star,color: Colors.amber,)),
+                        Expanded(child: Text("4.9"))
+                      ]),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

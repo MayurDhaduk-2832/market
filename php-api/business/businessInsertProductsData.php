@@ -23,34 +23,31 @@ if ($requestMethod === "POST") {
     $requestData = json_decode(file_get_contents('php://input'), true);
 
     // Extract data from the decoded JSON
-    $user_id = $requestData['user_id'];
-    $bussiness_name = $requestData['bussiness_name'];
-    $contact_number = $requestData['contact_number'];
-    $categorys = implode(',', $requestData['categorys']);
-    $country = $requestData['country'];
-    $state = $requestData['state'];
-    $city = $requestData['city'];
+    $seller_brand_name = $requestData['seller_brand_name'];
+    $product_name = $requestData['product_name'];
+    $original_price = $requestData['original_price'];
+    $sale_price = $requestData['sale_price'];
+    $product_description = $requestData['product_description'];
+    $contact_no = $requestData['contact_no'];
     $address = $requestData['address'];
-    $pincode = $requestData['pincode'];
-    $longitude = $requestData['long']; // Changed variable name to avoid using the reserved keyword "long"
+    $longi = $requestData['longi']; // Changed variable name to avoid using the reserved keyword "long"
     $lat = $requestData['lat'];
-    $images = $requestData['images'];
 
     // Perform necessary operations with the provided data
     // For example, you can insert the data into a database
-    $query = "INSERT INTO business_data (user_id, bussiness_name, contact_number, categorys, country, state, city, address, pincode, `long`, lat, images) VALUES ('$user_id', '$bussiness_name', '$contact_number', '$categorys', '$country', '$state', '$city', '$address', '$pincode', '$longitude', '$lat', '$images')";
+    $query = "INSERT INTO business_products_data (seller_brand_name, product_name, original_price, sale_price, product_description, contact_no, address, longi, lat) VALUES ('$seller_brand_name', '$product_name', '$original_price', '$sale_price', '$product_description', '$contact_no', '$address', '$longi', '$lat')";
 
     $result = mysqli_query($conn, $query);
 
     if ($result) {
         $response = [
             'isSuccess' => true,
-            'message' => 'BusinessData inserted successfully'
+            'message' => 'Product data inserted successfully'
         ];
     } else {
         $response = [
             'isSuccess' => false,
-            'message' => 'Failed to insert BusinessData: ' . mysqli_error($conn)
+            'message' => 'Failed to insert product data: ' . mysqli_error($conn)
         ];
         http_response_code(500); // Set the response code to indicate an internal server error
     }

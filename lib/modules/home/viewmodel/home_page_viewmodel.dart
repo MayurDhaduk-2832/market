@@ -6,7 +6,7 @@ class BusinessCreateViewModel extends BaseApiService {
   BusinessCreateViewModel(BuildContext context) : super(context);
 
   Future<RegisterModel?> register(
-      int user_id,
+      String user_id,
       String bussiness_name,
       String contact_number,
       List categorys,
@@ -31,7 +31,6 @@ class BusinessCreateViewModel extends BaseApiService {
           pincode: pincode,
           long: long,
           lat: lat,
-        images: images,
       ),
     );
   }

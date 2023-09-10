@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, invalid_use_of_protected_member
 
 import 'dart:io';
 
@@ -8,8 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellproducts/constant/common.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constant/utils/size_utils.dart';
 import 'package:sellproducts/constant/utils/text_style_constant.dart';
+import 'package:sellproducts/customs/custom_continue_button.dart';
+import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -21,6 +24,7 @@ class BusinessAddScreen extends StatefulWidget {
 }
 
 class _BusinessAddScreenState extends State<BusinessAddScreen> {
+  BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
   final businessNameController = TextEditingController();
   final mobileController = TextEditingController();
   final addressController = TextEditingController();
@@ -33,19 +37,6 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   final stateController = TextEditingController();
   final cityController = TextEditingController();
 
-  final List<String> category = [
-    'effwef',
-    'Nefewfewf',
-    'React Natiwewfewefe',
-    'Java',
-    'Docker',
-    'MySQL',
-    'sfdg',
-    'Mzdgszdf',
-    'sdgsdzg',
-  ];
-  List<String> selectedCategory = [];
-
   late BusinessCreateViewModel _service;
   bool isSelectedImage = false;
   XFile? image;
@@ -55,7 +46,9 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   @override
   void initState() {
     super.initState();
+
     _service = BusinessCreateViewModel(context);
+    getCategoryDate();
   }
 
   @override
@@ -63,11 +56,11 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+     resizeToAvoidBottomInset: false,
       body: Container(
         height: height,
         width: width,
-        color: Colors.white,
+        color: Colors.brown.shade50,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -90,16 +83,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
             Center(
               child: GestureDetector(
                 onTap: () async {
-                  // final imagePicker = ImagePicker();
-                  // final image =
-                  //     await imagePicker.pickImage(source: ImageSource.gallery);
-                  // if (image != null) {
-                  //   imageFile = File(image.path);
-                  //   print("image==> $imageFile");
-                  // }
                   showSelectImage(context);
-                  // image = await _picker.pickImage(source: ImageSource.gallery);
-                  // print("image==>${image?.name}");
                 },
                 child: Container(
                   height: height * 0.13,
@@ -130,12 +114,12 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
             ),
             SizedBox(
               height: height * 0.09,
-              child: const Center(
+              child:  Center(
                 child: Text(
                   "Business Logo",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 25,
+                      fontSize: width * 0.06,
                       fontWeight: FontWeight.w500),
                 ),
               ),
@@ -144,11 +128,21 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
               child: ListView(
                 children: [
                   CustomTextField(
+                    onTap: () {
+                      businessScreenController.openKeyBoard.value = true;
+                    },
                       isShowIcon: true,
                       icon: Icons.person,
                       controller: businessNameController,
-                      hintText: "Enter Business Name"),
+                      hintText: "Enter Business Name",
+                  onSubmitted: (value) {
+                    businessScreenController.openKeyBoard.value = false;
+                  },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
@@ -157,16 +151,22 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       isShowIcon: true,
                       icon: Icons.phone,
                       controller: mobileController,
-                      hintText: "Enter Mobile Number"),
-                  CustomMultipalDropDown(
-                    onTap: () {
-                      showSelectedItem();
+                      hintText: "Enter Mobile Number",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
                     },
-                    selectedItems: selectedCategory,
-                    icon: Icons.category,
-                    isShowIcon: true,
-                    image: "assets/flag.png",
-                    hintText: "Please select cetagoris",
+                  ),
+                  Obx(()=> CustomMultipalDropDown(
+                      onTap: ()  {
+
+                        showSelectedItem();
+                      },
+                      selectedItems:  businessScreenController.selectedCategory.value,
+                      icon: Icons.category,
+                      isShowIcon: true,
+                      image: "assets/flag.png",
+                      hintText: "Please select cetagoris",
+                    ),
                   ),
                   CustomDropDown(
                       itemList: ["dgsdgs", "fdadff", "afadfdf"],
@@ -189,38 +189,68 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       controller: cityController,
                       hintText: "Please Select City"),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       isShowIcon: true,
                       icon: Icons.home,
                       controller: addressController,
-                      hintText: "Enter Address"),
+                      hintText: "Enter Address",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       keyboardType: TextInputType.number,
                       isShowIcon: true,
                       icon: Icons.pinch_outlined,
                       controller: pinCodeController,
-                      hintText: "Enter Pincode"),
+                      hintText: "Enter Pincode",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       isShowIcon: false,
                       image: "assets/instagram.png",
                       icon: Icons.person,
                       controller: instagramLingController,
-                      hintText: "Enter Instagram Page"),
+                      hintText: "Enter Instagram Page",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomTextField(
+                      onTap: () {
+                        businessScreenController.openKeyBoard.value = true;
+                      },
                       isShowIcon: false,
                       image: "assets/whatsapp.png",
                       icon: Icons.person,
                       controller: whatsappLinkController,
-                      hintText: "Enter Whatsapp Link"),
+                      hintText: "Enter Whatsapp Link",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
+                  Obx(() => ( businessScreenController.openKeyBoard.value)?SizedBox(height: height * 0.2):SizedBox())
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () async {
+            Padding(
+              padding:  EdgeInsets.only(left: width * 0.04,right: width * 0.04,bottom: height * 0.03),
+              child: ContinueButtonCommonWidget(text:'Continue ->',   onTap: () async {
                 if (businessNameController.text.isEmpty) {
                   flutterToastBottom("Enter Business Name");
                 } else if (mobileController.text.isEmpty) {
                   flutterToastBottom("Enter Mobile Number");
-                } else if (selectedCategory.isEmpty) {
+                } else if ( businessScreenController.selectedCategory.value.isEmpty) {
                   flutterToastBottom("Enter Category");
                 } else if (countryController.text.isEmpty) {
                   flutterToastBottom("Please Select Country");
@@ -234,21 +264,20 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   flutterToastBottom("Please Enter Pincode");
                 } else {
                   final response = await _service.register(
-                      1,
+                      PrefService.getString("isLoginBussinessId"),
                       businessNameController.text,
                       mobileController.text,
-                      selectedCategory,
+                      businessScreenController.selectedCategory.value,
                       countryController.text,
                       stateController.text,
                       cityController.text,
                       addressController.text,
                       pinCodeController.text,
                       "",
-                      "",
-                      image?.name ?? "");
+                      "");
                   businessNameController.text = "";
                   mobileController.text = "";
-                  selectedCategory = [];
+                  businessScreenController.selectedCategory.value = [];
                   countryController.text = "";
                   stateController.text = "";
                   cityController.text = "";
@@ -264,108 +293,133 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                     flutterToastBottom("Incorrect Password");
                   }
                 }
-
+                businessScreenController.openKeyBoard.value = false;
                 setState(() {});
-              },
-              child: Container(
-                height: height * 0.065,
-                width: width,
-                alignment: Alignment.center,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(30)),
-                child: const Text(
-                  "Continue",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    letterSpacing: 0.9,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            )
+              },),
+            ),
+
           ],
         ),
       ),
     );
   }
 
+  getCategoryDate()
+  async {
+    final response = await _service.getCategory();
+    response?.data?.forEach((element) {
+      businessScreenController.allCategory.value.add(element.category ?? "");
+    });
+  }
+
   showSelectedItem() {
     showDialog(
       context: context,
       builder: (context) {
-        return SimpleDialog(
-          title: const Text('Select categories'),
-          children: [
-            SizedBox(
-              height: Get.height * 0.4,
-              width: Get.width * 0.4,
-              child: ListView.builder(
-                itemCount: category.length,
-                itemBuilder: (context, index) {
-                  return CheckboxListTile(
-                    value: selectedCategory.contains(category[index]),
-                    title: Text(category[index]),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (isChecked) {
-                      if (isChecked ?? false) {
-                        selectedCategory.add(category[index]);
-                      } else {
-                        selectedCategory.remove(category[index]);
-                      }
-                      setState(() {});
-                    },
-                  );
-                },
+        return GetBuilder<BusinessScreenController>(id: "catodory",builder: (controller) {
+         return SimpleDialog(
+            backgroundColor: Colors.brown.shade50,
+            title: const Text('Select categories'),
+            children: [
+              SizedBox(
+                  height: height * 0.4,
+                  width: width * 0.7,
+                  child:
+                     ListView.builder(
+                      itemCount: businessScreenController.allCategory.value.length,
+                      itemBuilder: (context, index) {
+                        final category = businessScreenController.allCategory.value[index];
+                        final isSelected = businessScreenController.selectedCategory.value.contains(category);
+
+                        return CheckboxListTile(
+                          activeColor: Colors.black,
+                          value: isSelected,
+                          title: Text(category),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          onChanged: (isChecked) {
+                            if (isChecked ?? false) {
+                              if (!isSelected) {
+                                if (!businessScreenController.selectedCategory.value.contains(category)) {
+                                  businessScreenController.selectedCategory.value.add(category);
+                                  businessScreenController.selectedCategory.refresh();
+                                  controller.update(['catodory']);
+                                }
+                              }
+                            } else {
+                              if (isSelected) {
+                                businessScreenController.selectedCategory.value.remove(category);
+                                businessScreenController.selectedCategory.refresh();
+                                controller.update(['catodory']);
+                              }
+                            }
+                          },
+                        );
+
+                  },)
+
+
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: height * 0.055,
-                      width: width * 0.283,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("Cancel", style: openPopButtonStyle),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        businessScreenController.selectedCategory.value.clear();
+                        businessScreenController.selectedCategory.refresh();
+                        controller.update(['catodory']);
+                        Get.back();
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width * 0.283,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5))
+                            ]),
+                        child: Text("Cancel", style: openPopButtonStyle),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: height * 0.055,
-                      width: width * 0.283,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("Submit", style: openPopButtonStyle),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width * 0.283,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5))
+                            ]),
+                        child: Text("Submit", style: openPopButtonStyle),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )
-          ],
-        );
+                ],
+              )
+            ],
+          );
+        },);
       },
     );
+
   }
 
   showSelectImage(BuildContext context) {
@@ -373,6 +427,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
       context: context,
       builder: (context) {
         return SimpleDialog(
+          backgroundColor:  Colors.brown.shade50,
           alignment: Alignment.center,
           children: [
             Row(
@@ -403,7 +458,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                     ),
                   ),
                 ),
-                Spacer(
+                const Spacer(
                   flex: 5,
                 )
               ],
@@ -467,8 +522,14 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5))
+                          ]),
                       child: Text("Camera", style: openPopButtonStyle),
                     ),
                   ),
@@ -490,8 +551,14 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5))
+                          ]),
                       child: Text("Gallery", style: openPopButtonStyle),
                     ),
                   ),
@@ -513,6 +580,9 @@ class CustomTextField extends StatelessWidget {
   bool? isShowIcon;
   TextInputType? keyboardType;
   List<TextInputFormatter>? inputFormatters;
+  final FocusNode? focusNode;
+  final GestureTapCallback? onTap;
+  final ValueChanged<String>? onSubmitted;
 
   CustomTextField(
       {super.key,
@@ -522,7 +592,11 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       required this.hintText,
       this.keyboardType,
-      this.inputFormatters});
+      this.inputFormatters,
+        this.focusNode,
+        this.onTap,
+        this.onSubmitted
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -563,19 +637,23 @@ class CustomTextField extends StatelessWidget {
                 ? Icon(
                     icon,
                     color: Colors.black,
+              size:  width * 0.05,
                   )
-                : Image(
-                    height: Get.height * 0.010, image: AssetImage(image ?? "")),
+                : Image.asset(image ?? ""),
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: TextField(
+                onSubmitted:onSubmitted ,
+                cursorColor: Colors.black,
+                onTap: onTap,
+                focusNode: focusNode,
                 keyboardType: keyboardType,
                 inputFormatters: inputFormatters,
-                style: const TextStyle(
+                style:  TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize:  width * 0.04,
                     fontWeight: FontWeight.w500),
                 controller: controller,
                 decoration: InputDecoration(
@@ -583,7 +661,7 @@ class CustomTextField extends StatelessWidget {
                   hintText: hintText,
                   hintStyle: TextStyle(
                     color: Colors.black.withOpacity(0.5),
-                    fontSize: 17,
+                    fontSize:  width * 0.04,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.6,
                   ),
@@ -655,6 +733,7 @@ class CustomMultipalDropDown extends StatelessWidget {
                   ? Icon(
                       icon,
                       color: Colors.black,
+                size: width * 0.05,
                     )
                   : Image(
                       height: Get.height * 0.010,
@@ -668,7 +747,7 @@ class CustomMultipalDropDown extends StatelessWidget {
                         hintText,
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
-                          fontSize: 17,
+                          fontSize: width * 0.04,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 0.6,
                         ),
@@ -677,7 +756,7 @@ class CustomMultipalDropDown extends StatelessWidget {
                         spacing: Get.width * 0.02,
                         children: selectedItems
                             .map((e) => Chip(
-                                  label: Text(e),
+                                  label: Text(e,style: TextStyle(fontSize:  width * 0.03),),
                                 ))
                             .toList(),
                       ),
@@ -746,6 +825,7 @@ class CustomDropDown extends StatelessWidget {
                 ? Icon(
                     icon,
                     color: Colors.black,
+              size: width * 0.05,
                   )
                 : Image(
                     height: Get.height * 0.010, image: AssetImage(image ?? "")),
@@ -754,14 +834,16 @@ class CustomDropDown extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: CustomDropdown.search(
+                listItemStyle: TextStyle(fontSize: width * 0.04),
                 hintText: hintText,
                 hintStyle: TextStyle(
                   color: Colors.black.withOpacity(0.5),
-                  fontSize: 17,
+                  fontSize: width * 0.04,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.6,
                 ),
                 items: itemList ?? [],
+                selectedStyle: TextStyle(fontSize: width * 0.04),
                 controller: controller,
               ),
             ),
