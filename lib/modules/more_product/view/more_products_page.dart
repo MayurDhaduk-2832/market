@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellproducts/AllStatic/color.dart';
-import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_search_textfield.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
