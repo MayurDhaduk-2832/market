@@ -30,6 +30,7 @@ class LocaleKeys {
   static const signUpURL = "createlogindata.php";
   static const loginUpURL = "chakelogin.php";
   static const businessCreateURL = "businessInserdata.php";
+  static const addProductURL = "businessInsertProductsData.php";
   static const filesUpload = "upload.php";
   static const categorice = "categorice.php";
 

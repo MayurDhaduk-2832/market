@@ -95,20 +95,45 @@ class _ApiClient implements ApiClient {
     return value;
   }
 
+  @override
+  Future<RegisterModel> addProduct({
+    required String user_id,
+    required String seller_brand_name,
+    required String product_name,
+    required String original_price,
+    required String sale_price,
+    required String product_description,
+  }) async {
+    final _data = {
+      'user_id': user_id,
+      'seller_brand_name': seller_brand_name,
+      'product_name': product_name,
+      'original_price': original_price,
+      'sale_price': sale_price,
+      'product_description': product_description,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RegisterModel>(
+            Options(method: 'POST', headers: _header())
+                .compose(_dio.options, LocaleKeys.addProductURL, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = RegisterModel.fromJson(_result.data!);
+    return value;
+  }
 
-  Future<LoginModel> login(
-      {required String email,
-        required String password,
-        }) async {
+  @override
+  Future<LoginModel> login({
+    required String email,
+    required String password,
+  }) async {
     final _data = {
       'email': email,
       'password': password,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<LoginModel>(
-            Options(method: 'POST', headers: _header())
-                .compose(_dio.options, LocaleKeys.loginUpURL, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<LoginModel>(Options(method: 'POST', headers: _header())
+            .compose(_dio.options, LocaleKeys.loginUpURL, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = LoginModel.fromJson(_result.data!);
     return value;
   }
