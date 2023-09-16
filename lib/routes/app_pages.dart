@@ -60,5 +60,6 @@ class AppPages {
       name: _Paths.MORE_PRODUCT_VIEW,
       page: () => const MoreProductsScreen(),
     ),
+
   ];
 }

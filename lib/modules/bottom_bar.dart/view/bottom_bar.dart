@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sellproducts/modules/select_screen/view/select_view.dart';
+import 'package:sellproducts/modules/home/view/home_page.dart';
+import 'package:sellproducts/modules/more_product/view/more_products_page.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView({super.key});
@@ -11,7 +12,10 @@ class BottomBarView extends StatefulWidget {
 
 class _BottomBarViewState extends State<BottomBarView> {
   List<Widget> widgets = [
-    const SelectView(),
+    const HomeScreen(),
+    const MoreProductsScreen(),
+    const HomeScreen(),
+    const HomeScreen(),
   ];
   PageController pageController = PageController(initialPage: 0);
   int selectedIndex = 0;
@@ -42,8 +46,9 @@ class _BottomBarViewState extends State<BottomBarView> {
           type: BottomNavigationBarType.fixed,
           currentIndex: selectedIndex,
           unselectedIconTheme: const IconThemeData(color: Color(0xffC0C0C0)),
+
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "home",),
             BottomNavigationBarItem(icon: Icon(Icons.menu), label: "menu"),
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.heart), label: "like"),

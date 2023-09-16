@@ -215,7 +215,7 @@ class _LanguageViewState extends State<LanguageView> {
                     GestureDetector(
                       onTap: () {
                         businessScreenController.openKeyBoard.value = false;
-                        ( PrefService.getString("isLoginRole")=="1")?Get.toNamed(Routes.HOME_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
+                        ( PrefService.getString("isLoginRole")=="1")?Get.toNamed(Routes.BOTTOM_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,
