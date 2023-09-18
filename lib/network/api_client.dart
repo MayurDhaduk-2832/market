@@ -79,8 +79,6 @@ abstract class ApiClient {
 
   //For Business
 
-
-
   // @POST(LocaleKeys.getMyBusiness)
   // Future<CreateBusinessModel> addMyBusiness(String token,
   //     {@Field("iBusinessCategoryId") required int iBusinessCategoryId,
@@ -131,6 +129,16 @@ abstract class ApiClient {
 
   @GET(LocaleKeys.categorice)
   Future<CategoriesModel> getCategory();
+
+  @POST(LocaleKeys.addProductURL)
+  addProduct({
+    @Field("user_id") required String user_id,
+    @Field("seller_brand_name") required String seller_brand_name,
+    @Field("product_name") required String product_name,
+    @Field("original_price") required String original_price,
+    @Field("sale_price") required String sale_price,
+    @Field("product_description") required String product_description,
+  });
 
   // @POST(LocaleKeys.filesUpload)
   // @MultiPart()

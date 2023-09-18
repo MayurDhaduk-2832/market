@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:sellproducts/modules/add_product/view/add_product_view.dart';
 import 'package:sellproducts/modules/bottom_bar.dart/view/bottom_bar.dart';
 import 'package:sellproducts/modules/business/view/business_add.dart';
 import 'package:sellproducts/modules/home/view/home_page.dart';
@@ -59,6 +60,10 @@ class AppPages {
     GetPage(
       name: _Paths.MORE_PRODUCT_VIEW,
       page: () => const MoreProductsScreen(),
+    ),
+    GetPage(
+      name: _Paths.ADD_PRODUCT_VIEW,
+      page: () => const AddProductPage(),
     ),
 
   ];
