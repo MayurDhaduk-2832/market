@@ -7,6 +7,7 @@ class TextFieldCommonWidget extends StatelessWidget {
   TextEditingController? controller;
   late bool? isShowViciblity;
   final String? text;
+  TextInputType? keyboardType;
 
 
   TextFieldCommonWidget({
@@ -16,6 +17,7 @@ class TextFieldCommonWidget extends StatelessWidget {
     this.controller,
     this.isShowViciblity,
     this.text,
+    this.keyboardType
   });
 
   @override
@@ -34,7 +36,7 @@ class TextFieldCommonWidget extends StatelessWidget {
         SizedBox(height: height * 0.01),
         Container(
           alignment: Alignment.center,
-          height: height * 0.055,
+          height: height * 0.065,
           width: width,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -49,7 +51,8 @@ class TextFieldCommonWidget extends StatelessWidget {
           ),
           child: Padding(
             padding:  EdgeInsets.only(left: width * 0.03),
-            child: TextField(controller: controller,cursorColor: Colors.black,
+            child: TextField(controller: controller,cursorColor: Colors.black,obscureText: obscureText ?? false,
+              keyboardType: keyboardType,
               style: TextStyle(fontSize: width * 0.04),
               decoration: InputDecoration(border: InputBorder.none,
                 hintText: hintText ?? "",

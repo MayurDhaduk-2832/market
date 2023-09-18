@@ -116,17 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: width * 0.03),
-                          child: SizedBox(
-                            height: height * 0.07,
-                            width: width * 0.140,
-                            child: Image.asset(
-                              "assets/loginphoto.png",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),

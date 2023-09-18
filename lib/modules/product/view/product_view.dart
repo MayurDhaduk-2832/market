@@ -119,7 +119,7 @@ class _ProductViewState extends State<ProductView> {
                           )
                         ],
                       ),
-                      child: Row(children: [
+                      child: const Row(children: [
                         Expanded(child: Icon(Icons.star,color: Colors.amber,)),
                         Expanded(child: Text("4.9"))
                       ]),

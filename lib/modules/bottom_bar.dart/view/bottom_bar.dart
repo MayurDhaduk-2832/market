@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sellproducts/modules/home/view/home_page.dart';
 import 'package:sellproducts/modules/more_product/view/more_products_page.dart';
+import 'package:sellproducts/modules/profile_screen/view/profile_page.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView({super.key});
@@ -15,7 +16,7 @@ class _BottomBarViewState extends State<BottomBarView> {
     const HomeScreen(),
     const MoreProductsScreen(),
     const HomeScreen(),
-    const HomeScreen(),
+    const ProfileScreen(),
   ];
   PageController pageController = PageController(initialPage: 0);
   int selectedIndex = 0;

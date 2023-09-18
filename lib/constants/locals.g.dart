@@ -82,6 +82,14 @@ class LocaleKeys {
   static const email = "Email Address";
   static const logIn = "Log In";
   static const signUp = "Sign Up";
+  static const yourProfile = "Your Profile";
+  static const yourLists = "Your Lists";
+  static const uploadProfilePicture = "Upload a public profile picture";
+  static const yourName = "Your Name";
+  static const yourMobileNo = "Your Mobile No.";
+  static const yourEmail = "your Email id";
+  static const yourAddress = "your Address";
+  static const yourPassword = "your Password";
 }
 
 class Locales {
@@ -101,6 +109,14 @@ class Locales {
     LocaleKeys.language: 'Language',
     LocaleKeys.welcome: 'Welcome Back',
     LocaleKeys.trandingSale: 'Tranding Sale :',
+    LocaleKeys.yourLists: 'Your Lists',
+    LocaleKeys.yourProfile: 'Your Profile',
+    LocaleKeys.uploadProfilePicture: 'Upload a public profile picture',
+    LocaleKeys.yourName: 'Your Name',
+    LocaleKeys.yourMobileNo: 'Your Mobile No.',
+    LocaleKeys.yourEmail: 'Your Email id',
+    LocaleKeys.yourAddress: 'Your Address',
+    LocaleKeys.yourPassword: 'Your Password',
   };
   static const hi_IN = {
     LocaleKeys.one: '१',
@@ -118,6 +134,14 @@ class Locales {
     LocaleKeys.language: 'भाषा',
     LocaleKeys.welcome: 'पुनः स्वागत है',
     LocaleKeys.trandingSale: 'ट्रैंडिंग बिक्री :',
+    LocaleKeys.yourLists: 'आपकी सूचियाँ',
+    LocaleKeys.yourProfile: 'आपकी प्रोफ़ाइल',
+    LocaleKeys.uploadProfilePicture: 'एक सार्वजनिक प्रोफ़ाइल चित्र अपलोड करें',
+    LocaleKeys.yourName: 'आपका नाम',
+    LocaleKeys.yourMobileNo: 'आपका मोबाइल नंबर',
+    LocaleKeys.yourEmail: 'आपकी ईमेल आईडी',
+    LocaleKeys.yourAddress: 'तुम्हारा पता',
+    LocaleKeys.yourPassword: 'आपका पासवर्ड',
   };
   static const gu_IN = {
     LocaleKeys.one: '૧',
@@ -135,5 +159,13 @@ class Locales {
     LocaleKeys.language: 'ભાષા',
     LocaleKeys.welcome: 'પાછું સ્વાગત છે',
     LocaleKeys.trandingSale: 'ટ્રાન્ડીંગ સેલ :',
+    LocaleKeys.yourLists: 'તમારી યાદીઓ',
+    LocaleKeys.yourProfile: 'તમારી પ્રોફાઇલ',
+    LocaleKeys.uploadProfilePicture: 'સાર્વજનિક પ્રોફાઇલ ચિત્ર અપલોડ કરો',
+    LocaleKeys.yourName: 'તમારું નામ',
+    LocaleKeys.yourMobileNo: 'તમારો મોબાઈલ નં.',
+    LocaleKeys.yourEmail: 'તમારું ઈમેલ આઈડી',
+    LocaleKeys.yourAddress: 'તમારું સરનામું',
+    LocaleKeys.yourPassword: 'તમારો ખાનગી શબ્દ',
   };
 }
