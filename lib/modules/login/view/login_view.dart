@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/pref_service.dart';
+import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
 import 'package:sellproducts/modules/login/login_controller/login_controller.dart';
@@ -111,13 +112,13 @@ class _LoginViewState extends State<LoginView> {
                                 loginScreenController.passwordController.text);
                             if (response?.isSuccess == true) {
                               Get.toNamed(Routes.LANGUAGE_VIEW);
-                              PrefService.setValue("isLogin", true);
+                              PrefService.setValue(LocaleKeys.SPIsLogin, true);
+                              PrefService.setValue(LocaleKeys.SPUserName,
+                                  response?.username ?? "");
                               PrefService.setValue(
-                                  "isLoginName", response?.username ?? "");
+                                  LocaleKeys.SPUserId, response?.id ?? "");
                               PrefService.setValue(
-                                  "isLoginBussinessId", response?.id ?? "");
-                              PrefService.setValue(
-                                  "isLoginRole", response?.role ?? "");
+                                  LocaleKeys.SPUserRole, response?.role ?? "");
                               flutterToastBottomGreen(response?.message);
                               loginScreenController.emailController.text = "";
                               loginScreenController.passwordController.text =

@@ -34,6 +34,11 @@ class LocaleKeys {
   static const filesUpload = "upload.php";
   static const categorice = "categorice.php";
 
+  static const SPIsLogin = "isLogin";
+  static const SPUserId = "userId";
+  static const SPUserRole = "userRole";
+  static const SPUserName = "userName";
+
   // Login
 
   static const appName = 'JoSo';
