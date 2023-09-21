@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -125,7 +126,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
               ),
             ),
             Expanded(
-              child: ListView(
+              child: ListView(physics: BouncingScrollPhysics(),
                 children: [
                   CustomTextField(
                     onTap: () {
@@ -168,13 +169,51 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       hintText: "Please select cetagoris",
                     ),
                   ),
-                  CustomDropDown(
-                      itemList: ["dgsdgs", "fdadff", "afadfdf"],
-                      icon: Icons.flag,
-                      isShowIcon: true,
-                      image: "assets/flag.png",
-                      controller: countryController,
-                      hintText: "Please Select Country"),
+                  CustomTextField(
+                    onTap: () {
+                      businessScreenController.openKeyBoard.value = true;
+                      showCountryPicker(
+                        context: context,
+                        countryListTheme: CountryListThemeData(
+                          flagSize: 25,
+                          backgroundColor: Colors.brown.shade50,
+                          textStyle: const TextStyle(fontSize: 16, color: Colors.blueGrey),
+                          bottomSheetHeight: 500, // Optional. Country list modal height
+                          //Optional. Sets the border radius for the bottomsheet.
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20.0),
+                            topRight: Radius.circular(20.0),
+                          ),
+                          //Optional. Styles the search field.
+                          inputDecoration: const InputDecoration(focusedBorder: OutlineInputBorder(borderSide: BorderSide()),
+                            labelText: 'Search',
+                            labelStyle: TextStyle(color: Colors.black),
+                            hintText: 'Start typing to search',
+                            prefixIcon: Icon(Icons.search,color: Colors.black),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color:  Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                        onSelect: (value) {
+                          countryController.text = value.name;
+                          setState(() {
+
+                          });
+                        },
+                      );
+                    },
+                    isShowIcon: true,
+                    keyboardType: TextInputType.none,
+                    icon:  Icons.flag,
+                    controller: countryController,
+                    hintText: "Please Select Country",
+                    onSubmitted: (value) {
+                      businessScreenController.openKeyBoard.value = false;
+                    },
+                  ),
                   CustomDropDown(
                       icon: Icons.flag,
                       itemList: ['dfsdf', 'dfsdfd', 'dfsdf'],
@@ -326,6 +365,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   width: width * 0.7,
                   child:
                      ListView.builder(
+                       physics: const BouncingScrollPhysics(),
                       itemCount: businessScreenController.allCategory.value.length,
                       itemBuilder: (context, index) {
                         final category = businessScreenController.allCategory.value[index];
@@ -573,7 +613,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
 }
 
 class CustomTextField extends StatelessWidget {
-  IconData icon;
+  IconData? icon;
   TextEditingController controller;
   String hintText;
   String? image;
@@ -586,7 +626,7 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField(
       {super.key,
-      required this.icon,
+       this.icon,
       this.image,
       this.isShowIcon,
       required this.controller,
@@ -776,6 +816,7 @@ class CustomDropDown extends StatelessWidget {
   String? image;
   bool? isShowIcon;
   final List<String>? itemList;
+  final GestureTapCallback? onTap;
 
   CustomDropDown(
       {super.key,
@@ -784,7 +825,7 @@ class CustomDropDown extends StatelessWidget {
       this.isShowIcon,
       this.image,
       required this.controller,
-      required this.hintText});
+      required this.hintText,this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -831,20 +872,23 @@ class CustomDropDown extends StatelessWidget {
                     height: Get.height * 0.010, image: AssetImage(image ?? "")),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: CustomDropdown.search(
-                listItemStyle: TextStyle(fontSize: width * 0.04),
-                hintText: hintText,
-                hintStyle: TextStyle(
-                  color: Colors.black.withOpacity(0.5),
-                  fontSize: width * 0.04,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 0.6,
+            child: GestureDetector(
+
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: CustomDropdown.search(
+                  listItemStyle: TextStyle(fontSize: width * 0.04),
+                  hintText: hintText,
+                  hintStyle: TextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                    fontSize: width * 0.04,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.6,
+                  ),
+                  items: itemList ?? [],
+                  selectedStyle: TextStyle(fontSize: width * 0.04),
+                  controller: controller,
                 ),
-                items: itemList ?? [],
-                selectedStyle: TextStyle(fontSize: width * 0.04),
-                controller: controller,
               ),
             ),
           ),

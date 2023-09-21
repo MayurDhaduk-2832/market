@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -112,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )
                           ],
                         ),
-                          child: Text(LocaleKeys.yourProfile)
+                          child: Text(LocaleKeys.yourProfile,style: TextStyle(fontSize: width * 0.04),)
                         ),
                       ),
                     ),
@@ -135,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )
                           ],
                         ),
-                          child: Text(LocaleKeys.yourLists)
+                          child: Text(LocaleKeys.yourLists,style: TextStyle(fontSize: width * 0.04))
                         ),
                       ),
                     ),
@@ -183,12 +184,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              Expanded(child: ListView.builder(physics: BouncingScrollPhysics(),itemCount: profileScreenController.profileList.length,itemBuilder: (context, index) {
+              Expanded(child:
+              ListView.builder(physics: BouncingScrollPhysics(),
+                itemCount: profileScreenController.profileList.length,itemBuilder: (context, index) {
                   return Column(children: [
                     SizedBox(height: height * 0.02,),
                     Obx(
                     ()=> TextFieldCommonWidget(
-                        obscureText: index == 3 ? true:false,
                         keyboardType: index == 1 ? TextInputType.number:TextInputType.text,
                         text: profileScreenController.profileList.value[index],
                         hintText: profileScreenController.profileList.value[index],
@@ -199,35 +201,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],);
                 },),
               )
-             //  TextFieldCommonWidget(
-             //      text: LocaleKeys.yourName,
-             //      hintText: LocaleKeys.yourName,
-             // controller: profileScreenController.userNameController,
-             //  ),
-             //  SizedBox(height: height * 0.02,),
-             //  TextFieldCommonWidget(
-             //    text: LocaleKeys.yourMobileNo,
-             //    hintText: LocaleKeys.yourMobileNo,
-             //    controller: profileScreenController.mobileController,
-             //  ),
-             //  SizedBox(height: height * 0.02,),
-             //  TextFieldCommonWidget(
-             //    text: LocaleKeys.yourEmail,
-             //    hintText: LocaleKeys.yourEmail,
-             //    controller: profileScreenController.emailController,
-             //  ),
-             //  SizedBox(height: height * 0.02,),
-             //  TextFieldCommonWidget(
-             //    text: LocaleKeys.yourAddress,
-             //    hintText: LocaleKeys.yourAddress,
-             //    controller: profileScreenController.passwordController,
-             //  ),
-             //  SizedBox(height: height * 0.02,),
-             //  TextFieldCommonWidget(
-             //    text: LocaleKeys.yourPassword,
-             //    hintText: LocaleKeys.yourPassword,
-             //    controller: profileScreenController.addressController,
-             //  ),
             ],),
           ):SizedBox())
 
