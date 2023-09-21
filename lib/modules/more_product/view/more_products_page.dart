@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/customs/custom_search_textfield.dart';
@@ -25,6 +26,7 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
     "assets/watch.jpg",
     "assets/car.jpg"
   ];
+  List<bool> isLike=[];
 
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
     if (argumentData != null && argumentData is Map<String, dynamic>) {
       saleName = argumentData['saleName'];
     }
+    isLike = List.generate(imageList.length, (index) => false);
   }
 
   @override
@@ -49,96 +52,117 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
           color:   Colors.brown.shade50,
           child: Padding(
             padding: EdgeInsets.only(top: height * 0.02),
-            child: SingleChildScrollView(physics: NeverScrollableScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: height * 0.04,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: height * 0.04,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: width * 0.06, right: width * 0.06),
+                  child:SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product..."),
+                ),
+                SizedBox(
+                  height: height * 0.04,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: width * 0.06, right: width * 0.06),
+                  child: Text(
+                    saleName,
+                    style: TextStyle(
+                        fontSize: width * 0.05,
+                        fontFamily: "Lalezar",
+                        fontWeight: FontWeight.w400),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: width * 0.06, right: width * 0.06),
-                    child:SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product..."),
-                  ),
-                  SizedBox(
-                    height: height * 0.04,
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: width * 0.06, right: width * 0.06),
-                    child: Text(
-                      saleName,
-                      style: TextStyle(
-                          fontSize: width * 0.05,
-                          fontFamily: "Lalezar",
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: height * 0.02,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.06, right: width * 0.06),
+                    child: GridView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: imageList.length,
+                     // shrinkWrap: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      addAutomaticKeepAlives: true,
+
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1,
+                              crossAxisSpacing: 15,
+                              childAspectRatio: 0.8),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Map<String, dynamic> map = {
+                              'saleProductName': "Abc",
+                              'saleProductImage': imageList[index],
+                            };
+                            Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
+                          },
+                          child:   Container(
+                          width: width * 0.275,
+                          margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow:  [
+                              BoxShadow(
+                                  spreadRadius: 0,
+                                  // blurStyle: BlurStyle.outer,
+                                  offset: const Offset(0, 4),
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4)
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: width * 0.06, right: width * 0.06),
-                            child: SizedBox(
-                              height: height * 0.67,
-                              width: double.infinity,
-                              child: GridView.builder(
-                                // physics: NeverScrollableScrollPhysics(),
-                                itemCount: 100,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisSpacing: 1,
-                                        crossAxisSpacing: 15,
-                                        childAspectRatio: 0.8),
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(Routes.PRODUCT_VIEW);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: width * 0.450,
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 5),
-                                      decoration: BoxDecoration(
-                                        //   image: DecorationImage(image: AssetImage(imageList[index])),
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              spreadRadius: 0,
-                                              // blurStyle: BlurStyle.outer,
-                                              offset: Offset(0, 4),
-                                              color: Colors.black
-                                                  .withOpacity(0.25),
-                                              blurRadius: 4)
-                                        ],
-                                      ),
-                                      child: Text("$index"),
-                                    ),
-                                  );
-                                },
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                            Expanded(flex: 6,
+                              child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
+                                image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: height * 0.08,
-                          ),
-                        ],
-                      ),
+                            Expanded(child: Padding(
+                              padding: const EdgeInsets.only(left: 5,top: 4),
+                              child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                            )),
+                            Expanded(flex: 2,child: Row(
+                              children: [
+                                Expanded(flex: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                  ),
+                                ),
+                                Expanded(child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: IconButton(onPressed: () {
+                                    setState(() {
+                                      if(isLike[index]==false)
+                                      {
+                                        isLike[index]=true;
+                                      }
+                                      else
+                                      {
+                                        isLike[index] = false;
+                                      }
+                                    });
+                                  }, icon:(isLike[index]==true)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06):Icon(CupertinoIcons.heart,size: width * 0.06,)),
+                                ))
+                              ],
+                            )),
+                          ]),
+                        ),
+                        );
+                      },
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

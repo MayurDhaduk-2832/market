@@ -27,7 +27,7 @@ class _SplashViewState extends State<SplashView> {
       const Duration(seconds: 3),
       () {
         (isLogin ?? false)
-            ? Get.offAndToNamed(Routes.HOME_VIEW)
+            ? Get.offAndToNamed(Routes.BOTTOM_VIEW)
             : Get.offAndToNamed(Routes.SELECT_VIEW);
       },
     );

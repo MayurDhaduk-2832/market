@@ -65,5 +65,6 @@ class AppPages {
       name: _Paths.ADD_PRODUCT_VIEW,
       page: () => const AddProductPage(),
     ),
+
   ];
 }
