@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/modules/add_product/controller/add_product_controller.dart';
 
 class AddProductPage extends StatelessWidget {
   const AddProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AddProductController addProductController = Get.put(AddProductController());
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+
       body: Container(
         height: height,
         width: width,
@@ -28,7 +31,7 @@ class AddProductPage extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
                   alignment: Alignment.center,
-                  child: const Icon(Icons.arrow_back),
+                  child:  Icon(Icons.arrow_back,size: width * 0.05),
                 ),
               ),
             ),
@@ -63,8 +66,7 @@ class AddProductPage extends StatelessWidget {
                 child: PageView.builder(
                   itemCount: 1,
                   itemBuilder: (context, index) {
-                    return Expanded(
-                        child: Center(
+                    return Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -74,17 +76,18 @@ class AddProductPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade400,
                                   borderRadius: BorderRadius.circular(20)),
-                              child: Icon(
+                              child:  Icon(
                                 Icons.add,
                                 color: Colors.white,
+                                size: width * 0.05,
                               ),
                             ),
                             SizedBox(
                               height: height * 0.03,
                             ),
-                            const Text("Add Image"),
+                             Text("Add Image",style: TextStyle(fontSize: width * 0.04)),
                           ]),
-                    ));
+                    );
                   },
                 ),
               ),
@@ -102,15 +105,15 @@ class AddProductPage extends StatelessWidget {
                         offset: Offset(0, 5),
                         color: Colors.black.withOpacity(0.3))
                   ]),
-              child: const Row(
+              child:  Row(
                 children: [
                   Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(
+                      child: TextField(controller:addProductController.brandNameController ,style: TextStyle(fontSize: width * 0.04),
+                    decoration: InputDecoration(hintStyle: TextStyle(fontSize: width * 0.04),
                         border: InputBorder.none,
-                        hintText: "Select brand name*"),
+                        hintText: "Enter brand name*"),
                   )),
-                  Icon(Icons.add),
+                   Icon(Icons.add,size: width * 0.06,),
                 ],
               ),
             ),
@@ -130,14 +133,14 @@ class AddProductPage extends StatelessWidget {
                         offset: Offset(0, 5),
                         color: Colors.black.withOpacity(0.3))
                   ]),
-              child: const Row(
+              child:  Row(
                 children: [
                   Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(
+                      child: TextField(controller: addProductController.productNameController,style: TextStyle(fontSize: width * 0.04),
+                    decoration: InputDecoration(hintStyle: TextStyle(fontSize: width * 0.04),
                         border: InputBorder.none, hintText: "Product name*"),
                   )),
-                  Icon(Icons.add),
+                  Icon(Icons.add,size: width * 0.06,),
                 ],
               ),
             ),
@@ -147,7 +150,7 @@ class AddProductPage extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: width * 0.025),
+                 margin: EdgeInsets.symmetric(horizontal: (width > 600)? width * 0.04:width * 0.02),
                   height: height * 0.065,
                   width: width * 0.13,
                   decoration: BoxDecoration(
@@ -156,16 +159,16 @@ class AddProductPage extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                             blurRadius: 5,
-                            offset: Offset(0, 5),
+                            offset: const Offset(0, 5),
                             color: Colors.black.withOpacity(0.3))
                       ]),
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      Text(style: TextStyle(fontSize: width * 0.04),
                         "Rs",
                       ),
-                      Icon(Icons.keyboard_arrow_down_rounded)
+                       Icon(Icons.keyboard_arrow_down_rounded,size: width * 0.06,)
                     ],
                   ),
                 ),
@@ -185,9 +188,9 @@ class AddProductPage extends StatelessWidget {
                             offset: Offset(0, 5),
                             color: Colors.black.withOpacity(0.3))
                       ]),
-                  child: TextField(
+                  child: TextField(style: TextStyle(fontSize: width * 0.04),controller: addProductController.salePriceController,
                       decoration: InputDecoration(
-                          border: InputBorder.none, hintText: "Sale price*")),
+                          border: InputBorder.none, hintText: "Sale price*",hintStyle: TextStyle(fontSize: width * 0.04))),
                 ),
                 SizedBox(
                   width: width * 0.01,
@@ -205,9 +208,9 @@ class AddProductPage extends StatelessWidget {
                             offset: Offset(0, 5),
                             color: Colors.black.withOpacity(0.3))
                       ]),
-                  child: TextField(
+                  child: TextField(style: TextStyle(fontSize: width * 0.04),controller: addProductController.originalPriceController,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
+                          border: InputBorder.none,hintStyle: TextStyle(fontSize: width * 0.04),
                           hintText: "Original price*")),
                 )
               ],
@@ -228,9 +231,9 @@ class AddProductPage extends StatelessWidget {
                         offset: Offset(0, 5),
                         color: Colors.black.withOpacity(0.3))
                   ]),
-              child: TextField(
+              child: TextField(controller: addProductController.productDescriptionController,style: TextStyle(fontSize: width * 0.04),
                   maxLines: 5,
-                  decoration: InputDecoration(
+                  decoration: InputDecoration(hintStyle: TextStyle(fontSize: width * 0.04),
                       border: InputBorder.none,
                       hintText: "Product discription")),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sellproducts/modules/add_product/view/add_product_view.dart';
 import 'package:sellproducts/modules/home/view/home_page.dart';
 import 'package:sellproducts/modules/more_product/view/more_products_page.dart';
 import 'package:sellproducts/modules/profile_screen/view/profile_page.dart';
@@ -15,7 +16,7 @@ class _BottomBarViewState extends State<BottomBarView> {
   List<Widget> widgets = [
     const HomeScreen(),
     const MoreProductsScreen(),
-    const HomeScreen(),
+    const AddProductPage(),
     const ProfileScreen(),
   ];
   PageController pageController = PageController(initialPage: 0);

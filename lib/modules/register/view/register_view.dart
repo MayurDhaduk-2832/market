@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
+import 'package:sellproducts/modules/register/controller/register_controller.dart';
 import 'package:sellproducts/modules/register/viewmodel/register_view_model.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -21,6 +23,8 @@ class _RegisterViewState extends State<RegisterView> {
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
   late RegisterViewModel service;
+
+  RegisterController registerController = Get.put(RegisterController());
 
   @override
   void initState() {
@@ -73,22 +77,52 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     SizedBox(height: height * 0.02),
                     // user name
-                    TextFieldCommonWidget(text: "Username",hintText: "Enter UserName",controller: usernameController),
+                    TextFieldCommonWidget(text: "Username",hintText: "Enter UserName",controller: registerController.usernameController),
                     // email id
                     SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(text: "Email id",hintText: "Enter Email id",controller: emailController),
+                    TextFieldCommonWidget(text: "Email id",hintText: "Enter Email id",controller: registerController.emailController),
                     // Mobile No
                     SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(text: "Mobile No.",hintText: "Enter Mobile No.",controller: mobileController),
+                    TextFieldCommonWidget(text: "Mobile No.",hintText: "Enter Mobile No.",controller: registerController.mobileController),
                     // password
                     SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(text: "Password",hintText: "Enter Password",controller: passwordController),
+                    TextFieldCommonWidget(text: "Password",hintText: "Enter Password",controller: registerController.passwordController),
                     //Confirm password
                     SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(text: "Confirm Password",hintText: "Enter Confirm Password",controller: confirmPassController),
+                    TextFieldCommonWidget(text: "Confirm Password",hintText: "Enter Confirm Password",controller: registerController.confirmPassController),
                     // continue button
                     ContinueButtonCommonWidget(text:'Continue ->',onTap: () {
-                      Get.toNamed(Routes.LANGUAGE_VIEW);
+                      if(registerController.usernameController.text.isEmpty)
+                        {
+                          flutterToastBottom("Please Enter Name");
+                        }
+                      else if(registerController.emailController.text.isEmpty)
+                        {
+                          flutterToastBottom("Please Enter Email");
+                        }
+                      else if(registerController.passwordController.text.isEmpty)
+                        {
+                          flutterToastBottom("Please Enter Password");
+                        }
+                      else if(registerController.confirmPassController.text.isEmpty)
+                      {
+                        flutterToastBottom("Please Enter Confirm Password");
+                      }
+                      else if(registerController.passwordController.text!=registerController.confirmPassController.text)
+                        {
+                          flutterToastBottom("Please Enter Valid Conform Password");
+                        }
+                      else if(registerController.mobileController.text.isEmpty)
+                        {
+                          flutterToastBottom("Please Enter Mobile No.");
+                        }
+                      else
+                        {
+                          registerController.registerUser(iSelect);
+                          Get.toNamed(Routes.LANGUAGE_VIEW);
+                        }
+
+
                     },),
                   ],
                 ),
