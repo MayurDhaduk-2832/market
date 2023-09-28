@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/routes/app_pages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -21,12 +20,11 @@ class _SplashViewState extends State<SplashView> {
   }
 
   splash() async {
-
     bool? isLogin = PrefService.getBool("isLogin");
     Timer(
       const Duration(seconds: 3),
       () {
-        (isLogin ?? false)
+        isLogin
             ? Get.offAndToNamed(Routes.BOTTOM_VIEW)
             : Get.offAndToNamed(Routes.SELECT_VIEW);
       },

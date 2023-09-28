@@ -3,12 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/common.dart';
-import 'package:sellproducts/constant/pref_service.dart';
-import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
 import 'package:sellproducts/modules/login/login_controller/login_controller.dart';
-import 'package:sellproducts/modules/login/viewmodel/login_view_model.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class LoginView extends StatefulWidget {
@@ -22,11 +19,9 @@ class _LoginViewState extends State<LoginView> {
   dynamic argumentData = Get.arguments;
   LoginScreenController loginScreenController =
       Get.put(LoginScreenController());
-  late LoginViewModel _service;
   @override
   void initState() {
     super.initState();
-    _service = LoginViewModel(context);
     if (argumentData != null && argumentData is Map<String, dynamic>) {
       loginScreenController.iSelect.value = argumentData['setIndex'];
     }
@@ -107,25 +102,7 @@ class _LoginViewState extends State<LoginView> {
                               .passwordController.text.isEmpty) {
                             flutterToastBottom("Please Enter Password");
                           } else {
-                            final response = await _service.login(
-                                loginScreenController.emailController.text,
-                                loginScreenController.passwordController.text);
-                            if (response?.isSuccess == true) {
-                              Get.toNamed(Routes.LANGUAGE_VIEW);
-                              PrefService.setValue(LocaleKeys.SPIsLogin, true);
-                              PrefService.setValue(LocaleKeys.SPUserName,
-                                  response?.username ?? "");
-                              PrefService.setValue(
-                                  LocaleKeys.SPUserId, response?.id ?? "");
-                              PrefService.setValue(
-                                  LocaleKeys.SPUserRole, response?.role ?? "");
-                              flutterToastBottomGreen(response?.message);
-                              loginScreenController.emailController.text = "";
-                              loginScreenController.passwordController.text =
-                                  "";
-                            } else {
-                              flutterToastBottom("Password is Wrong");
-                            }
+                            await loginScreenController.login();
                           }
                         },
                         text: 'Continue ->'),

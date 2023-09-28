@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/customs/custom_search_textfield.dart';
-import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class MoreProductsScreen extends StatefulWidget {
@@ -17,16 +16,15 @@ class MoreProductsScreen extends StatefulWidget {
 class _MoreProductsScreenState extends State<MoreProductsScreen> {
   final searchController = TextEditingController();
   int currentIndex = 0;
-  String saleName="";
+  String saleName = "";
   dynamic argumentData = Get.arguments;
-  late BusinessCreateViewModel _service;
   List<String> imageList = [
     "assets/shose.jpg",
     "assets/tshirt.jpg",
     "assets/watch.jpg",
     "assets/car.jpg"
   ];
-  List<bool> isLike=[];
+  List<bool> isLike = [];
 
   @override
   void initState() {
@@ -43,13 +41,13 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor:Colors.brown.shade50,
+      backgroundColor: Colors.brown.shade50,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           height: height,
           width: width,
-          color:   Colors.brown.shade50,
+          color: Colors.brown.shade50,
           child: Padding(
             padding: EdgeInsets.only(top: height * 0.02),
             child: Column(
@@ -61,7 +59,9 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                 Padding(
                   padding:
                       EdgeInsets.only(left: width * 0.06, right: width * 0.06),
-                  child:SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product..."),
+                  child: SearchTextFieldCommonWidget(
+                      controller: searchController,
+                      hintText: "Search Product..."),
                 ),
                 SizedBox(
                   height: height * 0.04,
@@ -84,7 +84,7 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                     child: GridView.builder(
                       physics: BouncingScrollPhysics(),
                       itemCount: imageList.length,
-                     // shrinkWrap: true,
+                      // shrinkWrap: true,
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       addAutomaticKeepAlives: true,
 
@@ -101,62 +101,100 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                               'saleProductName': "Abc",
                               'saleProductImage': imageList[index],
                             };
-                            Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
+                            Get.toNamed(Routes.PRODUCT_VIEW, arguments: map);
                           },
-                          child:   Container(
-                          width: width * 0.275,
-                          margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow:  [
-                              BoxShadow(
-                                  spreadRadius: 0,
-                                  // blurStyle: BlurStyle.outer,
-                                  offset: const Offset(0, 4),
-                                  color: Colors.black.withOpacity(0.25),
-                                  blurRadius: 4)
-                            ],
-                          ),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                            Expanded(flex: 6,
-                              child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              ),
-                            ),
-                            Expanded(child: Padding(
-                              padding: const EdgeInsets.only(left: 5,top: 4),
-                              child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
-                            )),
-                            Expanded(flex: 2,child: Row(
-                              children: [
-                                Expanded(flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                  ),
-                                ),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: IconButton(onPressed: () {
-                                    setState(() {
-                                      if(isLike[index]==false)
-                                      {
-                                        isLike[index]=true;
-                                      }
-                                      else
-                                      {
-                                        isLike[index] = false;
-                                      }
-                                    });
-                                  }, icon:(isLike[index]==true)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06):Icon(CupertinoIcons.heart,size: width * 0.06,)),
-                                ))
+                          child: Container(
+                            width: width * 0.275,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 3, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    spreadRadius: 0,
+                                    // blurStyle: BlurStyle.outer,
+                                    offset: const Offset(0, 4),
+                                    color: Colors.black.withOpacity(0.25),
+                                    blurRadius: 4)
                               ],
-                            )),
-                          ]),
-                        ),
+                            ),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: Container(
+                                      height: height * 0.1,
+                                      margin: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image:
+                                                AssetImage(imageList[index])),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 5, top: 4),
+                                    child: Text(
+                                      "Abc",
+                                      style: TextStyle(
+                                          fontSize: height * 0.02,
+                                          fontWeight: FontWeight.w900),
+                                    ),
+                                  )),
+                                  Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "%2",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    color: Colors.grey),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                              child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5),
+                                            child: IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    if (isLike[index] ==
+                                                        false) {
+                                                      isLike[index] = true;
+                                                    } else {
+                                                      isLike[index] = false;
+                                                    }
+                                                  });
+                                                },
+                                                icon: (isLike[index] == true)
+                                                    ? Icon(
+                                                        CupertinoIcons
+                                                            .heart_fill,
+                                                        color:
+                                                            Color(0xffE96E6E),
+                                                        size: width * 0.06)
+                                                    : Icon(
+                                                        CupertinoIcons.heart,
+                                                        size: width * 0.06,
+                                                      )),
+                                          ))
+                                        ],
+                                      )),
+                                ]),
+                          ),
                         );
                       },
                     ),
