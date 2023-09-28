@@ -23,7 +23,6 @@ class ProfileScreenController extends GetxController{
     LocaleKeys.yourName,
     LocaleKeys.yourMobileNo,
     LocaleKeys.yourEmail,
-    LocaleKeys.yourPassword,
     LocaleKeys.yourAddress,
   ].obs;
   final ImagePicker picker = ImagePicker();
