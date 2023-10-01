@@ -33,6 +33,8 @@ class LocaleKeys {
   static const addProductURL = "businessInsertProductsData.php";
   static const filesUpload = "upload.php";
   static const categorice = "categorice.php";
+  static const inRangeProductUrl = "checkDestanseGetProduct.php";
+  static const outRangeProductUrl = "checkDestanseOutGetProduct.php";
 
   static const SPIsLogin = "isLogin";
   static const SPUserId = "userId";

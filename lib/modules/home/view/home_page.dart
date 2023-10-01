@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +21,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
-  BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
+  BusinessScreenController businessScreenController =
+      Get.put(BusinessScreenController());
   int currentIndex = 0;
   late BusinessCreateViewModel _service;
   List<String> imageList = [
@@ -86,14 +85,15 @@ class _HomeScreenState extends State<HomeScreen> {
           width: width,
           color: LocalKeyColor.BackgroundColor,
           child: Padding(
-            padding: EdgeInsets.only(
-              top: height * 0.02),
-            child: SingleChildScrollView(physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(top: height * 0.02),
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                    padding: EdgeInsets.only(
+                        left: width * 0.06, right: width * 0.06),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -122,477 +122,663 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: height * 0.04,
                   ),
+
                   /// Search textField
                   Padding(
-                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                    child: SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product..."),
+                    padding: EdgeInsets.only(
+                        left: width * 0.06, right: width * 0.06),
+                    child: SearchTextFieldCommonWidget(
+                        controller: searchController,
+                        hintText: "Search Product..."),
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
-              SizedBox(height: height,
-                child: SingleChildScrollView(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                    CarouselSlider(
-                      items: imageList
-                          .map(
-                            (e) => Container(margin: EdgeInsets.only(top: height * 0.05),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: Offset(0, 4),
-                                    color: Colors.black38,
-                                    blurRadius: 4)
-                              ],
-                              image: DecorationImage(
-                                  fit: BoxFit.fill, image: AssetImage(e))),
-                        ),
-                      )
-                          .toList(),
-                      options: CarouselOptions(
-                        animateToClosest: true,
-                        height: height * 0.250,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        },
-                        autoPlayInterval: const Duration(seconds: 2),
-                      ),
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: imageList.map((e) {
-                          int index = imageList.indexOf(e);
-                          return Container(
-                            width: 8,
-                            height: 8,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 3),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: currentIndex == index
-                                    ? Colors.white
-                                    : Colors.black12),
-                          );
-                        }).toList()),
-
-                    /// Categories
-                    Padding(
-                      padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: Text(
-                        LocaleKeys.categories,
-                        style: TextStyle(
-                            fontSize: width * 0.05,
-                            fontFamily: "Lalezar",
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: SizedBox(
-                        height: height * 0.175,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: businessScreenController.allCategory.value.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Map<String, dynamic> map = {
-                                  'saleName':  businessScreenController.allCategory.value[index],
-                                };
-                                Get.toNamed(Routes.MORE_PRODUCT_VIEW,arguments: map);
-                              },
-                              child: Container(
-                                height: height * 0.100,
-                                width: width * 0.275,
-                                margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                                decoration: BoxDecoration(
-                                  // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow:  [
-                                    BoxShadow(
-                                        spreadRadius: 0,
-                                        // blurStyle: BlurStyle.outer,
-                                        offset: const Offset(0, 4),
-                                        color: Colors.black.withOpacity(0.25),
-                                        blurRadius: 4)
-                                  ],
-                                ),
-                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                  Expanded(flex: 5,
-                                    child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(categoriesList[index])),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    ),
+                  SizedBox(
+                    height: height,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CarouselSlider(
+                            items: imageList
+                                .map(
+                                  (e) => Container(
+                                    margin: EdgeInsets.only(top: height * 0.05),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(0, 4),
+                                              color: Colors.black38,
+                                              blurRadius: 4)
+                                        ],
+                                        image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: AssetImage(e))),
                                   ),
-                                  Expanded(flex: 2,child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text("${ businessScreenController.allCategory.value[index]}",
-                                      style: TextStyle(fontSize: width * 0.03 ,fontWeight: FontWeight.w900),),
-                                  )),
-                                ]),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    /// trading sale image list
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                          child: Text(
-                            LocaleKeys.trandingSale,
-                            style: TextStyle(
-                                fontSize: width * 0.05,
-                                fontFamily: "Lalezar",
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.only(right: width * 0.06),
-                          child: IconButton(
-                            onPressed: () {
-                              Map<String, dynamic> map = {
-                                'saleName': LocaleKeys.trandingSale,
-                              };
-                              Get.toNamed(Routes.MORE_PRODUCT_VIEW,arguments: map);
-                            },
-                            icon: Icon(
-                              Icons.more_horiz_rounded,
-                              color: Colors.black,
-                              size: width * 0.07,
+                                )
+                                .toList(),
+                            options: CarouselOptions(
+                              animateToClosest: true,
+                              height: height * 0.250,
+                              autoPlay: true,
+                              enlargeCenterPage: true,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  currentIndex = index;
+                                });
+                              },
+                              autoPlayInterval: const Duration(seconds: 2),
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: imageList.map((e) {
+                                int index = imageList.indexOf(e);
+                                return Container(
+                                  width: 8,
+                                  height: 8,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 3),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: currentIndex == index
+                                          ? Colors.white
+                                          : Colors.black12),
+                                );
+                              }).toList()),
 
-                    Center(child: Image.asset( "assets/coupenOffer.png",height: height * 0.08,)),
-                    SizedBox(
-                      height: height * 0.01,
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: SizedBox(
-                        height: height * 0.175,
-                        width: double.infinity,
-                        child: ListView.builder(physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: imageList.length-1,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Map<String, dynamic> map = {
-                                  'saleProductName': "Abc",
-                                  'saleProductImage': imageList[index],
-                                };
-                                Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
-                              },
-                              child: Container(
-                                height: height * 0.100,
-                                width: width * 0.275,
-                                margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                                decoration: BoxDecoration(
-                                 // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow:  [
-                                    BoxShadow(
-                                        spreadRadius: 0,
-                                        // blurStyle: BlurStyle.outer,
-                                        offset: const Offset(0, 4),
-                                        color: Colors.black.withOpacity(0.25),
-                                        blurRadius: 4)
-                                  ],
-                                ),
-                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                  Expanded(flex: 5,
-                                    child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                        image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                          /// Categories
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: Text(
+                              LocaleKeys.categories,
+                              style: TextStyle(
+                                  fontSize: width * 0.05,
+                                  fontFamily: "Lalezar",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: SizedBox(
+                              height: height * 0.175,
+                              width: double.infinity,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    businessScreenController.allCategory.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Map<String, dynamic> map = {
+                                        'saleName': businessScreenController
+                                            .allCategory[index],
+                                      };
+                                      Get.toNamed(Routes.MORE_PRODUCT_VIEW,
+                                          arguments: map);
+                                    },
+                                    child: Container(
+                                      height: height * 0.100,
+                                      width: width * 0.275,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                        color: Colors.white,
                                         borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 0,
+                                              // blurStyle: BlurStyle.outer,
+                                              offset: const Offset(0, 4),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                height: height * 0.1,
+                                                margin: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: AssetImage(
+                                                          categoriesList[
+                                                              index])),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5),
+                                                  child: Text(
+                                                    "${businessScreenController.allCategory[index]}",
+                                                    style: TextStyle(
+                                                        fontSize: width * 0.03,
+                                                        fontWeight:
+                                                            FontWeight.w900),
+                                                  ),
+                                                )),
+                                          ]),
                                     ),
-                                    ),
-                                  ),
-                                  Expanded(child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
-                                  )),
-                                  Expanded(child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                  )),
-                                ]),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.04,
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: Text(
-                        LocaleKeys.trandingSale,
-                        style: TextStyle(
-                            fontSize: width * 0.05,
-                            fontFamily: "Lalezar",
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: SizedBox(
-                        height: width * 1.1,
-                        width: double.infinity,
-                        child: GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: imageList.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),
-                          itemBuilder: (context, index) {
-                          return GestureDetector(onTap: () {
-                            Map<String, dynamic> map = {
-                              'saleProductName': "Abc",
-                              'saleProductImage': imageList[index],
-                            };
-                            Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
-                          },
-                            child: Container(
-                              width: width * 0.275,
-                              margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow:  [
-                                  BoxShadow(
-                                      spreadRadius: 0,
-                                      // blurStyle: BlurStyle.outer,
-                                      offset: const Offset(0, 4),
-                                      color: Colors.black.withOpacity(0.25),
-                                      blurRadius: 4)
-                                ],
-                              ),
-                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                Expanded(flex: 5,
-                                  child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                    image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  ),
-                                ),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
-                                )),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                )),
-                              ]),
                             ),
-                          );
-                        },),
-                      ),
-                    ),
+                          ),
 
-                    /// regular sale
-                    // trading sale image list
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                          child: Text(
-                            LocaleKeys.RegularSale,
-                            style: TextStyle(
-                                fontSize: width * 0.05,
-                                fontFamily: "Lalezar",
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.only(right: width * 0.06),
-                          child: IconButton(
-                            onPressed: () {
-                              Map<String, dynamic> map = {
-                                'saleName': LocaleKeys.RegularSale,
-                              };
-                              Get.toNamed(Routes.MORE_PRODUCT_VIEW,arguments: map);
-                            },
-                            icon: Icon(
-                              Icons.more_horiz_rounded,
-                              color: Colors.black,
-                              size: width * 0.07,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: SizedBox(
-                        height: height * 0.175,
-                        width: double.infinity,
-                        child: ListView.builder(physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: imageList.length-1,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Map<String, dynamic> map = {
-                                  'saleProductName': "Abc",
-                                  'saleProductImage': imageList[index],
-                                };
-                                Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
-                              },
-                              child: Container(
-                                height: height * 0.100,
-                                width: width * 0.275,
-                                margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                                decoration: BoxDecoration(
-                                  // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow:  [
-                                    BoxShadow(
-                                        spreadRadius: 0,
-                                        // blurStyle: BlurStyle.outer,
-                                        offset: const Offset(0, 4),
-                                        color: Colors.black.withOpacity(0.25),
-                                        blurRadius: 4)
-                                  ],
+                          /// trading sale image list
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: width * 0.06, right: width * 0.06),
+                                child: Text(
+                                  LocaleKeys.trandingSale,
+                                  style: TextStyle(
+                                      fontSize: width * 0.05,
+                                      fontFamily: "Lalezar",
+                                      fontWeight: FontWeight.w400),
                                 ),
-                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                  Expanded(flex: 5,
-                                    child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    ),
-                                  ),
-                                  Expanded(child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
-                                  )),
-                                  Expanded(child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                  )),
-                                ]),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.04,
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: Text(
-                        LocaleKeys.RegularSale,
-                        style: TextStyle(
-                            fontSize: width * 0.05,
-                            fontFamily: "Lalezar",
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                      child: SizedBox(
-                        height: width * 1.8,
-                        width: double.infinity,
-                        child: GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: imageList.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9), itemBuilder: (context, index) {
-                          return GestureDetector(onTap: () {
-                            Map<String, dynamic> map = {
-                              'saleProductName': "Abc",
-                              'saleProductImage': imageList[index],
-                            };
-                            Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
-                          },
-                            child:  Container(
-                              height: height * 0.100,
-                              width: width * 0.275,
-                              margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                              decoration: BoxDecoration(
-                                // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow:  [
-                                  BoxShadow(
-                                      spreadRadius: 0,
-                                      // blurStyle: BlurStyle.outer,
-                                      offset: const Offset(0, 4),
-                                      color: Colors.black.withOpacity(0.25),
-                                      blurRadius: 4)
-                                ],
-                              ),
-                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                Expanded(flex: 5,
-                                  child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(                                   image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                              Padding(
+                                padding: EdgeInsets.only(right: width * 0.06),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Map<String, dynamic> map = {
+                                      'saleName': LocaleKeys.trandingSale,
+                                    };
+                                    Get.toNamed(Routes.MORE_PRODUCT_VIEW,
+                                        arguments: map);
+                                  },
+                                  icon: Icon(
+                                    Icons.more_horiz_rounded,
+                                    color: Colors.black,
+                                    size: width * 0.07,
                                   ),
                                 ),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
-                                )),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                )),
-                              ]),
+                              )
+                            ],
+                          ),
+
+                          Center(
+                              child: Image.asset(
+                            "assets/coupenOffer.png",
+                            height: height * 0.08,
+                          )),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: SizedBox(
+                              height: height * 0.175,
+                              width: double.infinity,
+                              child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: imageList.length - 1,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Map<String, dynamic> map = {
+                                        'saleProductName': "Abc",
+                                        'saleProductImage': imageList[index],
+                                      };
+                                      Get.toNamed(Routes.PRODUCT_VIEW,
+                                          arguments: map);
+                                    },
+                                    child: Container(
+                                      height: height * 0.100,
+                                      width: width * 0.275,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 0,
+                                              // blurStyle: BlurStyle.outer,
+                                              offset: const Offset(0, 4),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                height: height * 0.1,
+                                                margin: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: AssetImage(
+                                                          imageList[index])),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "Abc",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                            )),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "%2",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    color: Colors.grey),
+                                              ),
+                                            )),
+                                          ]),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          );
-                        },),
+                          ),
+                          SizedBox(
+                            height: height * 0.04,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: Text(
+                              LocaleKeys.trandingSale,
+                              style: TextStyle(
+                                  fontSize: width * 0.05,
+                                  fontFamily: "Lalezar",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: SizedBox(
+                              height: width * 1.1,
+                              width: double.infinity,
+                              child: GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: imageList.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 15,
+                                        crossAxisSpacing: 5,
+                                        childAspectRatio: 0.9),
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Map<String, dynamic> map = {
+                                        'saleProductName': "Abc",
+                                        'saleProductImage': imageList[index],
+                                      };
+                                      Get.toNamed(Routes.PRODUCT_VIEW,
+                                          arguments: map);
+                                    },
+                                    child: Container(
+                                      width: width * 0.275,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 0,
+                                              // blurStyle: BlurStyle.outer,
+                                              offset: const Offset(0, 4),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                height: height * 0.1,
+                                                margin: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: AssetImage(
+                                                          imageList[index])),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "Abc",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                            )),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "%2",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    color: Colors.grey),
+                                              ),
+                                            )),
+                                          ]),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+
+                          /// regular sale
+                          // trading sale image list
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: width * 0.06, right: width * 0.06),
+                                child: Text(
+                                  LocaleKeys.RegularSale,
+                                  style: TextStyle(
+                                      fontSize: width * 0.05,
+                                      fontFamily: "Lalezar",
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: width * 0.06),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Map<String, dynamic> map = {
+                                      'saleName': LocaleKeys.RegularSale,
+                                    };
+                                    Get.toNamed(Routes.MORE_PRODUCT_VIEW,
+                                        arguments: map);
+                                  },
+                                  icon: Icon(
+                                    Icons.more_horiz_rounded,
+                                    color: Colors.black,
+                                    size: width * 0.07,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: SizedBox(
+                              height: height * 0.175,
+                              width: double.infinity,
+                              child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: imageList.length - 1,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Map<String, dynamic> map = {
+                                        'saleProductName': "Abc",
+                                        'saleProductImage': imageList[index],
+                                      };
+                                      Get.toNamed(Routes.PRODUCT_VIEW,
+                                          arguments: map);
+                                    },
+                                    child: Container(
+                                      height: height * 0.100,
+                                      width: width * 0.275,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 0,
+                                              // blurStyle: BlurStyle.outer,
+                                              offset: const Offset(0, 4),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                height: height * 0.1,
+                                                margin: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: AssetImage(
+                                                          imageList[index])),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "Abc",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                            )),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "%2",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    color: Colors.grey),
+                                              ),
+                                            )),
+                                          ]),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: height * 0.04,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: Text(
+                              LocaleKeys.RegularSale,
+                              style: TextStyle(
+                                  fontSize: width * 0.05,
+                                  fontFamily: "Lalezar",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.06, right: width * 0.06),
+                            child: SizedBox(
+                              height: width * 1.8,
+                              width: double.infinity,
+                              child: GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: imageList.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 15,
+                                        crossAxisSpacing: 5,
+                                        childAspectRatio: 0.9),
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Map<String, dynamic> map = {
+                                        'saleProductName': "Abc",
+                                        'saleProductImage': imageList[index],
+                                      };
+                                      Get.toNamed(Routes.PRODUCT_VIEW,
+                                          arguments: map);
+                                    },
+                                    child: Container(
+                                      height: height * 0.100,
+                                      width: width * 0.275,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 0,
+                                              // blurStyle: BlurStyle.outer,
+                                              offset: const Offset(0, 4),
+                                              color: Colors.black
+                                                  .withOpacity(0.25),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                height: height * 0.1,
+                                                margin: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: AssetImage(
+                                                          imageList[index])),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "Abc",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    fontWeight:
+                                                        FontWeight.w900),
+                                              ),
+                                            )),
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                "%2",
+                                                style: TextStyle(
+                                                    fontSize: height * 0.02,
+                                                    color: Colors.grey),
+                                              ),
+                                            )),
+                                          ]),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],),
-                ),
-              )
+                  )
                 ],
               ),
             ),
           ),
         ),
       ),
-
     );
   }
-  getCategoryDate()
-  async {
+
+  getCategoryDate() async {
     final response = await _service.getCategory();
     response?.data?.forEach((element) {
-      businessScreenController.allCategory.value.add(element.category ?? "");
-      print("${ businessScreenController.allCategory.value}");
+      businessScreenController.allCategory.add(element.category ?? "");
+      print("${businessScreenController.allCategory}");
     });
   }
 }
