@@ -346,7 +346,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   getCategoryDate()
   async {
     final response = await _service.getCategory();
-    response?.data?.forEach((element) {
+    response?.categories?.forEach((element) {
       businessScreenController.allCategory.value.add(element.category ?? "");
     });
   }

@@ -5,5 +5,6 @@ class BusinessScreenController extends GetxController{
 
   RxList<String> allCategory=<String>[].obs;
   RxList<String> selectedCategory = <String>[].obs;
+  RxList<String> CategoryImage = <String>[].obs;
   RxBool openKeyBoard = false.obs;
 }

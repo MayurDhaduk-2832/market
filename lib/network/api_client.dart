@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/modules/business/model/categorice_model.dart';
+import 'package:sellproducts/modules/home/model.dart';
 import 'package:sellproducts/modules/login/model/login_view_model.dart';
 import 'package:sellproducts/modules/register/model/register_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -128,7 +129,7 @@ abstract class ApiClient {
   });
 
   @GET(LocaleKeys.categorice)
-  Future<CategoriesModel> getCategory();
+  Future<CategoryModel> getCategory();
 
   @POST(LocaleKeys.addProductURL)
   addProduct({

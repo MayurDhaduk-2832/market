@@ -47,9 +47,9 @@ class ProfileScreenController extends GetxController{
 
   getLoginData()
   {
-        profileController.value[0].text =PrefService.getString("isLoginName");
-        profileController.value[1].text =PrefService.getString("isLoginMobile");
-        profileController.value[2].text =PrefService.getString("isLoginEmail");
+        profileController.value[0].text =PrefService.getString(LocaleKeys.SPUserName);
+        profileController.value[1].text =PrefService.getString(LocaleKeys.SPUserMobile);
+        profileController.value[2].text =PrefService.getString(LocaleKeys.SPUserEmail);
 
   }
 

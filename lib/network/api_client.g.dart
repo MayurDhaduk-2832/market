@@ -27,13 +27,13 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CategoriesModel> getCategory() async {
+  Future<CategoryModel> getCategory() async {
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CategoriesModel>(
+        _setStreamType<CategoryModel>(
             Options(method: 'GET', headers: _header())
                 .compose(_dio.options, LocaleKeys.categorice)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CategoriesModel.fromJson(_result.data!);
+    final value = CategoryModel.fromJson(_result.data!);
     return value;
   }
 

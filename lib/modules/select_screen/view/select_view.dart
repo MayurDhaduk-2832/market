@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -44,6 +45,8 @@ class _SelectViewState extends State<SelectView> {
                   GestureDetector(
                     onTap: () {
                       iIsSelected = 1;
+                      PrefService.setValue(
+                          LocaleKeys.SPUSetRole,iIsSelected);
                       Map<String, dynamic> map = {
                         'setIndex': iIsSelected,
                       };
@@ -106,6 +109,8 @@ class _SelectViewState extends State<SelectView> {
                   GestureDetector(
                     onTap: () {
                       iIsSelected = 2;
+                      PrefService.setValue(
+                          LocaleKeys.SPUSetRole,iIsSelected);
                       Map<String, dynamic> map = {
                         'setIndex': iIsSelected,
                       };

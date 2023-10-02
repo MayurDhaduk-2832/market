@@ -27,7 +27,10 @@ class RegisterController extends GetxController {
     isLoad.value = true;
 
     await RegisterApi.RegisterUserApi(body);
-
     isLoad.value = false;
+    usernameController.text = "";
+    mobileController.text = "";
+    emailController.text = "";
+    confirmPassController.text = "";
   }
 }

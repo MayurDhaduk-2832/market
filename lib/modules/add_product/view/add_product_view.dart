@@ -18,6 +18,7 @@ class AddProductPage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
         child: SingleChildScrollView(
           child: Column(children: [
+
             GestureDetector(
               onTap: () {
                 Get.back();

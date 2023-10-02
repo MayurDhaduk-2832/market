@@ -119,6 +119,10 @@ class _LoginViewState extends State<LoginView> {
                                   LocaleKeys.SPUserId, response?.id ?? "");
                               PrefService.setValue(
                                   LocaleKeys.SPUserRole, response?.role ?? "");
+                              PrefService.setValue(
+                                  LocaleKeys.SPUserMobile, response?.mobileNumber ?? "");
+                              PrefService.setValue(
+                                  LocaleKeys.SPUserEmail, response?.email ?? "");
                               flutterToastBottomGreen(response?.message);
                               loginScreenController.emailController.text = "";
                               loginScreenController.passwordController.text =

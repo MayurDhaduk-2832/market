@@ -4,6 +4,7 @@ import 'package:sellproducts/constant/LocalColors.dart';
 import 'package:sellproducts/constant/pref_service.dart';
 
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/customs/custome_back_button.dart';
 import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/language/languege_controller/language_controller.dart';
 import 'package:sellproducts/routes/app_pages.dart';
@@ -35,23 +36,9 @@ class _LanguageViewState extends State<LanguageView> {
                 fit: BoxFit.cover,
               ),
             ),
-            Positioned(
-              top: height * 0.055,
-              left: height * 0.025,
-              child: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: height * 0.05,
-                  width: height * 0.05,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Icon(Icons.arrow_back),
-                ),
-              ),
-            ),
+            ButtonCommonWidget(onTap: () {
+              Get.back();
+            },),
             Positioned(
               top: height * 0.55,
               child: Container(
@@ -215,7 +202,7 @@ class _LanguageViewState extends State<LanguageView> {
                     GestureDetector(
                       onTap: () {
                         businessScreenController.openKeyBoard.value = false;
-                        ( PrefService.getString("isLoginRole")=="1")?Get.toNamed(Routes.BOTTOM_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
+                        ( PrefService.getString( LocaleKeys.SPUserRole)=="1")?Get.offNamed(Routes.BOTTOM_VIEW) : Get.offNamed(Routes.BUSINESS_ADD_VIEW);
                       },
                       child: Container(
                         alignment: Alignment.center,

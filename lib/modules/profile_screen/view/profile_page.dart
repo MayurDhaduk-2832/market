@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellproducts/constant/pref_service.dart';
@@ -74,16 +75,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        PrefService.getString("isLoginName"),
+                        PrefService.getString(LocaleKeys.SPUserName),
                         style: TextStyle(
                             fontSize: width * 0.05,
                             fontFamily: "PaytoneOne",
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Spacer(),
-                    Spacer(),
-                    Spacer(),
+                    const Spacer(),
+                    const Spacer(),
+                    const Spacer(),
                     Expanded(
                       child: Image.asset(
                         "assets/User.png",
@@ -107,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             BoxShadow(
                                 spreadRadius: 0,
                                 // blurStyle: BlurStyle.outer,
-                                offset: Offset(0, 4),
+                                offset: const Offset(0, 4),
                                 color: Colors.black.withOpacity(0.25),
                                 blurRadius: 4
                             )
@@ -130,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             BoxShadow(
                                 spreadRadius: 0,
                                 // blurStyle: BlurStyle.outer,
-                                offset: Offset(0, 4),
+                                offset: const Offset(0, 4),
                                 color: Colors.black.withOpacity(0.25),
                                 blurRadius: 4
                             )
@@ -185,12 +186,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Expanded(child:
-              ListView.builder(physics: BouncingScrollPhysics(),
+              ListView.builder(physics: const BouncingScrollPhysics(),
                 itemCount: profileScreenController.profileList.length,itemBuilder: (context, index) {
                   return Column(children: [
                     SizedBox(height: height * 0.02,),
                     Obx(
                     ()=> TextFieldCommonWidget(
+                    inputFormatters: [
+                      if(index==1)
+                            LengthLimitingTextInputFormatter(10),
+
+                      ],
                         keyboardType: index == 1 ? TextInputType.number:TextInputType.text,
                         text: profileScreenController.profileList.value[index],
                         hintText: profileScreenController.profileList.value[index],
@@ -202,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },),
               )
             ],),
-          ):SizedBox())
+          ):const SizedBox())
 
             ],),
             )

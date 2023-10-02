@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/common.dart';
+import 'package:sellproducts/constant/pref_service.dart';
+import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
 import 'package:sellproducts/customs/custom_textfield.dart';
 import 'package:sellproducts/modules/register/controller/register_controller.dart';
@@ -83,7 +86,10 @@ class _RegisterViewState extends State<RegisterView> {
                     TextFieldCommonWidget(text: "Email id",hintText: "Enter Email id",controller: registerController.emailController),
                     // Mobile No
                     SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(text: "Mobile No.",hintText: "Enter Mobile No.",controller: registerController.mobileController),
+                    TextFieldCommonWidget(inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(10),
+                    ],text: "Mobile No.",hintText: "Enter Mobile No.",controller: registerController.mobileController),
                     // password
                     SizedBox(height: height * 0.02),
                     TextFieldCommonWidget(text: "Password",hintText: "Enter Password",controller: registerController.passwordController),
@@ -94,12 +100,16 @@ class _RegisterViewState extends State<RegisterView> {
                     ContinueButtonCommonWidget(text:'Continue ->',onTap: () {
                       if(registerController.usernameController.text.isEmpty)
                         {
-                          flutterToastBottom("Please Enter Name");
+                          flutterToastBottom("Please Enter Username");
                         }
                       else if(registerController.emailController.text.isEmpty)
                         {
                           flutterToastBottom("Please Enter Email");
                         }
+                      else if(registerController.mobileController.text.isEmpty)
+                      {
+                        flutterToastBottom("Please Enter Mobile No.");
+                      }
                       else if(registerController.passwordController.text.isEmpty)
                         {
                           flutterToastBottom("Please Enter Password");
@@ -112,13 +122,9 @@ class _RegisterViewState extends State<RegisterView> {
                         {
                           flutterToastBottom("Please Enter Valid Conform Password");
                         }
-                      else if(registerController.mobileController.text.isEmpty)
-                        {
-                          flutterToastBottom("Please Enter Mobile No.");
-                        }
                       else
                         {
-                          registerController.registerUser(iSelect);
+                          registerController.registerUser( PrefService.getInt( LocaleKeys.SPUSetRole));
                           Get.toNamed(Routes.LANGUAGE_VIEW);
                         }
 

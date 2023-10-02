@@ -8,6 +8,7 @@ class TextFieldCommonWidget extends StatelessWidget {
   late bool? isShowViciblity;
   final String? text;
   TextInputType? keyboardType;
+  List<TextInputFormatter>? inputFormatters;
 
 
   TextFieldCommonWidget({
@@ -17,7 +18,8 @@ class TextFieldCommonWidget extends StatelessWidget {
     this.controller,
     this.isShowViciblity,
     this.text,
-    this.keyboardType
+    this.keyboardType,
+    this.inputFormatters
   });
 
   @override
@@ -53,7 +55,7 @@ class TextFieldCommonWidget extends StatelessWidget {
             padding:  EdgeInsets.only(left: width * 0.03),
             child: TextField(controller: controller,cursorColor: Colors.black,obscureText: obscureText ?? false,
               keyboardType: keyboardType,
-              style: TextStyle(fontSize: width * 0.04),
+              style: TextStyle(fontSize: width * 0.04),inputFormatters: inputFormatters,
               decoration: InputDecoration(border: InputBorder.none,
                 hintText: hintText ?? "",
                 hintStyle: TextStyle(fontSize: width * 0.04),

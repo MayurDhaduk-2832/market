@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellproducts/modules/home/model/product_data_model.dart';
 
 
 class ProductView extends StatefulWidget {
@@ -13,13 +14,14 @@ class ProductView extends StatefulWidget {
 class _ProductViewState extends State<ProductView> {
   dynamic argumentData = Get.arguments;
   String saleProductName="";
+  Datum productDataModel=Datum();
   String saleProductImage="";
   @override
   void initState() {
     super.initState();
     // _service = BusinessCreateViewModel(context);
     if (argumentData != null && argumentData is Map<String, dynamic>) {
-      saleProductName = argumentData['saleProductName'];
+      productDataModel = argumentData['saleProductName'];
       saleProductImage = argumentData['saleProductImage'];
     }
   }
@@ -102,10 +104,14 @@ class _ProductViewState extends State<ProductView> {
                     ),
                 ),
                 Padding(
+                  padding: const EdgeInsets.only(left: 25,right: 25,top: 4),
+                  child: Text("Brand name:-${productDataModel.sellerBrandName}",style: TextStyle(fontSize: height * 0.03),),
+                ),
+                Padding(
                   padding: const EdgeInsets.only(left: 25,right: 25),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(saleProductName,style: TextStyle(fontSize: height * 0.03),),
+                      Text(productDataModel.productName ?? "",style: TextStyle(fontSize: height * 0.03),),
                       Container(height: height * 0.04,width: width * 0.2,decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
@@ -123,9 +129,21 @@ class _ProductViewState extends State<ProductView> {
                         Expanded(child: Icon(Icons.star,color: Colors.amber,)),
                         Expanded(child: Text("4.9"))
                       ]),
-                      )
+                      ),
                     ],
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,right: 25,top: 4),
+                  child: Text("Original price:-${productDataModel.originalPrice}",style: TextStyle(fontSize: height * 0.03),),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,right: 25,top: 4),
+                  child: Text("Sale price:-${productDataModel.salePrice}",style: TextStyle(fontSize: height * 0.03),),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25,right: 25,top: 4),
+                  child: Text("Product description:-${productDataModel.productDescription}",style: TextStyle(fontSize: height * 0.03),),
                 ),
               ],
             ),

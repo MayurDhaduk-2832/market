@@ -33,11 +33,16 @@ class LocaleKeys {
   static const addProductURL = "businessInsertProductsData.php";
   static const filesUpload = "upload.php";
   static const categorice = "categorice.php";
+  static const locationGetProduct = "checkDestanseGetProduct.php";
+  static const locationGetLongProduct = "checkDestanseOutGetProduct.php";
 
   static const SPIsLogin = "isLogin";
   static const SPUserId = "userId";
   static const SPUserRole = "userRole";
   static const SPUserName = "userName";
+  static const SPUSetRole = "setRole";
+  static const SPUserMobile = "userMobile";
+  static const SPUserEmail = "userEmail";
 
   // Login
 

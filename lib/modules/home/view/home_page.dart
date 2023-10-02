@@ -1,17 +1,19 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:like_button/like_button.dart';
 import 'package:sellproducts/AllStatic/color.dart';
 import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_search_textfield.dart';
 import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
+import 'package:sellproducts/modules/home/home_controller/home_controller.dart';
+import 'package:sellproducts/modules/home/model/product_data_model.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,46 +26,46 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
+  HomeScreenController homeScreenController = Get.put(HomeScreenController());
   int currentIndex = 0;
   late BusinessCreateViewModel _service;
   List<String> imageList = [
     "assets/shose.jpg",
     "assets/tshirt.jpg",
     "assets/watch.jpg",
-    "assets/car.jpg"
   ];
 
-  List<String> categoriesList = [
-    "assets/Tshirt.png",
-    "assets/gaming.png",
-    "assets/balts.png",
-    "assets/shoes.png",
-    "assets/jewelry.png",
-    "assets/electronics.webp",
-    "assets/officeProducts.png",
-    "assets/butyProducts.png",
-    "assets/toys.jpg",
-    "assets/WomenFashions.png",
-    "assets/halthCare.png",
-    "assets/Kitchen.png",
-    "assets/books.png",
-    "assets/laptops.webp",
-    "assets/watches.png",
-    "assets/lights.png",
-    "assets/Chair.png",
-    "assets/glasses.png",
-    "assets/Furniture.png",
-    "assets/Computers.png",
-    "assets/Grocery.png",
-    "assets/CellPhones.png",
-    "assets/SportsOutdoors.png",
-    "assets/PetSupplies.png",
-    "assets/Camera.png",
-    "assets/Automotive.png",
-    "assets/Baby.png",
-    "assets/MusicalInstruments.png",
-    "assets/Shirts.png",
-  ];
+  // List<String>categoriesList = [
+  //   "assets/Tshirt.png",
+  //   "assets/gaming.png",
+  //   "assets/balts.png",
+  //   "assets/shoes.png",
+  //   "assets/jewelry.png",
+  //   "assets/electronics.webp",
+  //   "assets/officeProducts.png",
+  //   "assets/butyProducts.png",
+  //   "assets/toys.jpg",
+  //   "assets/WomenFashions.png",
+  //   "assets/halthCare.png",
+  //   "assets/Kitchen.png",
+  //   "assets/books.png",
+  //   "assets/laptops.webp",
+  //   "assets/watches.png",
+  //   "assets/lights.png",
+  //   "assets/Chair.png",
+  //   "assets/glasses.png",
+  //   "assets/Furniture.png",
+  //   "assets/Computers.png",
+  //   "assets/Grocery.png",
+  //   "assets/CellPhones.png",
+  //   "assets/SportsOutdoors.png",
+  //   "assets/PetSupplies.png",
+  //   "assets/Camera.png",
+  //   "assets/Automotive.png",
+  //   "assets/Baby.png",
+  //   "assets/MusicalInstruments.png",
+  //   "assets/Shirts.png",
+  // ];
 
   @override
   void initState() {
@@ -71,12 +73,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _service = BusinessCreateViewModel(context);
     getCategoryDate();
+    homeScreenController.getDestaricData();
+    homeScreenController.getDestaricLongData();
   }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
       resizeToAvoidBottomInset: false,
@@ -108,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              PrefService.getString("isLoginName"),
+                              PrefService.getString(LocaleKeys.SPUserName),
                               style: TextStyle(
                                   fontSize: width * 0.05,
                                   fontFamily: "PaytoneOne",
@@ -230,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                   Expanded(flex: 5,
                                     child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(categoriesList[index])),
+                                      image: DecorationImage(fit: BoxFit.fill,image: NetworkImage("https://mdprojects1203.000webhostapp.com/${businessScreenController.CategoryImage[index]}")),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     ),
@@ -280,23 +285,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
 
-                    Center(child: Image.asset( "assets/coupenOffer.png",height: height * 0.08,)),
+                    (homeScreenController.productDataModel.data !=[])?
+                    Center(child: Image.asset( "assets/coupenOffer.png",height: height * 0.08,)):SizedBox(),
                     SizedBox(
                       height: height * 0.01,
                     ),
-                    Padding(
+                    (homeScreenController.productDataModel.data !=[])? Padding(
                       padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                         height: height * 0.175,
                         width: double.infinity,
                         child: ListView.builder(physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: imageList.length-1,
+                          itemCount: homeScreenController.productDataModel.data?.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
                                 Map<String, dynamic> map = {
-                                  'saleProductName': "Abc",
+                                  'saleProductName': homeScreenController.productDataModel.data?[index],
                                   'saleProductImage': imageList[index],
                                 };
                                 Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -328,11 +334,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                    child: Text("${homeScreenController.productDataModel.data?[index].productName}",
+                                      style: TextStyle(fontSize: height * 0.015,fontWeight: FontWeight.w900),),
                                   )),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                    child: Text("Offer-${homeScreenController.productDataModel.data?[index].salePrice}",
+                                      style: TextStyle(fontSize: height * 0.015,color: Colors.grey),),
                                   )),
                                 ]),
                               ),
@@ -340,7 +348,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                       ),
-                    ),
+                    ):Center(child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text("No Trending sale", style: TextStyle(fontSize: height * 0.018,color: Colors.black)),
+                    )),
                     SizedBox(
                       height: height * 0.04,
                     ),
@@ -357,19 +368,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    Padding(
+                    (homeScreenController.productData !=[])? Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                         height: width * 1.1,
                         width: double.infinity,
                         child: GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: imageList.length,
+                          itemCount: homeScreenController.productData.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),
                           itemBuilder: (context, index) {
                           return GestureDetector(onTap: () {
                             Map<String, dynamic> map = {
-                              'saleProductName': "Abc",
+                              'saleProductName': homeScreenController.productData[index],
                               'saleProductImage': imageList[index],
                             };
                             Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -390,7 +401,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                Expanded(flex: 5,
+                                Expanded(flex: 6,
                                   child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
                                     image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
                                     borderRadius: BorderRadius.circular(10),
@@ -399,18 +410,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Expanded(child: Padding(
                                   padding: const EdgeInsets.only(left: 5),
-                                  child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                  child: Text("${homeScreenController.productData[index].productName}",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
                                 )),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                )),
+
+                                Expanded(flex: 2,
+                                  child: Row(
+                                    children: [
+                                      Expanded(flex: 2,child: Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text("Offer:${homeScreenController.productData[index].salePrice}",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                      )),
+                                      Expanded(child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 5),
+                                      child: LikeButton(isLiked: homeScreenController.isLike.value[index],size: width * 0.06,likeBuilder: (isLiked) {
+                                        homeScreenController.isLike.value[index]=isLiked;
+                                        return (isLiked)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06)
+                                            :Icon(CupertinoIcons.heart,size: width * 0.06,);
+                                      },),
+
+                                      )),
+                                    ],
+                                  ),
+                                )
                               ]),
                             ),
                           );
                         },),
                       ),
-                    ),
+                    ):Center(child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text("No Trending sale", style: TextStyle(fontSize: height * 0.018,color: Colors.black)),
+                    )),
 
                     /// regular sale
                     // trading sale image list
@@ -448,19 +478,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    Padding(
+                    (homeScreenController.productLongDataModel.data !=[])? Padding(
                       padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                         height: height * 0.175,
                         width: double.infinity,
                         child: ListView.builder(physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: imageList.length-1,
+                          itemCount: homeScreenController.productLongDataModel.data?.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
                                 Map<String, dynamic> map = {
-                                  'saleProductName': "Abc",
+                                  'saleProductName': homeScreenController.productLongDataModel.data?[index],
                                   'saleProductImage': imageList[index],
                                 };
                                 Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -492,11 +522,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                    child: Text("${homeScreenController.productLongDataModel.data?[index].productName}",
+                                      style: TextStyle(fontSize: height * 0.015,fontWeight: FontWeight.w900),),
                                   )),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                    child: Text("Offer-${homeScreenController.productLongDataModel.data?[index].salePrice}",
+                                      style: TextStyle(fontSize: height * 0.015,color: Colors.grey),),
                                   )),
                                 ]),
                               ),
@@ -504,7 +536,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                       ),
-                    ),
+                    ):Center(child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text("No Trending sale", style: TextStyle(fontSize: height * 0.018,color: Colors.black)),
+                    )),
                     SizedBox(
                       height: height * 0.04,
                     ),
@@ -521,59 +556,81 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    Padding(
+                    (homeScreenController.productLongData !=[])? Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
-                        height: width * 1.8,
+                       height: height * 0.77,
                         width: double.infinity,
                         child: GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: imageList.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9), itemBuilder: (context, index) {
-                          return GestureDetector(onTap: () {
-                            Map<String, dynamic> map = {
-                              'saleProductName': "Abc",
-                              'saleProductImage': imageList[index],
-                            };
-                            Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
-                          },
-                            child:  Container(
-                              height: height * 0.100,
-                              width: width * 0.275,
-                              margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
-                              decoration: BoxDecoration(
-                                // image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow:  [
-                                  BoxShadow(
-                                      spreadRadius: 0,
-                                      // blurStyle: BlurStyle.outer,
-                                      offset: const Offset(0, 4),
-                                      color: Colors.black.withOpacity(0.25),
-                                      blurRadius: 4)
-                                ],
-                              ),
-                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                Expanded(flex: 5,
-                                  child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(                                   image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  ),
+                          itemCount: homeScreenController.productLongData.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(onTap: () {
+                              Map<String, dynamic> map = {
+                                'saleProductName': homeScreenController.productLongData[index],
+                                'saleProductImage': imageList[index],
+                              };
+                              Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
+                            },
+                              child: Container(
+                                width: width * 0.275,
+                                margin: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow:  [
+                                    BoxShadow(
+                                        spreadRadius: 0,
+                                        // blurStyle: BlurStyle.outer,
+                                        offset: const Offset(0, 4),
+                                        color: Colors.black.withOpacity(0.25),
+                                        blurRadius: 4)
+                                  ],
                                 ),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("Abc",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
-                                )),
-                                Expanded(child: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("%2",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
-                                )),
-                              ]),
-                            ),
-                          );
-                        },),
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                  Expanded(flex: 6,
+                                    child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
+                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    ),
+                                  ),
+                                  Expanded(child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text("${homeScreenController.productLongData[index].productName}",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                  )),
+
+                                  Expanded(flex: 2,
+                                    child: Row(
+                                      children: [
+                                        Expanded(flex: 2,child: Padding(
+                                          padding: const EdgeInsets.only(left: 5),
+                                          child: Text("Offer:${homeScreenController.productLongData[index].salePrice}",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                        )),
+                                        Expanded(child: Padding(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          child: LikeButton(isLiked: homeScreenController.isLike.value[index],size: width * 0.06,likeBuilder: (isLiked) {
+                                            homeScreenController.isLike.value[index]=isLiked;
+                                            return (isLiked)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06)
+                                                :Icon(CupertinoIcons.heart,size: width * 0.06,);
+                                          },),
+
+                                        )),
+                                      ],
+                                    ),
+                                  )
+                                ]),
+                              ),
+                            );
+                          },),
                       ),
+                    ):Center(child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text("No Trending sale", style: TextStyle(fontSize: height * 0.018,color: Colors.black)),
+                    )),
+                    SizedBox(
+                      height: height * 0.1,
                     ),
                   ],),
                 ),
@@ -590,9 +647,9 @@ class _HomeScreenState extends State<HomeScreen> {
   getCategoryDate()
   async {
     final response = await _service.getCategory();
-    response?.data?.forEach((element) {
+    response?.categories?.forEach((element) {
       businessScreenController.allCategory.value.add(element.category ?? "");
-      print("${ businessScreenController.allCategory.value}");
+      businessScreenController.CategoryImage.value.add(element.categoryImage ?? "");
     });
   }
 }

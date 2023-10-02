@@ -50,6 +50,7 @@ dependencies:
   carousel_slider: ^4.2.1
   country_picker: ^2.0.21
   http:
+  like_button: ^2.0.5
 
 
 dev_dependencies:

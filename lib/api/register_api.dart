@@ -6,19 +6,27 @@ import 'package:sellproducts/constants/locals.g.dart';
 import '../network/http_service.dart';
 import 'package:http/http.dart' as http;
 
+
 class RegisterApi {
   static RegisterUserApi(Map<String, dynamic> body) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.signUpURL;
+
+      // Encode the request body as a JSON string
+      String bodyJson = jsonEncode(body);
+
       http.Response? response = await HttpService.postApi(
-          url: url,
-          header: {
-            "Content-Type": "application/json",
-          },
-          body: body);
+        url: url,
+        header: {
+          "Content-Type": "application/json",
+        },
+        body: bodyJson, // Use the JSON-encoded string as the body
+      );
+
       if (response != null && response.statusCode == 200) {
         String? status = jsonDecode(response.body)["status"];
         if (status != "success") {
+          // Handle the case where status is not "success"
         } else if (status == "success") {
           debugPrint(response.body);
         }
@@ -30,4 +38,7 @@ class RegisterApi {
       print("=====>>>  $e");
     }
   }
+
+
+
 }
