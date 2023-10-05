@@ -35,6 +35,8 @@ class LocaleKeys {
   static const categorice = "categorice.php";
   static const locationGetProduct = "checkDestanseGetProduct.php";
   static const locationGetLongProduct = "checkDestanseOutGetProduct.php";
+  static const inRangeProductUrl = "checkDestanseGetProduct.php";
+  static const outRangeProductUrl = "checkDestanseOutGetProduct.php";
 
   static const SPIsLogin = "isLogin";
   static const SPUserId = "userId";

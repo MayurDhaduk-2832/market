@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
+
   int currentIndex = 0;
   late BusinessCreateViewModel _service;
   List<String> imageList = [
@@ -81,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
       resizeToAvoidBottomInset: false,
@@ -91,14 +91,15 @@ class _HomeScreenState extends State<HomeScreen> {
           width: width,
           color: LocalKeyColor.BackgroundColor,
           child: Padding(
-            padding: EdgeInsets.only(
-              top: height * 0.02),
-            child: SingleChildScrollView(physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(top: height * 0.02),
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
+                    padding: EdgeInsets.only(
+                        left: width * 0.06, right: width * 0.06),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -127,63 +128,72 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: height * 0.04,
                   ),
+
                   /// Search textField
                   Padding(
-                    padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
-                    child: SearchTextFieldCommonWidget(controller: searchController,hintText: "Search Product..."),
+                    padding: EdgeInsets.only(
+                        left: width * 0.06, right: width * 0.06),
+                    child: SearchTextFieldCommonWidget(
+                        controller: searchController,
+                        hintText: "Search Product..."),
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
-              SizedBox(height: height,
-                child: SingleChildScrollView(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                    CarouselSlider(
-                      items: imageList
-                          .map(
-                            (e) => Container(margin: EdgeInsets.only(top: height * 0.05),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: Offset(0, 4),
-                                    color: Colors.black38,
-                                    blurRadius: 4)
-                              ],
-                              image: DecorationImage(
-                                  fit: BoxFit.fill, image: AssetImage(e))),
-                        ),
-                      )
-                          .toList(),
-                      options: CarouselOptions(
-                        animateToClosest: true,
-                        height: height * 0.250,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        },
-                        autoPlayInterval: const Duration(seconds: 2),
-                      ),
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: imageList.map((e) {
-                          int index = imageList.indexOf(e);
-                          return Container(
-                            width: 8,
-                            height: 8,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 3),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: currentIndex == index
-                                    ? Colors.white
-                                    : Colors.black12),
-                          );
-                        }).toList()),
+                  SizedBox(
+                    height: height,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CarouselSlider(
+                            items: imageList
+                                .map(
+                                  (e) => Container(
+                                    margin: EdgeInsets.only(top: height * 0.05),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(0, 4),
+                                              color: Colors.black38,
+                                              blurRadius: 4)
+                                        ],
+                                        image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: AssetImage(e))),
+                                  ),
+                                )
+                                .toList(),
+                            options: CarouselOptions(
+                              animateToClosest: true,
+                              height: height * 0.250,
+                              autoPlay: true,
+                              enlargeCenterPage: true,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  currentIndex = index;
+                                });
+                              },
+                              autoPlayInterval: const Duration(seconds: 2),
+                            ),
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: imageList.map((e) {
+                                int index = imageList.indexOf(e);
+                                return Container(
+                                  width: 8,
+                                  height: 8,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 3),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: currentIndex == index
+                                          ? Colors.white
+                                          : Colors.black12),
+                                );
+                              }).toList()),
 
                     /// Categories
                     Padding(

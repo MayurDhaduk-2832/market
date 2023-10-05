@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/api/register_api.dart';
-import 'package:sellproducts/constant/pref_service.dart';
-import 'package:sellproducts/constants/locals.g.dart';
 
 class RegisterController extends GetxController {
   TextEditingController usernameController = TextEditingController();
