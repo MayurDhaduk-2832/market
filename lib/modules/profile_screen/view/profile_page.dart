@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             BoxShadow(
                                 spreadRadius: 0,
                                 // blurStyle: BlurStyle.outer,
-                                offset: const Offset(0, 4),
+                                offset: Offset(0, 4),
                                 color: Colors.black.withOpacity(0.25),
                                 blurRadius: 4
                             )
@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             BoxShadow(
                                 spreadRadius: 0,
                                 // blurStyle: BlurStyle.outer,
-                                offset: const Offset(0, 4),
+                                offset: Offset(0, 4),
                                 color: Colors.black.withOpacity(0.25),
                                 blurRadius: 4
                             )
@@ -182,17 +182,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Expanded(child:
-              ListView.builder(physics: const BouncingScrollPhysics(),
+              ListView.builder(physics: BouncingScrollPhysics(),
                 itemCount: profileScreenController.profileList.length,itemBuilder: (context, index) {
                   return Column(children: [
                     SizedBox(height: height * 0.02,),
                     Obx(
                     ()=> TextFieldCommonWidget(
-                    inputFormatters: [
-                      if(index==1)
-                            LengthLimitingTextInputFormatter(10),
-
-                      ],
                         keyboardType: index == 1 ? TextInputType.number:TextInputType.text,
                         text: profileScreenController.profileList.value[index],
                         hintText: profileScreenController.profileList.value[index],
@@ -204,193 +199,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },),
               )
             ],),
-          ):const SizedBox())
+          ):SizedBox())
 
             ],),
             )
           ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              profileScreenController.iSelected.value = 1;
-                            },
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: height * 0.05,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        spreadRadius: 0,
-                                        // blurStyle: BlurStyle.outer,
-                                        offset: Offset(0, 4),
-                                        color: Colors.black.withOpacity(0.25),
-                                        blurRadius: 4)
-                                  ],
-                                ),
-                                child: Text(LocaleKeys.yourProfile)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: width * 0.04,
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              profileScreenController.iSelected.value = 2;
-                            },
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: height * 0.05,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        spreadRadius: 0,
-                                        // blurStyle: BlurStyle.outer,
-                                        offset: Offset(0, 4),
-                                        color: Colors.black.withOpacity(0.25),
-                                        blurRadius: 4)
-                                  ],
-                                ),
-                                child: Text(LocaleKeys.yourLists)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Obx(() => profileScreenController.iSelected.value == 1
-                        ? Expanded(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: height * 0.04,
-                                ),
-                                Center(
-                                  child: Text(
-                                    LocaleKeys.uploadProfilePicture,
-                                    style: TextStyle(
-                                        fontSize: width * 0.04,
-                                        fontFamily: "PaytoneOne",
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: height * 0.02,
-                                ),
-                                Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      showSelectImage(context);
-                                    },
-                                    child: Container(
-                                        height: height * 0.1,
-                                        width: height * 0.1,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.2),
-                                                blurRadius: 5,
-                                              )
-                                            ],
-                                            borderRadius: BorderRadius.circular(
-                                                height * 0.075)),
-                                        child: Obx(
-                                          () => (profileScreenController
-                                                      .isSelectedImage.value ==
-                                                  true)
-                                              ? CircleAvatar(
-                                                  backgroundColor: Colors.white,
-                                                  backgroundImage: FileImage(
-                                                      File(
-                                                          profileScreenController
-                                                                  .image
-                                                                  ?.path ??
-                                                              "")))
-                                              : Image.asset(
-                                                  "assets/profileUser.png",
-                                                  height: height * 0.04,
-                                                ),
-                                        )),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    physics: BouncingScrollPhysics(),
-                                    itemCount: profileScreenController
-                                        .profileList.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        children: [
-                                          SizedBox(
-                                            height: height * 0.02,
-                                          ),
-                                          Obx(
-                                            () => TextFieldCommonWidget(
-                                              obscureText:
-                                                  index == 3 ? true : false,
-                                              keyboardType: index == 1
-                                                  ? TextInputType.number
-                                                  : TextInputType.text,
-                                              text: profileScreenController
-                                                  .profileList.value[index],
-                                              hintText: profileScreenController
-                                                  .profileList.value[index],
-                                              controller:
-                                                  profileScreenController
-                                                      .profileController
-                                                      .value[index],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: height * 0.02,
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                )
-                                //  TextFieldCommonWidget(
-                                //      text: LocaleKeys.yourName,
-                                //      hintText: LocaleKeys.yourName,
-                                // controller: profileScreenController.userNameController,
-                                //  ),
-                                //  SizedBox(height: height * 0.02,),
-                                //  TextFieldCommonWidget(
-                                //    text: LocaleKeys.yourMobileNo,
-                                //    hintText: LocaleKeys.yourMobileNo,
-                                //    controller: profileScreenController.mobileController,
-                                //  ),
-                                //  SizedBox(height: height * 0.02,),
-                                //  TextFieldCommonWidget(
-                                //    text: LocaleKeys.yourEmail,
-                                //    hintText: LocaleKeys.yourEmail,
-                                //    controller: profileScreenController.emailController,
-                                //  ),
-                                //  SizedBox(height: height * 0.02,),
-                                //  TextFieldCommonWidget(
-                                //    text: LocaleKeys.yourAddress,
-                                //    hintText: LocaleKeys.yourAddress,
-                                //    controller: profileScreenController.passwordController,
-                                //  ),
-                                //  SizedBox(height: height * 0.02,),
-                                //  TextFieldCommonWidget(
-                                //    text: LocaleKeys.yourPassword,
-                                //    hintText: LocaleKeys.yourPassword,
-                                //    controller: profileScreenController.addressController,
-                                //  ),
-                              ],
-                            ),
-                          )
-                        : SizedBox())
-                  ],
-                ),
-              )),
         ),
       ),
     );

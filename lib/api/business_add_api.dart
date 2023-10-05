@@ -10,12 +10,13 @@ class AddBusinessApi {
   static addBusinessApi(Map<String, dynamic> body) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.businessCreateURL;
+      String bodyJson = jsonEncode(body);
       http.Response? response = await HttpService.postApi(
           url: url,
           header: {
             "Content-Type": "application/json",
           },
-          body: body);
+          body: bodyJson);
       if (response != null && response.statusCode == 200) {
         String? status = jsonDecode(response.body)["status"];
         if (status != "success") {

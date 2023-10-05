@@ -1,5 +1,6 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/common.dart';
@@ -38,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
         width: width,
         decoration: BoxDecoration(
             color: Colors.brown.shade50,
-            image: DecorationImage(
+            image: const DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
                   "assets/asset1.png",
@@ -50,67 +51,73 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(
                 height: height * 0.22,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                width: width,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          blurRadius: 10,
-                          offset: const Offset(0, 7))
-                    ]),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Obx(
-                      () => Text(
-                        (loginScreenController.iSelect.value == 1)
-                            ? "Sign In to Your Customer \nAccount"
-                            : "Sign In to Your Business \nAccount",
-                        style: TextStyle(
-                            fontSize: width * 0.05,
-                            fontWeight: FontWeight.bold),
-                      ),
+
+              Stack(alignment: Alignment.center,
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    width: width,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              blurRadius: 10,
+                              offset: const Offset(0, 7))
+                        ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Obx(
+                          () => Text(
+                            (loginScreenController.iSelect.value == 1)
+                                ? "Sign In to Your Customer \nAccount"
+                                : "Sign In to Your Business \nAccount",
+                            style: TextStyle(
+                                fontSize: width * 0.05,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.03,
+                        ),
+                        SizedBox(height: height * 0.02),
+                        TextFieldCommonWidget(
+                            text: "Email id",
+                            hintText: "Enter Email id",
+                            controller: loginScreenController.emailController),
+                        SizedBox(height: height * 0.02),
+                        TextFieldCommonWidget(
+                            text: "Password",
+                            hintText: "Enter Password",
+                            controller: loginScreenController.passwordController),
+                        // continue button
+                        SizedBox(
+                          height: height * 0.03,
+                        ),
+                        ContinueButtonCommonWidget(
+                            onTap: () async {
+                              if (loginScreenController
+                                  .emailController.text.isEmpty) {
+                                flutterToastBottom("Please Enter Email Id");
+                              } else if (loginScreenController
+                                  .passwordController.text.isEmpty) {
+                                flutterToastBottom("Please Enter Password");
+                              } else {
+                                await loginScreenController.login();
+                              }
+                            },
+                            text: 'Continue ->'),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: height * 0.03,
-                    ),
-                    SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(
-                        text: "Email id",
-                        hintText: "Enter Email id",
-                        controller: loginScreenController.emailController),
-                    SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(
-                        text: "Password",
-                        hintText: "Enter Password",
-                        controller: loginScreenController.passwordController),
-                    // continue button
-                    SizedBox(
-                      height: height * 0.03,
-                    ),
-                    ContinueButtonCommonWidget(
-                        onTap: () async {
-                          if (loginScreenController
-                              .emailController.text.isEmpty) {
-                            flutterToastBottom("Please Enter Email Id");
-                          } else if (loginScreenController
-                              .passwordController.text.isEmpty) {
-                            flutterToastBottom("Please Enter Password");
-                          } else {
-                            await loginScreenController.login();
-                          }
-                        },
-                        text: 'Continue ->'),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                  ],
-                ),
+                  ),
+                  Obx(() =>loginScreenController.isLoad.value==true?const Center(child: CupertinoActivityIndicator(color: Colors.black,animating: true,radius: 12),):SizedBox()),
+                ],
               ),
               SizedBox(
                 height: height * 0.04,

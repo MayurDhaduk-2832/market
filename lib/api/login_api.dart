@@ -6,17 +6,19 @@ import '../network/http_service.dart';
 import 'package:http/http.dart' as http;
 
 class LoginApi {
-  static loginApi(Map<String, dynamic> body) async {
+ static Future loginApi(Map<String, dynamic> body) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.loginUpURL;
+      String bodyJson = jsonEncode(body);
       http.Response? response = await HttpService.postApi(
           url: url,
           header: {
             "Content-Type": "application/json",
           },
-          body: body);
+          body: bodyJson);
       if (response != null && response.statusCode == 200) {
-        return LoginModel.fromJson(jsonDecode(response.body));
+        // return LoginModel.fromJson(jsonDecode(response.body));
+        return loginModelFromJson(response.body);
       }
       return LoginModel.fromJson(jsonDecode(""));
     } catch (e) {
