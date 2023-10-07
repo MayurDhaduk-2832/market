@@ -7,7 +7,7 @@ import '../network/http_service.dart';
 import 'package:http/http.dart' as http;
 
 class AddBusinessApi {
-  static addBusinessApi(Map<String, dynamic> body) async {
+  static Future addBusinessApi(Map<String, dynamic> body) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.businessCreateURL;
       String bodyJson = jsonEncode(body);
@@ -23,7 +23,9 @@ class AddBusinessApi {
         } else if (status == "success") {
           debugPrint(response.body);
         }
+
         flutterToastBottomGreen(jsonDecode(response.body)["message"]);
+        return response.body;
       } else {
         flutterToastBottom(jsonDecode(response!.body)["message"]);
       }

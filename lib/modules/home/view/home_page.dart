@@ -36,38 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     "assets/watch.jpg",
   ];
 
-  // List<String>categoriesList = [
-  //   "assets/Tshirt.png",
-  //   "assets/gaming.png",
-  //   "assets/balts.png",
-  //   "assets/shoes.png",
-  //   "assets/jewelry.png",
-  //   "assets/electronics.webp",
-  //   "assets/officeProducts.png",
-  //   "assets/butyProducts.png",
-  //   "assets/toys.jpg",
-  //   "assets/WomenFashions.png",
-  //   "assets/halthCare.png",
-  //   "assets/Kitchen.png",
-  //   "assets/books.png",
-  //   "assets/laptops.webp",
-  //   "assets/watches.png",
-  //   "assets/lights.png",
-  //   "assets/Chair.png",
-  //   "assets/glasses.png",
-  //   "assets/Furniture.png",
-  //   "assets/Computers.png",
-  //   "assets/Grocery.png",
-  //   "assets/CellPhones.png",
-  //   "assets/SportsOutdoors.png",
-  //   "assets/PetSupplies.png",
-  //   "assets/Camera.png",
-  //   "assets/Automotive.png",
-  //   "assets/Baby.png",
-  //   "assets/MusicalInstruments.png",
-  //   "assets/Shirts.png",
-  // ];
-
   @override
   void initState() {
     super.initState();
@@ -569,9 +537,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     (homeScreenController.productLongData !=[])? Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
-                       height: height * 0.77,
-                        width: double.infinity,
+                       height: height,
+                       //  width: double.infinity,
                         child: GridView.builder(
+                          shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: homeScreenController.productLongData.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),

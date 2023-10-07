@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 
 class RegisterApi {
-  static RegisterUserApi(Map<String, dynamic> body) async {
+  static Future RegisterUserApi(Map<String, dynamic> body) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.signUpURL;
 
@@ -31,6 +31,7 @@ class RegisterApi {
           debugPrint(response.body);
         }
         flutterToastBottomGreen(jsonDecode(response.body)["message"]);
+        return response.body;
       } else {
         flutterToastBottom(jsonDecode(response!.body)["message"]);
       }

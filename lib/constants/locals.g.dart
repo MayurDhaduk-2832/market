@@ -71,6 +71,7 @@ class LocaleKeys {
   static const trandingSale = 'Tranding Sale :';
   static const categories = 'Categories :';
   static const RegularSale = 'Regular Sale :';
+  static const checkInternet = 'Check Your InternetConnection';
 
   // for language
   static const language = 'Language';
@@ -102,6 +103,8 @@ class LocaleKeys {
   static const yourEmail = "your Email id";
   static const yourAddress = "your Address";
   static const yourPassword = "your Password";
+  static const selectCategories = "Select categories";
+  static const businessLogo = "Business Logo";
 }
 
 class Locales {
@@ -129,6 +132,8 @@ class Locales {
     LocaleKeys.yourEmail: 'Your Email id',
     LocaleKeys.yourAddress: 'Your Address',
     LocaleKeys.yourPassword: 'Your Password',
+    LocaleKeys.selectCategories: 'Select categories',
+    LocaleKeys.businessLogo: 'Business Logo',
   };
   static const hi_IN = {
     LocaleKeys.one: '१',
@@ -154,6 +159,8 @@ class Locales {
     LocaleKeys.yourEmail: 'आपकी ईमेल आईडी',
     LocaleKeys.yourAddress: 'तुम्हारा पता',
     LocaleKeys.yourPassword: 'आपका पासवर्ड',
+    LocaleKeys.selectCategories: 'श्रेणियाँ चुनें',
+    LocaleKeys.businessLogo: 'बिजनेस लोगों',
   };
   static const gu_IN = {
     LocaleKeys.one: '૧',
@@ -179,5 +186,7 @@ class Locales {
     LocaleKeys.yourEmail: 'તમારું ઈમેલ આઈડી',
     LocaleKeys.yourAddress: 'તમારું સરનામું',
     LocaleKeys.yourPassword: 'તમારો ખાનગી શબ્દ',
+    LocaleKeys.selectCategories: 'શ્રેણીઓ પસંદ કરો',
+    LocaleKeys.businessLogo: 'શબિઝનેસ લોગો',
   };
 }

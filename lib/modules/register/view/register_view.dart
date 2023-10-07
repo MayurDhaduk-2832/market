@@ -86,7 +86,7 @@ class _RegisterViewState extends State<RegisterView> {
                     TextFieldCommonWidget(text: "Email id",hintText: "Enter Email id",controller: registerController.emailController),
                     // Mobile No
                     SizedBox(height: height * 0.02),
-                    TextFieldCommonWidget(inputFormatters: [
+                    TextFieldCommonWidget(keyboardType: TextInputType.numberWithOptions(),inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(10),
                     ],text: "Mobile No.",hintText: "Enter Mobile No.",controller: registerController.mobileController),
@@ -125,7 +125,7 @@ class _RegisterViewState extends State<RegisterView> {
                       else
                         {
                           registerController.registerUser( PrefService.getInt( LocaleKeys.SPUSetRole));
-                          Get.toNamed(Routes.LANGUAGE_VIEW);
+
                         }
 
 

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/api/register_api.dart';
+import 'package:sellproducts/constant/common.dart';
+import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/login/login_controller/login_controller.dart';
+import 'package:sellproducts/routes/app_pages.dart';
 
 class RegisterController extends GetxController {
   TextEditingController usernameController = TextEditingController();
@@ -14,6 +18,9 @@ class RegisterController extends GetxController {
   RxBool isLoad = false.obs;
 
   registerUser(int iSelect) async {
+    if(await Get.find<LoginScreenController>().checkInternet()==true)
+      {
+        isLoad.value = true;
     Map<String, dynamic> body = {
       "username": usernameController.text,
       "mobileNumber": mobileController.text,
@@ -22,13 +29,23 @@ class RegisterController extends GetxController {
       "role": iSelect,
     };
 
-    isLoad.value = true;
+    await RegisterApi.RegisterUserApi(body).then((value){
+      if(value!=null)
+        {
+          Get.toNamed(Routes.LANGUAGE_VIEW);
+          usernameController.text = "";
+          mobileController.text = "";
+          emailController.text = "";
+          confirmPassController.text = "";
+        }
 
-    await RegisterApi.RegisterUserApi(body);
+    });
     isLoad.value = false;
-    usernameController.text = "";
-    mobileController.text = "";
-    emailController.text = "";
-    confirmPassController.text = "";
+
+  }
+    else
+      {
+        flutterToastBottom(LocaleKeys.checkInternet);
+      }
   }
 }
