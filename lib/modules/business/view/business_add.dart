@@ -311,6 +311,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       .pinCodeController.text.isEmpty) {
                     flutterToastBottom("Please Enter Pincode");
                   } else {
+                    await businessScreenController.uploadImage();
                     await businessScreenController.addBusiness();
                   }
                   businessScreenController.openKeyBoard.value = false;
