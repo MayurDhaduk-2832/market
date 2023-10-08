@@ -27,6 +27,7 @@ class _LanguageViewState extends State<LanguageView> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
+
           children: [
             SizedBox(
               height: height,
@@ -97,8 +98,7 @@ class _LanguageViewState extends State<LanguageView> {
                             ()=> GestureDetector(
                             onTap: () {
                               languageScreenController.isSelectedLanguage.value = 1;
-                              Get.updateLocale(const Locale('en', 'US'));
-
+                             Get.updateLocale(const Locale('en', 'US'));
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -130,8 +130,7 @@ class _LanguageViewState extends State<LanguageView> {
                             ()=> GestureDetector(
                             onTap: () {
                              languageScreenController.isSelectedLanguage.value = 2;
-
-                             // Get.updateLocale(const Locale('gu', 'IN'));
+                             Get.updateLocale(const Locale('gu', 'IN'));
 
                             },
                             child: Container(
@@ -167,7 +166,7 @@ class _LanguageViewState extends State<LanguageView> {
                       child: GestureDetector(
                         onTap: () {
                           languageScreenController.isSelectedLanguage.value = 3;
-                          //  Get.updateLocale(const Locale('hi', 'IN'));
+                           Get.updateLocale(const Locale('hi', 'IN'));
 
                         },
                         child: Obx(

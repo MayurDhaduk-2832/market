@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sellproducts/constant/pref_service.dart';
+import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/network/api_client.dart';
 import 'routes/app_pages.dart';
 
@@ -44,8 +45,12 @@ class _MyAppState extends State<MyApp> {
         Locale('gu', 'IN'),
         Locale('hi', 'IN'),
       ],
-      locale: const Locale('en', 'US'),
-      fallbackLocale: const Locale('en', 'US'),
+      // locale: const Locale('en', 'US'),
+      // fallbackLocale: const Locale('en', 'US'),
+      translations: AppTranslation(),
+      locale: Locale('en', 'US'), // Set the initial locale.
+      fallbackLocale: Locale('en', 'US'), // Fallback locale if the translation isn't available.
+
     );
   }
 }

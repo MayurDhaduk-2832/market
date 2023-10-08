@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 
 class CategoryApi {
- static CategoryUserApi() async {
+ static Future CategoryUserApi() async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.categorice;
 
@@ -24,7 +24,7 @@ class CategoryApi {
       );
 
       if (response != null && response.statusCode == 200) {
-
+        return categoryModelFromJson(response.body);
       } else {
         flutterToastBottom(jsonDecode(response!.body)["message"]);
       }

@@ -36,15 +36,15 @@ class _HomeScreenState extends State<HomeScreen> {
     "assets/watch.jpg",
   ];
 
-  @override
-  void initState() {
-    super.initState();
-
-    _service = BusinessCreateViewModel(context);
-    getCategoryDate();
-    homeScreenController.getDestaricData();
-    homeScreenController.getDestaricLongData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   _service = BusinessCreateViewModel(context);
+  //   getCategoryDate();
+  //   homeScreenController.getDestaricData();
+  //   homeScreenController.getDestaricLongData();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -184,12 +184,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: double.infinity,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: businessScreenController.allCategory.value.length,
+                          itemCount: homeScreenController.categoryModel.categories?.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
                                 Map<String, dynamic> map = {
-                                  'saleName':  businessScreenController.allCategory.value[index],
+                                  'saleName':  homeScreenController.categoryModel.categories?[index],
                                 };
                                 Get.toNamed(Routes.MORE_PRODUCT_VIEW,arguments: map);
                               },
@@ -213,14 +213,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                   Expanded(flex: 5,
                                     child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                      image: DecorationImage(fit: BoxFit.fill,image: NetworkImage("https://mdprojects1203.000webhostapp.com/${businessScreenController.CategoryImage[index]}")),
+                                      image: DecorationImage(fit: BoxFit.fill,image: NetworkImage("https://mdprojects1203.000webhostapp.com/${ homeScreenController.categoryModel.categories?[index].categoryImage}")),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     ),
                                   ),
                                   Expanded(flex: 2,child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("${ businessScreenController.allCategory.value[index]}",
+                                    child: Text(homeScreenController.categoryModel.categories?[index].category ?? "",
                                       style: TextStyle(fontSize: width * 0.03 ,fontWeight: FontWeight.w900),),
                                   )),
                                 ]),
@@ -622,13 +622,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
     );
-  }
-  getCategoryDate()
-  async {
-    final response = await _service.getCategory();
-    response?.categories?.forEach((element) {
-      businessScreenController.allCategory.value.add(element.category ?? "");
-      businessScreenController.CategoryImage.value.add(element.categoryImage ?? "");
-    });
   }
 }

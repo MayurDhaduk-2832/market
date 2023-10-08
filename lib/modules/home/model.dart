@@ -1,44 +1,50 @@
+// To parse this JSON data, do
+//
+//     final categoryModel = categoryModelFromJson(jsonString);
+
+import 'dart:convert';
+
+CategoryModel categoryModelFromJson(String str) => CategoryModel.fromJson(json.decode(str));
+
+String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
+
 class CategoryModel {
   bool? isSuccess;
-  List<Categories>? categories;
+  List<Category>? categories;
 
-  CategoryModel({this.isSuccess, this.categories});
+  CategoryModel({
+    this.isSuccess,
+    this.categories,
+  });
 
-  CategoryModel.fromJson(Map<String, dynamic> json) {
-    isSuccess = json['isSuccess'];
-    if (json['categories'] != null) {
-      categories = <Categories>[];
-      json['categories'].forEach((v) {
-        categories!.add(new Categories.fromJson(v));
-      });
-    }
-  }
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+    isSuccess: json["isSuccess"],
+    categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isSuccess'] = this.isSuccess;
-    if (this.categories != null) {
-      data['categories'] = this.categories!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "isSuccess": isSuccess,
+    "categories": List<dynamic>.from(categories!.map((x) => x.toJson())),
+  };
+
 }
 
-class Categories {
+class Category {
   String? category;
   String? categoryImage;
 
-  Categories({this.category, this.categoryImage});
+  Category({
+    this.category,
+    this.categoryImage,
+  });
 
-  Categories.fromJson(Map<String, dynamic> json) {
-    category = json['category'];
-    categoryImage = json['category_image'];
-  }
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    category: json["category"],
+    categoryImage: json["category_image"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['category'] = this.category;
-    data['category_image'] = this.categoryImage;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "category": category,
+    "category_image": categoryImage,
+  };
 }

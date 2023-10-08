@@ -2,13 +2,29 @@
 
 // ignore_for_file: lines_longer_than_80_chars, constant_identifier_names
 // ignore: avoid_classes_with_only_static_members
-class AppTranslation {
-  static Map<String, Map<String, String>> translations = {
+import 'dart:ui';
+
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+// class AppTranslation {
+//   static Map<String, Map<String, String>> translations = {
+//     'en_US': Locales.en_US,
+//     'hi_IN': Locales.hi_IN,
+//     'gu_IN': Locales.gu_IN,
+//   };
+//
+//
+// }
+class AppTranslation extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
     'en_US': Locales.en_US,
     'hi_IN': Locales.hi_IN,
     'gu_IN': Locales.gu_IN,
   };
 }
+
 
 class LocaleKeys {
   // Icon
@@ -189,4 +205,5 @@ class Locales {
     LocaleKeys.selectCategories: 'શ્રેણીઓ પસંદ કરો',
     LocaleKeys.businessLogo: 'શબિઝનેસ લોગો',
   };
+
 }

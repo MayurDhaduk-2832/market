@@ -5,6 +5,7 @@ import 'package:sellproducts/api/business_add_api.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/modules/home/home_controller/home_controller.dart';
 import 'package:sellproducts/modules/login/login_controller/login_controller.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -27,6 +28,18 @@ class BusinessScreenController extends GetxController {
   final countryController = TextEditingController();
   final stateController = TextEditingController();
   final cityController = TextEditingController();
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    print("asknfsdfl");
+   // Get.find<HomeScreenController>().getCategoriesData();
+
+  }
+
+
+
 
   addBusiness() async {
     isLoad.value = true;

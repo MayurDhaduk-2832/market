@@ -2,6 +2,8 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:sellproducts/api/add_product_api.dart';
+import 'package:sellproducts/api/category_api.dart';
+import 'package:sellproducts/modules/home/model.dart';
 import 'package:sellproducts/modules/home/model/product_data_model.dart';
 import 'package:sellproducts/modules/home/model/product_long_data_model.dart';
 
@@ -14,6 +16,7 @@ class HomeScreenController extends GetxController{
   RxList<bool> isLike=<bool>[].obs;
 
   ProductDataModel productDataModel=ProductDataModel();
+  CategoryModel categoryModel=CategoryModel();
   ProductLongDataModel productLongDataModel=ProductLongDataModel();
 
 
@@ -24,8 +27,23 @@ class HomeScreenController extends GetxController{
     // TODO: implement onInit
     super.onInit();
     print("asknfsdfl");
+    getCategoriesData();
     getDestaricData();
     getDestaricLongData();
+
+  }
+
+  getCategoriesData() async {
+    isLoad.value = true;
+
+    await CategoryApi.CategoryUserApi().then((value){
+      if(value!=null)
+      {
+        categoryModel = value;
+      }
+
+    });
+    isLoad.value = false;
 
   }
 
@@ -65,10 +83,9 @@ class HomeScreenController extends GetxController{
       {
         productLongDataModel = value;
         productLongData = productLongDataModel.data!;
-        isLike.value = List.generate(productDataModel.data!.length, (index) => false);
+        isLike.value = List.generate(productDataModel.data?.length ?? 0, (index) => false);
         productLongData.sort((a, b) => double.parse(a.salePrice!).compareTo(double.parse(b.salePrice!)));
       }
-
 
     });
     isLoad.value = false;

@@ -16,6 +16,7 @@ import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_continue_button.dart';
 import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
+import 'package:sellproducts/modules/home/home_controller/home_controller.dart';
 
 class BusinessAddScreen extends StatefulWidget {
   const BusinessAddScreen({super.key});
@@ -27,7 +28,7 @@ class BusinessAddScreen extends StatefulWidget {
 class _BusinessAddScreenState extends State<BusinessAddScreen> {
   BusinessScreenController businessScreenController =
       Get.put(BusinessScreenController());
-
+  HomeScreenController homeScreenController = Get.put(HomeScreenController());
   late BusinessCreateViewModel _service;
   bool isSelectedImage = false;
   XFile? image;
@@ -355,7 +356,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount:
-                          businessScreenController.allCategory.value.length,
+                      homeScreenController.categoryModel.categories?.length,
                       itemBuilder: (context, index) {
                         final category =
                             businessScreenController.allCategory.value[index];
@@ -364,10 +365,10 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                             .contains(category);
 
                         return CheckboxListTile(secondary:  CircleAvatar(backgroundColor:  Colors.brown.shade50,
-                            backgroundImage: NetworkImage("https://mdprojects1203.000webhostapp.com/${businessScreenController.CategoryImage[index]}")),
+                            backgroundImage: NetworkImage("https://mdprojects1203.000webhostapp.com/${homeScreenController.categoryModel.categories?[index].categoryImage}")),
                           activeColor: Colors.black,
                           value: isSelected,
-                          title: Text(category),
+                          title: Text(homeScreenController.categoryModel.categories?[index].category ?? ""),
                           controlAffinity: ListTileControlAffinity.leading,
                           onChanged: (isChecked) {
                             if (isChecked ?? false) {
