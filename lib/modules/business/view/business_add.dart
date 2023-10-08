@@ -47,285 +47,294 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        height: height,
-        width: width,
-        color: Colors.brown.shade50,
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return WillPopScope(
+      onWillPop: () async{
+        businessScreenController.openKeyBoard.value = false;
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor:  Colors.brown.shade50,
+       // resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Container(
+            height: height,
+            width: width,
+            color: Colors.brown.shade50,
+            child: Stack(
               children: [
-                Container(
-                  height: height * 0.05,
-                  width: height * 0.05,
-                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 35),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 4)
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.arrow_back_rounded,
-                    color: Colors.black,
-                  ),
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () async {
-                      showSelectImage(context);
-                    },
-                    child: Container(
-                      height: height * 0.13,
-                      width: height * 0.13,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: height * 0.05,
+                      width: height * 0.05,
+                      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 5,
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(height * 0.075)),
-                      child: (isSelectedImage == true)
-                          ? CircleAvatar(
-                              backgroundColor: Colors.white,
-                              backgroundImage: FileImage(File(image?.path ?? "")))
-                          : const Icon(
-                              Icons.person,
-                              size: 40,
-                              color: Colors.black,
-                            ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                SizedBox(
-                  height: height * 0.09,
-                  child: Center(
-                    child: Text(
-                      "Business Logo",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: width * 0.06,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                        },
-                        isShowIcon: true,
-                        icon: Icons.person,
-                        controller: businessScreenController.businessNameController,
-                        hintText: "Enter Business Name",
-                        onSubmitted: (value) {
-                          businessScreenController.openKeyBoard.value = false;
-                        },
-                      ),
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                        },
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(10),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 4)
                         ],
-                        isShowIcon: true,
-                        icon: Icons.phone,
-                        controller: businessScreenController.mobileController,
-                        hintText: "Enter Mobile Number",
-                        onSubmitted: (value) {
-                          businessScreenController.openKeyBoard.value = false;
-                        },
                       ),
-                      Obx(
-                        () => CustomMultipalDropDown(
-                          onTap: () {
-                            showSelectedItem();
-                          },
-                          selectedItems:
-                              businessScreenController.selectedCategory.value,
-                          icon: Icons.category,
-                          isShowIcon: true,
-                          image: "assets/flag.png",
-                          hintText: "Please select cetagoris",
-                        ),
+                      child: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.black,
                       ),
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                          showCountryPicker(
-                            context: context,
-                            countryListTheme: CountryListThemeData(
-                              flagSize: 25,
-                              backgroundColor: Colors.brown.shade50,
-                              textStyle: const TextStyle(
-                                  fontSize: 16, color: Colors.blueGrey),
-                              bottomSheetHeight:
-                                  500, // Optional. Country list modal height
-                              //Optional. Sets the border radius for the bottomsheet.
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0),
-                              ),
-                              //Optional. Styles the search field.
-                              inputDecoration: const InputDecoration(
-                                focusedBorder:
-                                    OutlineInputBorder(borderSide: BorderSide()),
-                                labelText: 'Search',
-                                labelStyle: TextStyle(color: Colors.black),
-                                hintText: 'Start typing to search',
-                                prefixIcon: Icon(Icons.search, color: Colors.black),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                  ),
+                    ),
+
+                    Expanded(flex: 5,
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          Center(
+                            child: GestureDetector(
+                              onTap: () async {
+                                showSelectImage(context);
+                              },
+                              child: Container(
+                                height: height * 0.13,
+                                width: height * 0.13,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        blurRadius: 5,
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(height * 0.075)),
+                                child: (isSelectedImage == true)
+                                    ? CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    backgroundImage: FileImage(File(image?.path ?? "")))
+                                    : const Icon(
+                                  Icons.person,
+                                  size: 40,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
-                            onSelect: (value) {
-                              businessScreenController.countryController.text =
-                                  value.name;
-                              setState(() {});
+                          ),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          SizedBox(
+                            height: height * 0.09,
+                            child: Center(
+                              child: Text(
+                                "Business Logo",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: width * 0.06,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
                             },
-                          );
-                        },
-                        isShowIcon: true,
-                        keyboardType: TextInputType.none,
-                        icon: Icons.flag,
-                        controller: businessScreenController.countryController,
-                        hintText: "Please Select Country",
-                        onSubmitted: (value) {
+                            isShowIcon: true,
+                            icon: Icons.person,
+                            controller: businessScreenController.businessNameController,
+                            hintText: "Enter Business Name",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
+                            },
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
+                            isShowIcon: true,
+                            icon: Icons.phone,
+                            controller: businessScreenController.mobileController,
+                            hintText: "Enter Mobile Number",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+                          Obx(
+                            () => CustomMultipalDropDown(
+                              onTap: () {
+                                showSelectedItem();
+                              },
+                              selectedItems:
+                                  businessScreenController.selectedCategory.value,
+                              icon: Icons.category,
+                              isShowIcon: true,
+                              image: "assets/flag.png",
+                              hintText: "Please select cetagoris",
+                            ),
+                          ),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
+                              showCountryPicker(
+                                context: context,
+                                countryListTheme: CountryListThemeData(
+                                  flagSize: 25,
+                                  backgroundColor: Colors.brown.shade50,
+                                  textStyle: const TextStyle(
+                                      fontSize: 16, color: Colors.blueGrey),
+                                  bottomSheetHeight:
+                                      500, // Optional. Country list modal height
+                                  //Optional. Sets the border radius for the bottomsheet.
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    topRight: Radius.circular(20.0),
+                                  ),
+                                  //Optional. Styles the search field.
+                                  inputDecoration: const InputDecoration(
+                                    focusedBorder:
+                                        OutlineInputBorder(borderSide: BorderSide()),
+                                    labelText: 'Search',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    hintText: 'Start typing to search',
+                                    prefixIcon: Icon(Icons.search, color: Colors.black),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                onSelect: (value) {
+                                  businessScreenController.countryController.text =
+                                      value.name;
+                                  setState(() {});
+                                },
+                              );
+                            },
+                            isShowIcon: true,
+                            keyboardType: TextInputType.none,
+                            icon: Icons.flag,
+                            controller: businessScreenController.countryController,
+                            hintText: "Please Select Country",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+                          CustomDropDown(
+                              icon: Icons.flag,
+                              itemList: ['dfsdf', 'dfsdfd', 'dfsdf'],
+                              image: "assets/state.png",
+                              isShowIcon: false,
+                              controller: businessScreenController.stateController,
+                              hintText: "Please Select State"),
+                          CustomDropDown(
+                              itemList: ['dfsdf', 'dfs'],
+                              icon: Icons.location_city,
+                              isShowIcon: true,
+                              controller: businessScreenController.cityController,
+                              hintText: "Please Select City"),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
+                            },
+                            isShowIcon: true,
+                            icon: Icons.home,
+                            controller: businessScreenController.addressController,
+                            hintText: "Enter Address",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
+                            },
+                            keyboardType: TextInputType.number,
+                            isShowIcon: true,
+                            icon: Icons.pinch_outlined,
+                            controller: businessScreenController.pinCodeController,
+                            hintText: "Enter Pincode",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
+                            },
+                            isShowIcon: false,
+                            image: "assets/instagram.png",
+                            icon: Icons.person,
+                            controller:
+                                businessScreenController.instagramLingController,
+                            hintText: "Enter Instagram Page",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+                          CustomTextField(
+                            onTap: () {
+                              businessScreenController.openKeyBoard.value = true;
+                            },
+                            isShowIcon: false,
+                            image: "assets/whatsapp.png",
+                            icon: Icons.person,
+                            controller: businessScreenController.whatsappLinkController,
+                            hintText: "Enter Whatsapp Link",
+                            onSubmitted: (value) {
+                              businessScreenController.openKeyBoard.value = false;
+                            },
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.04,
+                          right: width * 0.04,
+                          bottom:    businessScreenController.openKeyBoard.value?0:height * 0.03),
+                      child: ContinueButtonCommonWidget(
+                        text: 'Continue ->',
+                        onTap: () async {
+                          if (businessScreenController
+                              .businessNameController.text.isEmpty) {
+                            flutterToastBottom("Enter Business Name");
+                          } else if (businessScreenController
+                              .mobileController.text.isEmpty) {
+                            flutterToastBottom("Enter Mobile Number");
+                          } else if (businessScreenController
+                              .selectedCategory.value.isEmpty) {
+                            flutterToastBottom("Enter Category");
+                          } else if (businessScreenController
+                              .countryController.text.isEmpty) {
+                            flutterToastBottom("Please Select Country");
+                          } else if (businessScreenController
+                              .stateController.text.isEmpty) {
+                            flutterToastBottom("Please Select State");
+                          } else if (businessScreenController
+                              .cityController.text.isEmpty) {
+                            flutterToastBottom("Please Select City");
+                          } else if (businessScreenController
+                              .addressController.text.isEmpty) {
+                            flutterToastBottom("Please Enter Your Address");
+                          } else if (businessScreenController
+                              .pinCodeController.text.isEmpty) {
+                            flutterToastBottom("Please Enter Pincode");
+                          } else {
+                            await businessScreenController.uploadImage();
+                            await businessScreenController.addBusiness();
+                          }
                           businessScreenController.openKeyBoard.value = false;
                         },
                       ),
-                      CustomDropDown(
-                          icon: Icons.flag,
-                          itemList: ['dfsdf', 'dfsdfd', 'dfsdf'],
-                          image: "assets/state.png",
-                          isShowIcon: false,
-                          controller: businessScreenController.stateController,
-                          hintText: "Please Select State"),
-                      CustomDropDown(
-                          itemList: ['dfsdf', 'dfs'],
-                          icon: Icons.location_city,
-                          isShowIcon: true,
-                          controller: businessScreenController.cityController,
-                          hintText: "Please Select City"),
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                        },
-                        isShowIcon: true,
-                        icon: Icons.home,
-                        controller: businessScreenController.addressController,
-                        hintText: "Enter Address",
-                        onSubmitted: (value) {
-                          businessScreenController.openKeyBoard.value = false;
-                        },
-                      ),
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                        },
-                        keyboardType: TextInputType.number,
-                        isShowIcon: true,
-                        icon: Icons.pinch_outlined,
-                        controller: businessScreenController.pinCodeController,
-                        hintText: "Enter Pincode",
-                        onSubmitted: (value) {
-                          businessScreenController.openKeyBoard.value = false;
-                        },
-                      ),
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                        },
-                        isShowIcon: false,
-                        image: "assets/instagram.png",
-                        icon: Icons.person,
-                        controller:
-                            businessScreenController.instagramLingController,
-                        hintText: "Enter Instagram Page",
-                        onSubmitted: (value) {
-                          businessScreenController.openKeyBoard.value = false;
-                        },
-                      ),
-                      CustomTextField(
-                        onTap: () {
-                          businessScreenController.openKeyBoard.value = true;
-                        },
-                        isShowIcon: false,
-                        image: "assets/whatsapp.png",
-                        icon: Icons.person,
-                        controller: businessScreenController.whatsappLinkController,
-                        hintText: "Enter Whatsapp Link",
-                        onSubmitted: (value) {
-                          businessScreenController.openKeyBoard.value = false;
-                        },
-                      ),
-                      Obx(() => (businessScreenController.openKeyBoard.value)
-                          ? SizedBox(height: height * 0.2)
-                          : SizedBox())
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: width * 0.04,
-                      right: width * 0.04,
-                      bottom: height * 0.03),
-                  child: ContinueButtonCommonWidget(
-                    text: 'Continue ->',
-                    onTap: () async {
-                      if (businessScreenController
-                          .businessNameController.text.isEmpty) {
-                        flutterToastBottom("Enter Business Name");
-                      } else if (businessScreenController
-                          .mobileController.text.isEmpty) {
-                        flutterToastBottom("Enter Mobile Number");
-                      } else if (businessScreenController
-                          .selectedCategory.value.isEmpty) {
-                        flutterToastBottom("Enter Category");
-                      } else if (businessScreenController
-                          .countryController.text.isEmpty) {
-                        flutterToastBottom("Please Select Country");
-                      } else if (businessScreenController
-                          .stateController.text.isEmpty) {
-                        flutterToastBottom("Please Select State");
-                      } else if (businessScreenController
-                          .cityController.text.isEmpty) {
-                        flutterToastBottom("Please Select City");
-                      } else if (businessScreenController
-                          .addressController.text.isEmpty) {
-                        flutterToastBottom("Please Enter Your Address");
-                      } else if (businessScreenController
-                          .pinCodeController.text.isEmpty) {
-                        flutterToastBottom("Please Enter Pincode");
-                      } else {
-                        await businessScreenController.addBusiness();
-                      }
-                      businessScreenController.openKeyBoard.value = false;
-                    },
-                  ),
-                ),
+                Obx(() =>businessScreenController.isLoad.value==true?const Center(child: CupertinoActivityIndicator(color: Colors.black,animating: true,radius: 12),):SizedBox()),
               ],
             ),
-            Obx(() =>businessScreenController.isLoad.value==true?const Center(child: CupertinoActivityIndicator(color: Colors.black,animating: true,radius: 12),):SizedBox()),
-          ],
+          ),
         ),
       ),
     );
