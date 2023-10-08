@@ -53,6 +53,7 @@ class LocaleKeys {
   static const locationGetLongProduct = "checkDestanseOutGetProduct.php";
   static const inRangeProductUrl = "checkDestanseGetProduct.php";
   static const outRangeProductUrl = "checkDestanseOutGetProduct.php";
+  static const uploadImage = "businessInsertDataImage.php";
 
   static const SPIsLogin = "isLogin";
   static const SPUserId = "userId";

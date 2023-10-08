@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sellproducts/api/business_add_api.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:http/http.dart' as http;
 import 'package:sellproducts/modules/home/home_controller/home_controller.dart';
 import 'package:sellproducts/modules/login/login_controller/login_controller.dart';
 import 'package:sellproducts/routes/app_pages.dart';
@@ -29,17 +33,35 @@ class BusinessScreenController extends GetxController {
   final stateController = TextEditingController();
   final cityController = TextEditingController();
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    print("asknfsdfl");
-   // Get.find<HomeScreenController>().getCategoriesData();
+  RxBool loader = false.obs;
 
+  XFile? image;
+
+  String? imageId;
+
+  dynamic uploadImage() async {
+    var request = http.MultipartRequest(
+        'POST', Uri.parse(LocaleKeys.baseURL + LocaleKeys.uploadImage));
+    request.fields
+        .addAll({'userId': PrefService.getString(LocaleKeys.SPUserId)});
+    request.files
+        .add(await http.MultipartFile.fromPath('imagelogo', image?.path ?? ""));
+
+    http.Response response =
+        await http.Response.fromStream(await request.send());
+
+    if (response.statusCode == 200) {
+      imageId = jsonDecode(response.body)["insertedId"];
+    } else {
+      print(response.reasonPhrase);
+    }
   }
 
+  imagePicker() async {
+    ImagePicker picker = ImagePicker();
 
-
+    image = await picker.pickImage(source: ImageSource.gallery);
+  }
 
   addBusiness() async {
     isLoad.value = true;
@@ -81,4 +103,3 @@ class BusinessScreenController extends GetxController {
       }
   }
 }
-

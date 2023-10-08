@@ -51,12 +51,12 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(
                 height: height * 0.22,
               ),
-
-              Stack(alignment: Alignment.center,
+              Stack(
+                alignment: Alignment.center,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 30),
                     width: width,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -92,7 +92,8 @@ class _LoginViewState extends State<LoginView> {
                         TextFieldCommonWidget(
                             text: "Password",
                             hintText: "Enter Password",
-                            controller: loginScreenController.passwordController),
+                            controller:
+                                loginScreenController.passwordController),
                         // continue button
                         SizedBox(
                           height: height * 0.03,
@@ -116,7 +117,12 @@ class _LoginViewState extends State<LoginView> {
                       ],
                     ),
                   ),
-                  Obx(() =>loginScreenController.isLoad.value==true?const Center(child: CupertinoActivityIndicator(color: Colors.black,animating: true,radius: 12),):SizedBox()),
+                  Obx(() => loginScreenController.isLoad.value == true
+                      ? const Center(
+                          child: CupertinoActivityIndicator(
+                              color: Colors.black, animating: true, radius: 12),
+                        )
+                      : SizedBox()),
                 ],
               ),
               SizedBox(
