@@ -57,8 +57,9 @@ class AddProductApi {
         } else if (status == "success") {
           debugPrint(response.body);
         }
-        return productDataModelFromJson(response.body);
         flutterToastBottomGreen(jsonDecode(response.body)["message"]);
+        return productDataModelFromJson(response.body);
+
       } else {
         flutterToastBottom(jsonDecode(response!.body)["message"]);
       }
@@ -89,8 +90,9 @@ class AddProductApi {
         } else if (status == "success") {
           debugPrint(response.body);
         }
-        return productLongDataModelFromJson(response.body);
         flutterToastBottomGreen(jsonDecode(response.body)["message"]);
+        return productLongDataModelFromJson(response.body);
+
       } else {
         flutterToastBottom(jsonDecode(response!.body)["message"]);
       }

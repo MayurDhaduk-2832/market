@@ -100,15 +100,19 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         ContinueButtonCommonWidget(
                             onTap: () async {
-                              if (loginScreenController
-                                  .emailController.text.isEmpty) {
+                              if (loginScreenController.emailController.text.isEmpty) {
                                 flutterToastBottom("Please Enter Email Id");
-                              } else if (loginScreenController
-                                  .passwordController.text.isEmpty) {
+                              } else if (!loginScreenController.isEmailValid(loginScreenController.emailController.text)) {
+                                flutterToastBottom("Please Enter Valid Email Id");
+                              } else if (loginScreenController.passwordController.text.isEmpty) {
                                 flutterToastBottom("Please Enter Password");
                               } else {
+                                FocusScope.of(context).unfocus();
+                                // If all conditions are met, proceed with login
                                 await loginScreenController.login();
+
                               }
+
                             },
                             text: 'Continue ->'),
                         SizedBox(

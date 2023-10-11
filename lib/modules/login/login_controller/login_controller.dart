@@ -1,5 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:sellproducts/api/login_api.dart';
@@ -11,11 +13,57 @@ import 'package:sellproducts/routes/app_pages.dart';
 
 class LoginScreenController extends GetxController {
   RxInt iSelect = 0.obs;
+  Position? position;
   RxBool isLoad = false.obs;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   LoginModel loginModel = LoginModel();
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    print("asknfsdfl");
+
+    getLocation();
+  }
+
+
+
+
+
+
+  getLocation() async {
+    bool _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await Geolocator.openAppSettings();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    LocationPermission _permissionGranted = await Geolocator.checkPermission();
+    if (_permissionGranted == LocationPermission.denied) {
+      _permissionGranted = await Geolocator.requestPermission();
+      if (_permissionGranted != LocationPermission.always) {
+
+        position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
+        PrefService.setValue(LocaleKeys.SPULatitude,position?.latitude);
+        PrefService.setValue(LocaleKeys.SPULongitude,position?.longitude);
+        debugPrint('------- Latitude:   ${position?.latitude},   ------- Longitude: ${position?.longitude}');
+
+      }
+    }
+
+
+  }
+
+  bool isEmailValid(String email) {
+    final RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return regex.hasMatch(email);
+  }
 
   Future<bool> checkInternet() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
@@ -25,8 +73,6 @@ class LoginScreenController extends GetxController {
       return false; // There is no internet connection
     }
   }
-
-
   login() async {
     if(await checkInternet() == true)
       {

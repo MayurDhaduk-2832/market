@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/modules/home/model.dart';

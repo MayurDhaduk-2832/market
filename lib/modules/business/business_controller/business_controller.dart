@@ -9,7 +9,6 @@ import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constant/pref_service.dart';
 import 'package:sellproducts/constants/locals.g.dart';
 import 'package:http/http.dart' as http;
-import 'package:sellproducts/modules/home/home_controller/home_controller.dart';
 import 'package:sellproducts/modules/login/login_controller/login_controller.dart';
 import 'package:sellproducts/routes/app_pages.dart';
 
@@ -34,12 +33,12 @@ class BusinessScreenController extends GetxController {
   final cityController = TextEditingController();
 
   RxBool loader = false.obs;
-
+  final ImagePicker picker = ImagePicker();
   XFile? image;
 
-  String? imageId;
-
+  int? imageId;
   dynamic uploadImage() async {
+    isLoad.value = true;
     var request = http.MultipartRequest(
         'POST', Uri.parse(LocaleKeys.baseURL + LocaleKeys.uploadImage));
     request.fields
@@ -55,6 +54,7 @@ class BusinessScreenController extends GetxController {
     } else {
       print(response.reasonPhrase);
     }
+    isLoad.value = false;
   }
 
   imagePicker() async {
@@ -69,6 +69,7 @@ class BusinessScreenController extends GetxController {
       {
         Map<String, dynamic> body = {
       'user_id': PrefService.getString(LocaleKeys.SPUserId),
+      'image_id':imageId.toString(),
       'bussiness_name': businessNameController.text,
       'contact_number': mobileController.text,
       'categorys': categorysController.text,
@@ -77,8 +78,8 @@ class BusinessScreenController extends GetxController {
       'city': cityController.text,
       'address': addressController.text,
       'pincode': pinCodeController.text,
-      'long': 20.1234,
-      'lat': 20.1452,
+      'long': PrefService.getDouble(LocaleKeys.SPULongitude),
+      'lat': PrefService.getDouble(LocaleKeys.SPULatitude),
     };
 
     await AddBusinessApi.addBusinessApi(body).then((value) {

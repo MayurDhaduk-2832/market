@@ -31,16 +31,11 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
   late BusinessCreateViewModel _service;
   bool isSelectedImage = false;
-  XFile? image;
-  File? imageFile;
-  final ImagePicker _picker = ImagePicker();
 
-  @override
+@override
   void initState() {
+    // TODO: implement initState
     super.initState();
-
-    _service = BusinessCreateViewModel(context);
-    getCategoryDate();
   }
 
   @override
@@ -106,7 +101,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                                 child: (isSelectedImage == true)
                                     ? CircleAvatar(
                                     backgroundColor: Colors.white,
-                                    backgroundImage: FileImage(File(image?.path ?? "")))
+                                    backgroundImage: FileImage(File(businessScreenController.image?.path ?? "")))
                                     : const Icon(
                                   Icons.person,
                                   size: 40,
@@ -285,50 +280,50 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                               businessScreenController.openKeyBoard.value = false;
                             },
                           ),
-
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: width * 0.04,
+                                right: width * 0.04,
+                                bottom:    businessScreenController.openKeyBoard.value?0:height * 0.03),
+                            child: ContinueButtonCommonWidget(
+                              text: 'Continue ->',
+                              onTap: () async {
+                                if (businessScreenController
+                                    .businessNameController.text.isEmpty) {
+                                  flutterToastBottom("Enter Business Name");
+                                } else if (businessScreenController
+                                    .mobileController.text.isEmpty) {
+                                  flutterToastBottom("Enter Mobile Number");
+                                } else if (businessScreenController
+                                    .selectedCategory.value.isEmpty) {
+                                  flutterToastBottom("Enter Category");
+                                } else if (businessScreenController
+                                    .countryController.text.isEmpty) {
+                                  flutterToastBottom("Please Select Country");
+                                } else if (businessScreenController
+                                    .stateController.text.isEmpty) {
+                                  flutterToastBottom("Please Select State");
+                                } else if (businessScreenController
+                                    .cityController.text.isEmpty) {
+                                  flutterToastBottom("Please Select City");
+                                } else if (businessScreenController
+                                    .addressController.text.isEmpty) {
+                                  flutterToastBottom("Please Enter Your Address");
+                                } else if (businessScreenController
+                                    .pinCodeController.text.isEmpty) {
+                                  flutterToastBottom("Please Enter Pincode");
+                                } else {
+                                  await businessScreenController.uploadImage();
+                                  await businessScreenController.addBusiness();
+                                }
+                                businessScreenController.openKeyBoard.value = false;
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: width * 0.04,
-                          right: width * 0.04,
-                          bottom:    businessScreenController.openKeyBoard.value?0:height * 0.03),
-                      child: ContinueButtonCommonWidget(
-                        text: 'Continue ->',
-                        onTap: () async {
-                          if (businessScreenController
-                              .businessNameController.text.isEmpty) {
-                            flutterToastBottom("Enter Business Name");
-                          } else if (businessScreenController
-                              .mobileController.text.isEmpty) {
-                            flutterToastBottom("Enter Mobile Number");
-                          } else if (businessScreenController
-                              .selectedCategory.value.isEmpty) {
-                            flutterToastBottom("Enter Category");
-                          } else if (businessScreenController
-                              .countryController.text.isEmpty) {
-                            flutterToastBottom("Please Select Country");
-                          } else if (businessScreenController
-                              .stateController.text.isEmpty) {
-                            flutterToastBottom("Please Select State");
-                          } else if (businessScreenController
-                              .cityController.text.isEmpty) {
-                            flutterToastBottom("Please Select City");
-                          } else if (businessScreenController
-                              .addressController.text.isEmpty) {
-                            flutterToastBottom("Please Enter Your Address");
-                          } else if (businessScreenController
-                              .pinCodeController.text.isEmpty) {
-                            flutterToastBottom("Please Enter Pincode");
-                          } else {
-                            await businessScreenController.uploadImage();
-                            await businessScreenController.addBusiness();
-                          }
-                          businessScreenController.openKeyBoard.value = false;
-                        },
-                      ),
-                    ),
+
                   ],
                 ),
                 Obx(() =>businessScreenController.isLoad.value==true?const Center(child: CupertinoActivityIndicator(color: Colors.black,animating: true,radius: 12),):SizedBox()),
@@ -339,15 +334,6 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
       ),
     );
   }
-
-  getCategoryDate() async {
-    final response = await _service.getCategory();
-    response?.categories?.forEach((element) {
-      businessScreenController.allCategory.value.add(element.category ?? "");
-      businessScreenController.CategoryImage.value.add(element.category ?? "");
-    });
-  }
-
   showSelectedItem() {
     showDialog(
       context: context,
@@ -367,11 +353,8 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                       itemCount:
                       homeScreenController.categoryModel.categories?.length,
                       itemBuilder: (context, index) {
-                        final category =
-                            businessScreenController.allCategory.value[index];
-                        final isSelected = businessScreenController
-                            .selectedCategory.value
-                            .contains(category);
+                        final category =  homeScreenController.categoryModel.categories?[index].category ?? "";
+                        final isSelected = businessScreenController.selectedCategory.value.contains(category);
 
                         return CheckboxListTile(secondary:  CircleAvatar(backgroundColor:  Colors.brown.shade50,
                             backgroundImage: NetworkImage("https://mdprojects1203.000webhostapp.com/${homeScreenController.categoryModel.categories?[index].categoryImage}")),
@@ -527,7 +510,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                 child: (isSelectedImage == true)
                     ? CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage: FileImage(File(image?.path ?? "")))
+                        backgroundImage: FileImage(File(businessScreenController.image?.path ?? "")))
                     : const Icon(
                         Icons.person,
                         size: 40,
@@ -557,8 +540,8 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   child: GestureDetector(
                     onTap: () async {
                       Get.back();
-                      image =
-                          await _picker.pickImage(source: ImageSource.camera);
+                      businessScreenController.image =
+                          await businessScreenController.picker.pickImage(source: ImageSource.camera);
                       setState(() {
                         isSelectedImage = true;
                       });
@@ -586,8 +569,8 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                   child: GestureDetector(
                     onTap: () async {
                       Get.back();
-                      image =
-                          await _picker.pickImage(source: ImageSource.gallery);
+                      businessScreenController.image =
+                          await businessScreenController.picker.pickImage(source: ImageSource.gallery);
                       setState(() {
                         isSelectedImage = true;
                       });

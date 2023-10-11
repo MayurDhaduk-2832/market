@@ -90,10 +90,10 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
 
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                              crossAxisCount: 1,
                               mainAxisSpacing: 1,
                               crossAxisSpacing: 15,
-                              childAspectRatio: 0.8),
+                              childAspectRatio: 1.5),
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
@@ -119,81 +119,140 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
                                     blurRadius: 4)
                               ],
                             ),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 6,
-                                    child: Container(
-                                      height: height * 0.1,
-                                      margin: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image:
-                                                AssetImage(imageList[index])),
-                                        borderRadius: BorderRadius.circular(10),
+                            child: Row(children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        height: height * 0.22,
+                                        margin: EdgeInsets.symmetric(horizontal: width * 0.03),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image:
+                                                  AssetImage(imageList[index])),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                      child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 5, top: 4),
-                                    child: Text(
-                                      "Abc",
-                                      style: TextStyle(
-                                          fontSize: height * 0.02,
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                  )),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: [
+                                Container(color: Colors.black,width: 1,margin: EdgeInsets.symmetric(vertical: height * 0.03)),
+                                Expanded(flex: 2,
+                                          child: Padding(
+                                        padding:
+                                             EdgeInsets.only(left: 5, top: height * 0.03),
+                                        child:Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                           Expanded(
-                                            flex: 3,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: Text(
-                                                "%2",
-                                                style: TextStyle(
-                                                    fontSize: height * 0.02,
-                                                    color: Colors.grey),
-                                              ),
+                                            child: Text(
+                                              "Brand name :-",
+                                              style: TextStyle(
+                                                  fontSize: height * 0.015,
+                                                  fontWeight: FontWeight.w900),
                                             ),
                                           ),
+                                          Divider(),
                                           Expanded(
-                                              child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 5),
-                                            child: IconButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    if (isLike[index] ==
-                                                        false) {
-                                                      isLike[index] = true;
-                                                    } else {
-                                                      isLike[index] = false;
-                                                    }
-                                                  });
-                                                },
-                                                icon: (isLike[index] == true)
-                                                    ? Icon(
-                                                        CupertinoIcons
-                                                            .heart_fill,
-                                                        color:
-                                                            Color(0xffE96E6E),
-                                                        size: width * 0.06)
-                                                    : Icon(
-                                                        CupertinoIcons.heart,
-                                                        size: width * 0.06,
-                                                      )),
-                                          ))
-                                        ],
+                                            child: Text(
+                                              "Product name :-",
+                                              style: TextStyle(
+                                                  fontSize: height * 0.015,
+                                                  fontWeight: FontWeight.w900),
+                                            ),
+                                          ),
+                                          Divider(),
+                                          Expanded(
+                                            child: Text(
+                                              "Address :-",
+                                              style: TextStyle(
+                                                  fontSize: height * 0.015,
+                                                  fontWeight: FontWeight.w900),
+                                            ),
+                                          ),
+                                          Divider(),
+                                          Expanded(
+                                            child: Text(
+                                              "Sale Prise :-",
+                                              style: TextStyle(
+                                                  fontSize: height * 0.015,
+                                                  fontWeight: FontWeight.w900),
+                                            ),
+                                          ),
+                                        ],)
                                       )),
-                                ]),
+                            ]),
+                            // child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Expanded(
+                            //         flex: 6,
+                            //         child: Container(
+                            //           height: height * 0.1,
+                            //           margin: EdgeInsets.all(5),
+                            //           decoration: BoxDecoration(
+                            //             image: DecorationImage(
+                            //                 fit: BoxFit.fill,
+                            //                 image:
+                            //                     AssetImage(imageList[index])),
+                            //             borderRadius: BorderRadius.circular(10),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Expanded(
+                            //           child: Padding(
+                            //         padding:
+                            //             const EdgeInsets.only(left: 5, top: 4),
+                            //         child: Text(
+                            //           "Abc",
+                            //           style: TextStyle(
+                            //               fontSize: height * 0.02,
+                            //               fontWeight: FontWeight.w900),
+                            //         ),
+                            //       )),
+                            //       Expanded(
+                            //           flex: 2,
+                            //           child: Row(
+                            //             children: [
+                            //               Expanded(
+                            //                 flex: 3,
+                            //                 child: Padding(
+                            //                   padding: const EdgeInsets.only(
+                            //                       left: 5),
+                            //                   child: Text(
+                            //                     "%2",
+                            //                     style: TextStyle(
+                            //                         fontSize: height * 0.02,
+                            //                         color: Colors.grey),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //               Expanded(
+                            //                   child: Padding(
+                            //                 padding: const EdgeInsets.only(
+                            //                     bottom: 5),
+                            //                 child: IconButton(
+                            //                     onPressed: () {
+                            //                       setState(() {
+                            //                         if (isLike[index] ==
+                            //                             false) {
+                            //                           isLike[index] = true;
+                            //                         } else {
+                            //                           isLike[index] = false;
+                            //                         }
+                            //                       });
+                            //                     },
+                            //                     icon: (isLike[index] == true)
+                            //                         ? Icon(
+                            //                             CupertinoIcons
+                            //                                 .heart_fill,
+                            //                             color:
+                            //                                 Color(0xffE96E6E),
+                            //                             size: width * 0.06)
+                            //                         : Icon(
+                            //                             CupertinoIcons.heart,
+                            //                             size: width * 0.06,
+                            //                           )),
+                            //               ))
+                            //             ],
+                            //           )),
+                            //     ]),
                           ),
                         );
                       },

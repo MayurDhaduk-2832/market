@@ -2,10 +2,8 @@
 
 // ignore_for_file: lines_longer_than_80_chars, constant_identifier_names
 // ignore: avoid_classes_with_only_static_members
-import 'dart:ui';
 
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 // class AppTranslation {
 //   static Map<String, Map<String, String>> translations = {
@@ -62,6 +60,8 @@ class LocaleKeys {
   static const SPUSetRole = "setRole";
   static const SPUserMobile = "userMobile";
   static const SPUserEmail = "userEmail";
+  static const SPULatitude = "latitude";
+  static const SPULongitude = "longitude";
 
   // Login
 
