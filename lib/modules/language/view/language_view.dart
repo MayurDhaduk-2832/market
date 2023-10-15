@@ -27,7 +27,6 @@ class _LanguageViewState extends State<LanguageView> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
-
           children: [
             SizedBox(
               height: height,

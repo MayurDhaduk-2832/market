@@ -110,7 +110,6 @@ class _LoginViewState extends State<LoginView> {
                                 FocusScope.of(context).unfocus();
                                 // If all conditions are met, proceed with login
                                 await loginScreenController.login();
-
                               }
 
                             },

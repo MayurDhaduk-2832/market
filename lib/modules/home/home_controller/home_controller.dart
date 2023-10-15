@@ -28,8 +28,8 @@ class HomeScreenController extends GetxController{
     super.onInit();
     print("asknfsdfl");
     getCategoriesData();
-    getDestaricData();
-    getDestaricLongData();
+   // getDestaricData();
+   // getDestaricLongData();
 
   }
 

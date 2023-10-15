@@ -12,6 +12,7 @@ import 'package:sellproducts/constants/locals.g.dart';
 import 'package:sellproducts/customs/custom_search_textfield.dart';
 import 'package:sellproducts/modules/business/business_controller/business_controller.dart';
 import 'package:sellproducts/modules/business/viewmodel/business_insert_viewmodel.dart';
+import 'package:sellproducts/modules/home/home_controller.dart';
 import 'package:sellproducts/modules/home/home_controller/home_controller.dart';
 import 'package:sellproducts/modules/home/model/product_data_model.dart';
 import 'package:sellproducts/routes/app_pages.dart';
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   BusinessScreenController businessScreenController = Get.put(BusinessScreenController());
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
+  HomeController homeController = Get.put(HomeController());
 
   int currentIndex = 0;
   late BusinessCreateViewModel _service;
@@ -118,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             items: imageList
                                 .map(
                                   (e) => Container(
-                                    margin: EdgeInsets.only(top: height * 0.05),
+                                    margin: EdgeInsets.only(top: height * 0.05,left: 5,right: 5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
                                         boxShadow: const [
@@ -134,10 +136,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )
                                 .toList(),
                             options: CarouselOptions(
-                              animateToClosest: true,
+
+                              animateToClosest: false,
                               height: height * 0.250,
                               autoPlay: true,
-                              enlargeCenterPage: true,
+                              enlargeCenterPage: false,
                               onPageChanged: (index, reason) {
                                 setState(() {
                                   currentIndex = index;
@@ -263,24 +266,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
 
-                    (homeScreenController.productDataModel.data !=[])?
+                    (homeController.inRangeProducts.data !=[])?
                     Center(child: Image.asset( "assets/coupenOffer.png",height: height * 0.08,)):SizedBox(),
                     SizedBox(
                       height: height * 0.01,
                     ),
-                    (homeScreenController.productDataModel.data !=[])? Padding(
+                    (homeController.inRangeProducts.data !=[])? Padding(
                       padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                         height: height * 0.175,
                         width: double.infinity,
                         child: ListView.builder(physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: homeScreenController.productDataModel.data?.length,
+                          itemCount: homeController.inRangeProducts.data?.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
                                 Map<String, dynamic> map = {
-                                  'saleProductName': homeScreenController.productDataModel.data?[index],
+                                  'saleProductName': homeController.inRangeProducts.data?[index],
                                   'saleProductImage': imageList[index],
                                 };
                                 Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -305,19 +308,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                   Expanded(flex: 5,
                                     child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                        image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                        image: DecorationImage(fit: BoxFit.fill,image: AssetImage("assets/shose.jpg")),
                                         borderRadius: BorderRadius.circular(10),
                                     ),
                                     ),
                                   ),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("${homeScreenController.productDataModel.data?[index].productName}",
+                                    child: Text("${homeController.inRangeProducts.data?[index].productName}",
                                       style: TextStyle(fontSize: height * 0.015,fontWeight: FontWeight.w900),),
                                   )),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("Offer-${homeScreenController.productDataModel.data?[index].salePrice}",
+                                    child: Text("Offer-${homeController.inRangeProducts.data?[index].salePrice}",
                                       style: TextStyle(fontSize: height * 0.015,color: Colors.grey),),
                                   )),
                                 ]),
@@ -346,19 +349,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    (homeScreenController.productData !=[])? Padding(
+                    (homeController.inRangeProducts.data !=[])? Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                         height: width * 1.1,
                         width: double.infinity,
                         child: GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: homeScreenController.productData.length,
+                          itemCount: homeController.inRangeProducts.data?.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),
                           itemBuilder: (context, index) {
                           return GestureDetector(onTap: () {
                             Map<String, dynamic> map = {
-                              'saleProductName': homeScreenController.productData[index],
+                              'saleProductName': homeController.inRangeProducts.data?[index],
                               'saleProductImage': imageList[index],
                             };
                             Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -381,14 +384,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                 Expanded(flex: 6,
                                   child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                    image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                    image: DecorationImage(fit: BoxFit.fill,image: AssetImage("assets/shose.jpg")),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   ),
                                 ),
                                 Expanded(child: Padding(
                                   padding: const EdgeInsets.only(left: 5),
-                                  child: Text("${homeScreenController.productData[index].productName}",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                  child: Text("${homeController.inRangeProducts.data?[index].productName}",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
                                 )),
 
                                 Expanded(flex: 2,
@@ -396,17 +399,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Expanded(flex: 2,child: Padding(
                                         padding: const EdgeInsets.only(left: 5),
-                                        child: Text("Offer:${homeScreenController.productData[index].salePrice}",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                        child: Text("Offer:${homeController.inRangeProducts.data?[index].salePrice}",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
                                       )),
-                                      Expanded(child: Padding(
-                                        padding: const EdgeInsets.only(bottom: 5),
-                                      child: LikeButton(isLiked: homeScreenController.isLike.value[index],size: width * 0.06,likeBuilder: (isLiked) {
-                                        homeScreenController.isLike.value[index]=isLiked;
-                                        return (isLiked)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06)
-                                            :Icon(CupertinoIcons.heart,size: width * 0.06,);
-                                      },),
-
-                                      )),
+                                      // Expanded(child: Padding(
+                                      //   padding: const EdgeInsets.only(bottom: 5),
+                                      // child: LikeButton(isLiked: homeController.isLike.value[index],size: width * 0.06,likeBuilder: (isLiked) {
+                                      //   homeController.isLike.value[index]=isLiked;
+                                      //   return (isLiked)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06)
+                                      //       :Icon(CupertinoIcons.heart,size: width * 0.06,);
+                                      // },),
+                                      //
+                                      // )),
                                     ],
                                   ),
                                 )
@@ -456,19 +459,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    (homeScreenController.productLongDataModel.data !=[])? Padding(
+                    (homeController.outRangeProducts.data !=[])? Padding(
                       padding:  EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                         height: height * 0.175,
                         width: double.infinity,
                         child: ListView.builder(physics: NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: homeScreenController.productLongDataModel.data?.length,
+                          itemCount: homeController.outRangeProducts.data?.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
                                 Map<String, dynamic> map = {
-                                  'saleProductName': homeScreenController.productLongDataModel.data?[index],
+                                  'saleProductName': homeController.outRangeProducts.data?[index],
                                   'saleProductImage': imageList[index],
                                 };
                                 Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -493,19 +496,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                   Expanded(flex: 5,
                                     child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage("assets/shose.jpg")),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     ),
                                   ),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("${homeScreenController.productLongDataModel.data?[index].productName}",
+                                    child: Text("${homeController.outRangeProducts.data?[index].productName}",
                                       style: TextStyle(fontSize: height * 0.015,fontWeight: FontWeight.w900),),
                                   )),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("Offer-${homeScreenController.productLongDataModel.data?[index].salePrice}",
+                                    child: Text("Offer-${homeController.outRangeProducts.data?[index].salePrice}",
                                       style: TextStyle(fontSize: height * 0.015,color: Colors.grey),),
                                   )),
                                 ]),
@@ -534,7 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    (homeScreenController.productLongData !=[])? Padding(
+                    (homeController.outRangeProducts.data !=[])? Padding(
                       padding: EdgeInsets.only(left:width * 0.06,right: width * 0.06),
                       child: SizedBox(
                        height: height,
@@ -542,12 +545,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GridView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: homeScreenController.productLongData.length,
+                          itemCount: homeController.outRangeProducts.data?.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisSpacing: 15,crossAxisSpacing: 5,childAspectRatio: 0.9),
                           itemBuilder: (context, index) {
                             return GestureDetector(onTap: () {
                               Map<String, dynamic> map = {
-                                'saleProductName': homeScreenController.productLongData[index],
+                                'saleProductName': homeController.outRangeProducts.data?[index],
                                 'saleProductImage': imageList[index],
                               };
                               Get.toNamed(Routes.PRODUCT_VIEW,arguments: map);
@@ -570,14 +573,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                                   Expanded(flex: 6,
                                     child: Container(height: height * 0.1,margin: EdgeInsets.all(5),decoration: BoxDecoration(
-                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage(imageList[index])),
+                                      image: DecorationImage(fit: BoxFit.fill,image: AssetImage("assets/shose.jpg")),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     ),
                                   ),
                                   Expanded(child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: Text("${homeScreenController.productLongData[index].productName}",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
+                                    child: Text("${homeController.outRangeProducts.data?[index].productName}",style: TextStyle(fontSize: height * 0.02,fontWeight: FontWeight.w900),),
                                   )),
 
                                   Expanded(flex: 2,
@@ -585,17 +588,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Expanded(flex: 2,child: Padding(
                                           padding: const EdgeInsets.only(left: 5),
-                                          child: Text("Offer:${homeScreenController.productLongData[index].salePrice}",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
+                                          child: Text("Offer:${homeController.outRangeProducts.data?[index].salePrice}",style: TextStyle(fontSize: height * 0.02,color: Colors.grey),),
                                         )),
-                                        Expanded(child: Padding(
-                                          padding: const EdgeInsets.only(bottom: 5),
-                                          child: LikeButton(isLiked: homeScreenController.isLike.value[index],size: width * 0.06,likeBuilder: (isLiked) {
-                                            homeScreenController.isLike.value[index]=isLiked;
-                                            return (isLiked)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06)
-                                                :Icon(CupertinoIcons.heart,size: width * 0.06,);
-                                          },),
-
-                                        )),
+                                        // Expanded(child: Padding(
+                                        //   padding: const EdgeInsets.only(bottom: 5),
+                                        //   child: LikeButton(isLiked: homeController.isLike.value[index],size: width * 0.06,likeBuilder: (isLiked) {
+                                        //     homeController.isLike.value[index]=isLiked;
+                                        //     return (isLiked)?Icon(CupertinoIcons.heart_fill,color: Color(0xffE96E6E),size: width * 0.06)
+                                        //         :Icon(CupertinoIcons.heart,size: width * 0.06,);
+                                        //   },),
+                                        //
+                                        // )),
                                       ],
                                     ),
                                   )

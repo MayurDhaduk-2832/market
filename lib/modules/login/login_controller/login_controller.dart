@@ -1,3 +1,5 @@
+
+import 'package:app_settings/app_settings.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -59,6 +61,28 @@ class LoginScreenController extends GetxController {
 
 
   }
+
+
+// Function to redirect to a permission screen
+  void redirectToPermissionScreen() {
+    Get.dialog(
+      AlertDialog(
+        title: Text("Location Permission Required"),
+        content: Text("Please enable location permission to use this feature."),
+        actions: <Widget>[
+          TextButton(
+            child: Text("Open Settings"),
+            onPressed: () {
+              AppSettings.openAppSettings();
+              Get.back(); // Close the dialog
+            },
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
+  }
+
 
   bool isEmailValid(String email) {
     final RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');

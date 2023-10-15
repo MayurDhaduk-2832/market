@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )
                           ],
                         ),
-                          child: Text(LocaleKeys.yourProfile,style: TextStyle(fontSize: width * 0.04),)
+                          child: Text(LocaleKeys.yourProfile.tr,style: TextStyle(fontSize: width * 0.04),)
                         ),
                       ),
                     ),
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )
                           ],
                         ),
-                          child: Text(LocaleKeys.yourLists,style: TextStyle(fontSize: width * 0.04))
+                          child: Text(LocaleKeys.yourLists.tr,style: TextStyle(fontSize: width * 0.04))
                         ),
                       ),
                     ),
@@ -145,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: height * 0.04,),
               Center(
                 child: Text(
-                  LocaleKeys.uploadProfilePicture,
+                  LocaleKeys.uploadProfilePicture.tr,
                   style: TextStyle(
                       fontSize: width * 0.04,
                       fontFamily: "PaytoneOne",
