@@ -7,13 +7,16 @@ class SearchTextFieldCommonWidget extends StatelessWidget {
   late String? hintText;
   TextEditingController? controller;
   final ValueChanged<String>? onChanged;
-
+  bool? readOnly;
+  final GestureTapCallback? onTap;
 
   SearchTextFieldCommonWidget({
     super.key,
+    this.onTap,
     this.hintText,
     this.controller,
-    this.onChanged
+    this.onChanged,
+    this.readOnly
   });
 
   @override
@@ -34,7 +37,9 @@ class SearchTextFieldCommonWidget extends StatelessWidget {
           ]),
       child:TextField(cursorColor: Colors.black,
         onChanged: onChanged,
+        onTap: onTap,
         controller: controller,
+        readOnly:readOnly ?? false,
         style: TextStyle(fontSize: width * 0.04),
         decoration: InputDecoration(border: InputBorder.none,
             hintText: hintText ?? "",

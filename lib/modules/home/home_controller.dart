@@ -13,6 +13,14 @@ class HomeController extends GetxController {
   RxBool loader = false.obs;
   RxList<bool> isLike=<bool>[].obs;
 
+
+
+
+
+  var inRangeProducts = AllProducts().obs;
+  var outRangeProducts = AllProducts().obs;
+
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -25,10 +33,6 @@ class HomeController extends GetxController {
 
 
 
-
-  AllProducts inRangeProducts = AllProducts();
-  AllProducts outRangeProducts = AllProducts();
-
   getInRangeProducts() async {
     Map<String, dynamic> body = {
       "latitude": PrefService.getDouble(LocaleKeys.SPULatitude),
@@ -37,25 +41,16 @@ class HomeController extends GetxController {
 
     loader.value = true;
 
-    await AddProductApi.LocationGetDataApi(body).then((value){
-      if(value!=null)
-      {
-        inRangeProducts = value;
-      //  productData = productDataModel.data!;
-        isLike.value = List.generate(inRangeProducts.data!.length, (index) => false);
-      //  productData.sort((a, b) => double.parse(a.salePrice!).compareTo(double.parse(b.salePrice!)));
-      }
+    inRangeProducts.value = await AddProductApi.LocationGetDataApi(body: body);
+    isLike.value = List.generate(inRangeProducts.value.data?.length ?? 0, (index) => false);
 
-
-    });
-
-    // inRangeProducts = await InRangeProductApi.inRangeProductApi(body);
-    // isLike.value = List.generate(inRangeProducts.data!.length, (index) => false);
+    // inRangeProducts.value = await InRangeProductApi.inRangeProductApi(body);
+    // isLike.value = List.generate(inRangeProducts.value.data?.length ?? 0, (index) => false);
 
     loader.value = false;
   }
 
-  getOutRangeProducts() async {
+ Future getOutRangeProducts() async {
     Map<String, dynamic> body = {
       "latitude": PrefService.getDouble(LocaleKeys.SPULatitude),
       "longitude":PrefService.getDouble(LocaleKeys.SPULongitude),
@@ -63,18 +58,11 @@ class HomeController extends GetxController {
 
     loader.value = true;
 
-    await AddProductApi.LocationGetLongDataApi(body).then((value){
-      if(value!=null)
-      {
-        outRangeProducts = value;
-        // productLongData = productLongDataModel.data!;
-        isLike.value = List.generate(outRangeProducts.data?.length ?? 0, (index) => false);
-        // productLongData.sort((a, b) => double.parse(a.salePrice!).compareTo(double.parse(b.salePrice!)));
-      }
+    outRangeProducts.value = await AddProductApi.LocationGetLongDataApi(body: body);
+    isLike.value = List.generate(outRangeProducts.value.data?.length ?? 0, (index) => false);
 
-    });
+    // outRangeProducts.value = await OutRangeProductApi.outRangeProductApi(body);
 
-    // outRangeProducts = await OutRangeProductApi.outRangeProductApi(body);
     // isLike.value = List.generate(inRangeProducts.data!.length, (index) => false);
     loader.value = false;
   }

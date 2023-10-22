@@ -357,7 +357,7 @@ class _BusinessAddScreenState extends State<BusinessAddScreen> {
                         final isSelected = businessScreenController.selectedCategory.value.contains(category);
 
                         return CheckboxListTile(secondary:  CircleAvatar(backgroundColor:  Colors.brown.shade50,
-                            backgroundImage: NetworkImage("https://mdprojects1203.000webhostapp.com/${homeScreenController.categoryModel.categories?[index].categoryImage}")),
+                            backgroundImage: NetworkImage("https://mdprojects1203.000webhostapp.com/${homeScreenController.categoryModel.categories?[index].categoryImage ?? ""}")),
                           activeColor: Colors.black,
                           value: isSelected,
                           title: Text(homeScreenController.categoryModel.categories?[index].category ?? ""),

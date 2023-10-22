@@ -14,6 +14,8 @@ abstract class Routes {
   static const HOME_VIEW = _Paths.HOME_VIEW;
   static const MORE_PRODUCT_VIEW = '/moreproductsview';
   static const ADD_PRODUCT_VIEW = _Paths.ADD_PRODUCT_VIEW;
+  static const CATEGORY_VIEW = _Paths.CATEGORY_VIEW;
+  static const SEARCH_PRODUCTS_VIEW = _Paths.SEARCH_PRODUCTS_VIEW;
 }
 
 abstract class _Paths {
@@ -28,4 +30,6 @@ abstract class _Paths {
   static const HOME_VIEW = '/homeview';
   static const MORE_PRODUCT_VIEW = '/moreproductsview';
   static const ADD_PRODUCT_VIEW = '/addproductsview';
+  static const CATEGORY_VIEW = '/categoryScreenview';
+  static const SEARCH_PRODUCTS_VIEW = '/searchProductsview';
 }

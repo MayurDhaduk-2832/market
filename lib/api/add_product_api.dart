@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sellproducts/constant/common.dart';
 import 'package:sellproducts/constants/locals.g.dart';
+import 'package:sellproducts/models/all_products_model.dart';
 import 'package:sellproducts/modules/home/model/product_data_model.dart';
 import 'package:sellproducts/modules/home/model/product_long_data_model.dart';
 import '../network/http_service.dart';
@@ -34,70 +35,59 @@ class AddProductApi {
     }
   }
 
-
- static Future LocationGetDataApi(Map<String, dynamic> body) async {
+  static Future LocationGetDataApi({body}) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.locationGetProduct;
-
-      // Encode the request body as a JSON string
       String bodyJson = jsonEncode(body);
-
       http.Response? response = await HttpService.postApi(
-        url: url,
-        header: {
-          "Content-Type": "application/json",
-        },
-        body: bodyJson, // Use the JSON-encoded string as the body
-      );
-
+          url: url,
+          header: {
+            "Content-Type": "application/json",
+          },
+          body: bodyJson);
       if (response != null && response.statusCode == 200) {
         String? status = jsonDecode(response.body)["status"];
         if (status != "success") {
-          // Handle the case where status is not "success"
         } else if (status == "success") {
           debugPrint(response.body);
         }
-        flutterToastBottomGreen(jsonDecode(response.body)["message"]);
-        return productDataModelFromJson(response.body);
-
+        debugPrint("less product=>${response.body}");
+        // flutterToastBottomGreen(jsonDecode(response.body)["message"]);
+        return allProductsFromJson(response.body);
       } else {
-        flutterToastBottom(jsonDecode(response!.body)["message"]);
+        //  flutterToastBottom(jsonDecode(response!.body)["message"]);
       }
     } catch (e) {
       print("=====>>>  $e");
     }
   }
 
-  static Future LocationGetLongDataApi(Map<String, dynamic> body) async {
+  static Future LocationGetLongDataApi({body}) async {
     try {
       String url = LocaleKeys.baseURL + LocaleKeys.locationGetLongProduct;
-
-      // Encode the request body as a JSON string
       String bodyJson = jsonEncode(body);
-
       http.Response? response = await HttpService.postApi(
-        url: url,
-        header: {
-          "Content-Type": "application/json",
-        },
-        body: bodyJson, // Use the JSON-encoded string as the body
-      );
-
+          url: url,
+          header: {
+            "Content-Type": "application/json",
+          },
+          body: bodyJson);
       if (response != null && response.statusCode == 200) {
         String? status = jsonDecode(response.body)["status"];
         if (status != "success") {
-          // Handle the case where status is not "success"
         } else if (status == "success") {
           debugPrint(response.body);
         }
-        flutterToastBottomGreen(jsonDecode(response.body)["message"]);
-        return productLongDataModelFromJson(response.body);
-
+        debugPrint("long product=>${response.body}");
+        // flutterToastBottomGreen(jsonDecode(response.body)["message"]);
+        return allProductsFromJson(response.body);
       } else {
-        flutterToastBottom(jsonDecode(response!.body)["message"]);
+        //  flutterToastBottom(jsonDecode(response!.body)["message"]);
       }
     } catch (e) {
       print("=====>>>  $e");
     }
   }
+
+
 }

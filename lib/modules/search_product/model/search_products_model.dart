@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final productDataModel = productDataModelFromJson(jsonString);
+//     final searchProductsModel = searchProductsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ProductDataModel productDataModelFromJson(String str) => ProductDataModel.fromJson(json.decode(str));
+SearchProductsModel searchProductsModelFromJson(String str) => SearchProductsModel.fromJson(json.decode(str));
 
-String productDataModelToJson(ProductDataModel data) => json.encode(data.toJson());
+String searchProductsModelToJson(SearchProductsModel data) => json.encode(data.toJson());
 
-class ProductDataModel {
+class SearchProductsModel {
   bool? isSuccess;
   List<Datum>? data;
 
-  ProductDataModel({
+  SearchProductsModel({
     this.isSuccess,
     this.data,
   });
 
-  factory ProductDataModel.fromJson(Map<String, dynamic> json) => ProductDataModel(
+  factory SearchProductsModel.fromJson(Map<String, dynamic> json) => SearchProductsModel(
     isSuccess: json["isSuccess"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
@@ -39,7 +39,6 @@ class Datum {
   String? productDescription;
   String? latitude;
   String? longitude;
-  String? distance;
 
   Datum({
     this.id,
@@ -52,7 +51,6 @@ class Datum {
     this.productDescription,
     this.latitude,
     this.longitude,
-    this.distance,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -66,7 +64,6 @@ class Datum {
     productDescription: json["product_description"],
     latitude: json["latitude"],
     longitude: json["longitude"],
-    distance: json["distance"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -80,6 +77,5 @@ class Datum {
     "product_description": productDescription,
     "latitude": latitude,
     "longitude": longitude,
-    "distance": distance,
   };
 }

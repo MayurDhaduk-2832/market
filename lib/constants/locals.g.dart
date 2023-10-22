@@ -47,6 +47,8 @@ class LocaleKeys {
   static const addProductURL = "businessInsertProductsData.php";
   static const filesUpload = "upload.php";
   static const categorice = "categorice.php";
+  static const searchCategory = "searchCategory.php";
+  static const searchProduct = "searchProduct.php";
   static const locationGetProduct = "checkDestanseGetProduct.php";
   static const locationGetLongProduct = "checkDestanseOutGetProduct.php";
   static const inRangeProductUrl = "checkDestanseGetProduct.php";

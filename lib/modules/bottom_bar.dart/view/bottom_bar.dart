@@ -4,6 +4,7 @@ import 'package:sellproducts/modules/add_product/view/add_product_view.dart';
 import 'package:sellproducts/modules/home/view/home_page.dart';
 import 'package:sellproducts/modules/more_product/view/more_products_page.dart';
 import 'package:sellproducts/modules/profile_screen/view/profile_page.dart';
+import 'package:sellproducts/modules/search_product/view/search_products_screen.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView({super.key});
@@ -16,7 +17,7 @@ class _BottomBarViewState extends State<BottomBarView> {
   List<Widget> widgets = [
     const HomeScreen(),
     const MoreProductsScreen(),
-    const AddProductPage(),
+    SearchProductsScreen(),
     const ProfileScreen(),
   ];
   PageController pageController = PageController(initialPage: 0);
@@ -53,7 +54,7 @@ class _BottomBarViewState extends State<BottomBarView> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "home",),
             BottomNavigationBarItem(icon: Icon(Icons.menu), label: "menu"),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.heart), label: "like"),
+                icon: Icon(CupertinoIcons.search), label: "like"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "profile"),
           ],
         ),

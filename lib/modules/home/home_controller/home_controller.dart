@@ -55,7 +55,7 @@ class HomeScreenController extends GetxController{
 
     isLoad.value = true;
 
-    await AddProductApi.LocationGetDataApi(body).then((value){
+    await AddProductApi.LocationGetDataApi(body: body).then((value){
       if(value!=null)
         {
           productDataModel = value;
@@ -78,7 +78,7 @@ class HomeScreenController extends GetxController{
 
     isLoad.value = true;
 
-    await AddProductApi.LocationGetLongDataApi(body).then((value){
+    await AddProductApi.LocationGetLongDataApi(body: body).then((value){
       if(value!=null)
       {
         productLongDataModel = value;

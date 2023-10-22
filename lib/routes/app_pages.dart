@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:sellproducts/modules/add_product/view/add_product_view.dart';
 import 'package:sellproducts/modules/bottom_bar.dart/view/bottom_bar.dart';
 import 'package:sellproducts/modules/business/view/business_add.dart';
+import 'package:sellproducts/modules/category/view/category_screen.dart';
 import 'package:sellproducts/modules/home/view/home_page.dart';
 import 'package:sellproducts/modules/language/view/language_view.dart';
 import 'package:sellproducts/modules/login/view/login_view.dart';
 import 'package:sellproducts/modules/more_product/view/more_products_page.dart';
 import 'package:sellproducts/modules/product/view/product_view.dart';
 import 'package:sellproducts/modules/register/view/register_view.dart';
+import 'package:sellproducts/modules/search_product/view/search_products_screen.dart';
 import 'package:sellproducts/modules/select_screen/view/select_view.dart';
 import 'package:sellproducts/modules/splash/view/splash_view.dart';
 
@@ -62,9 +64,16 @@ class AppPages {
       page: () => const MoreProductsScreen(),
     ),
     GetPage(
+      name: _Paths.SEARCH_PRODUCTS_VIEW,
+      page: () =>  SearchProductsScreen(),
+    ),
+    GetPage(
       name: _Paths.ADD_PRODUCT_VIEW,
       page: () => const AddProductPage(),
     ),
-
+    GetPage(
+      name: _Paths.CATEGORY_VIEW,
+      page: () =>  CategoryScreen(),
+    ),
   ];
 }

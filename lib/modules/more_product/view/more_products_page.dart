@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,10 @@ class MoreProductsScreen extends StatefulWidget {
 class _MoreProductsScreenState extends State<MoreProductsScreen> {
   final searchController = TextEditingController();
   int currentIndex = 0;
-  String saleName = "";
+  // List saleList=[];
+  List<Map<String, dynamic>> saleList=[];
+  String saleName="";
+  bool isCategory = false;
   dynamic argumentData = Get.arguments;
   List<String> imageList = [
     "assets/shose.jpg",
@@ -31,7 +34,9 @@ class _MoreProductsScreenState extends State<MoreProductsScreen> {
     super.initState();
     // _service = BusinessCreateViewModel(context);
     if (argumentData != null && argumentData is Map<String, dynamic>) {
-      saleName = argumentData['saleName'];
+      saleList = argumentData['saleName'];
+      // saleList = argumentData['saleLIst'];
+      isCategory = argumentData['Caterory'];
     }
     isLike = List.generate(imageList.length, (index) => false);
   }
